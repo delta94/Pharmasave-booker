@@ -12,7 +12,7 @@
     <a href="carriage-crossing-pharmacy.web.app"><img alt="Website up or down" src="https://img.shields.io/website-up-down-green-red/http/carriage-crossing-pharmacy.web.app.svg"/></a>
     <a href="https://github.com/Luke-zhang-04/Pharmasave-booker/actions?query=workflow%3Afirebase-deploy"><img alt="Workflow Status" src="https://github.com/luke-zhang-04/Pharmasave-booker/workflows/firebase-deploy/badge.svg"/></a>
     <a href="https://github.com/Luke-zhang-04/Pharmasave-booker/actions?query=workflow%3Afirebase-deploy"><img alt="Workflow Status" src="https://img.shields.io/github/workflow/status/luke-zhang-04/pharmasave-booker/firebase-deploy"/></a>
-    
+    <a href="https://app.codacy.com/manual/luke.zhang2004/Pharmasave-booker?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/Pharmasave-booker&utm_campaign=Badge_Grade_Dashboard"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/f6eca690ab994e30be69031fad344f40"/></a>
 </p>
 
 A web application to help the Carriage Crossing Pharmacy coordinate pickups and appointments during the CoronaVirus pandemic.
