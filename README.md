@@ -1,3 +1,6 @@
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f6eca690ab994e30be69031fad344f40)](https://app.codacy.com/manual/luke.zhang2004/Pharmasave-booker?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/Pharmasave-booker&utm_campaign=Badge_Grade_Dashboard)
+
 <div align="center">
     <img alt="pharmasave logo" src="assets/pharmasave-logo.png"/>
 </div>
