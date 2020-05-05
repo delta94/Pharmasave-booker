@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import firebase from "firebase"
+import firebase from "firebase";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCDtmIH9q9hf0Yw-8CVW-3Bf2e0HGPRCk8",
@@ -27,7 +27,7 @@ const firebaseConfig = {
     messagingSenderId: "663905550795",
     appId: "1:663905550795:web:e812497f884f32fd95364e",
     measurementId: "G-LSVBP608QP"
-}
+};
 
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig);
 export default firebase;
