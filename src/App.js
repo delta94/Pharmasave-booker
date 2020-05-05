@@ -16,8 +16,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 class App extends React.Component {
 }
