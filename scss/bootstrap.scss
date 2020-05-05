@@ -22,8 +22,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+//Theme colours and stuff
 @import "colours";
 
+//Required
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
@@ -39,12 +41,14 @@
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/reboot";
 
-.navbar { 
-    padding: 0;   
+.navbar {
+    padding: 0;
     font-size: 1.125vw;
+
     .navbar-brand {
         margin: 0;
         padding: 0;
+
         img {
             max-width: 20vw;
         }
