@@ -7,7 +7,7 @@
 <p align="center">
     <a href="https://www.javascript.com/"><img alt="Forthebadge made with JS" src="https://img.shields.io/badge/made%20with-JS-EED948?style=for-the-badge&logo=javascript"/></a>
     <a href="https://reactjs.org/"><img alt="Forthebadge made with React" src="https://img.shields.io/badge/made%20with-React-61DBFA?style=for-the-badge&logo=react"/></a>
-    <a href="firebase.google.com/"><img alt="Forthebadge made with Firebase" src="https://img.shields.io/badge/made%20with-Firebase-F9CB48?style=for-the-badge&logo=firebase"/></a>
+    <a href="firebase.google.com/"><img alt="Forthebadge made with Firebase" src="https://img.shields.io/badge/Uses-Firebase-F9CB48?style=for-the-badge&logo=firebase"/></a>
 </p>
 
 <p align="center">
