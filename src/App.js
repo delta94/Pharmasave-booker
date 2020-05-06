@@ -17,11 +17,48 @@
 */
 
 import React from "react";
+import Calendar from "./calendar/Calendar";
+import Home from "./home/Home";
+import Login from "./login/Login";
+import User from "./user/User";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+
+function Nav() {
+    return (
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png"/></Link>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <Link className="nav-item nav-link active" to="/">Home <span class="sr-only">(current)</span></Link>
+                    <Link className="nav-item nav-link disabled" to="/Calendar">Schedule a Pickup</Link>
+                    <Link className="nav-item nav-link disabled" to="/User">My Schedule</Link>
+                    <Link className="nav-item nav-link" to="/Login">Log in</Link>
+                </div>
+            </div>
+        </nav>
+    );
+}
 
 class App extends React.Component {
     render() {
         return (
-            <div></div>
+            <Router>
+                <Nav/>
+                <Switch>
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/Calendar" component={Calendar}/>
+                    <Route path="/User" component={User}/>
+                    <Route path="/Login" component={Login}/>
+                </Switch>
+            </Router>
         );
     }
 }
