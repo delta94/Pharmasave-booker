@@ -1,3 +1,16 @@
+footer {
+  background-color: $paper;
+  color: $secondary;
+
+  img {
+    max-width: 20vw;
+  }
+
+  h5 {
+    padding-left: 1vw;
+  }
+}
+
 .navbar {
   padding: 0;
   font-size: 1.125vw;
@@ -9,18 +22,5 @@
     img {
       max-width: 20vw;
     }
-  }
-}
-
-footer {
-  background-color: $paper;
-  color: $secondary;
-
-  img {
-    max-width: 20vw;
-  }
-
-  h5 {
-    padding-left: 1vw;
   }
 }
