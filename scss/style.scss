@@ -1,0 +1,26 @@
+.navbar {
+  padding: 0;
+  font-size: 1.125vw;
+
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+
+    img {
+      max-width: 20vw;
+    }
+  }
+}
+
+footer {
+  background-color: $paper;
+  color: $secondary;
+
+  img {
+    max-width: 20vw;
+  }
+
+  h5 {
+    padding-left: 1vw;
+  }
+}

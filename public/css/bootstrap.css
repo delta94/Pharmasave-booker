@@ -6810,4 +6810,15 @@ template {
   max-width: 20vw;
 }
 
+footer {
+  background-color: #eff1f3;
+  color: #333333;
+}
+footer img {
+  max-width: 20vw;
+}
+footer h5 {
+  padding-left: 1vw;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
