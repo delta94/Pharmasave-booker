@@ -25,9 +25,32 @@ class Home extends React.Component {
     splash() {
         return (
             <div className="splash">
-                <img src="pictures/cover.png"/>
+                <img src="pictures/cover.png" alt="Cover"/>
             </div>
         )
+    }
+
+    updateDimensions() {
+        //Size a relative div so absolute image isn't overtop of everything
+        const navBarCurrent = document.querySelector(".navbar")
+        const windowWidth = window.innerWidth
+        if (navBarCurrent) {
+            const navBarHeight = navBarCurrent.clientHeight
+            let splash = document.querySelector(".splash")
+            if (splash) {
+                let ratio = 7559/11811; //height:width ratio
+                (splash as HTMLElement).style.height = (windowWidth*ratio-navBarHeight).toString() + "px";
+            }
+        }
+    }
+
+    componentDidMount() {
+        this.updateDimensions()
+        window.addEventListener("resize", this.updateDimensions.bind(this))
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions.bind(this))
     }
 
     render() {

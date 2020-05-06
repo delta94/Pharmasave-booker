@@ -23,7 +23,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class Nav extends React.Component {
-    private navBar = React.createRef<HTMLElement>()
     constructor(props: any) {
         super(props)
         this.state = {
@@ -32,34 +31,10 @@ class Nav extends React.Component {
         }
     }
 
-    updateDimensions() {
-        //Size a relative div so absolute image isn't overtop of everything
-        const navBarCurrent = this.navBar.current
-        const windowWidth = window.innerWidth
-        if (navBarCurrent) {
-            const navBarHeight = navBarCurrent.clientHeight
-            let splash = document.querySelector(".splash")
-            if (splash) {
-                let ratio = 7559/11811; //height:width ratio
-                (splash as HTMLElement).style.height = (windowWidth*ratio-navBarHeight).toString() + "px";
-            }
-        }
-    }
-
-    componentDidMount() {
-        this.updateDimensions()
-        window.addEventListener("resize", this.updateDimensions.bind(this))
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions.bind(this))
-    }
-    
-
     Nav() {
         return (
-            <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-none" ref={this.navBar}>
-                <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png"/></Link>
+            <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-none">
+                <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png" alt="logo"/></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
