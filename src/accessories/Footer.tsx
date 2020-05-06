@@ -33,12 +33,12 @@ class Footer extends React.Component {
             <footer className="page-footer font-small blue pt-4">
                 <div className="container-fluid text-center text-md-left">
                     <div className="row">
-                        <div className="col-md-6 mt-md-0 mt-3">
-                            <h5 className="text-uppercase">Carriage Crossing Pharmacy</h5>
+                        <div className="col-lg-3 col-md-3 col-sm-12">
+                            <h5 id="image-header" className="text-uppercase">Carriage Crossing Pharmacy</h5>
                             <img src="pictures/pharmasave-logo.png"/>
                         </div>
                         <hr className="clearfix w-100 d-md-none pb-3" />
-                        <div className="col-md-3 mb-md-0 mb-3">
+                        <div className="col-lg-3 col-md-3 col-sm-12">
                             <h5 className="text-uppercase">Navagation</h5>
                             <ul className="list-unstyled">
                                 <li>
@@ -55,7 +55,7 @@ class Footer extends React.Component {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-md-3 mb-md-0 mb-3">
+                        <div className="col-lg-3 col-md-3 col-sm-12">
                             <h5 className="text-uppercase">Contact</h5>
                             <ul className="list-unstyled">
                                 <li>
@@ -69,6 +69,14 @@ class Footer extends React.Component {
                                 </li>
                                 <li>
                                     <Link to="#!">TBD</Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-lg-3 col-md-3 col-sm-12">
+                            <h5 className="text-uppercase">Image Credits</h5>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <a className="unsplash-credit" href="https://unsplash.com/@adamsky1973?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Adam Nieścioruk"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span>Adam Nieścioruk</span></a>
                                 </li>
                             </ul>
                         </div>

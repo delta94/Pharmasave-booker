@@ -6,7 +6,7 @@ footer {
     max-width: 20vw;
   }
 
-  h5 {
+  #image-header {
     padding-left: 1vw;
   }
 }
@@ -22,5 +22,40 @@ footer {
     img {
       max-width: 20vw;
     }
+  }
+}
+
+.unsplash-credit {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  padding: 4px 6px;
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+  display: inline-block;
+  border-radius: 3px;
+
+  span {
+    display: inline-block;
+    padding: 2px 3px;
+  }
+
+  svg {
+    height: 12px;
+    width: auto;
+    position: relative;
+    vertical-align: middle;
+    top: -2px;
+    fill: white;
+  }
+}
+
+.splash {
+  
+  img {
+    width: 100%;
+    height: auto;
   }
 }

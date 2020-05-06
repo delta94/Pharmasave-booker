@@ -22,9 +22,17 @@
 import React from "react";
 
 class Home extends React.Component {
+    splash() {
+        return (
+            <div className="splash">
+                <img src="pictures/cover.png"/>
+            </div>
+        )
+    }
+
     render() {
         return (
-            <h1>Home</h1>
+            <div>{this.splash()}</div>
         );
     }
 }
