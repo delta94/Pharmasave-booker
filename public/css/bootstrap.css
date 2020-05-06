@@ -8,6 +8,9 @@
     Carriage Crossing Pharmacy Booker
     Copyright (C) 2020 Luke Zhang, Ethan Lim
 
+    https://luke-zhang-04.github.io/
+    https://github.com/ethanlim04
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -6798,6 +6801,17 @@ template {
   display: none !important;
 }
 
+footer {
+  background-color: #eff1f3;
+  color: #333333;
+}
+footer img {
+  max-width: 20vw;
+}
+footer h5 {
+  padding-left: 1vw;
+}
+
 .navbar {
   padding: 0;
   font-size: 1.125vw;
@@ -6808,17 +6822,6 @@ template {
 }
 .navbar .navbar-brand img {
   max-width: 20vw;
-}
-
-footer {
-  background-color: #eff1f3;
-  color: #333333;
-}
-footer img {
-  max-width: 20vw;
-}
-footer h5 {
-  padding-left: 1vw;
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
