@@ -2,6 +2,8 @@
     <img alt="pharmasave logo" src="assets/pharmasave-logo.png"/>
 </div>
 
+***
+
 <p align="center">
     <a href="https://nodejs.org/en/"><img alt="Forthebadge made with JS" src="https://forthebadge.com/images/badges/made-with-javascript.svg"/></a>
 </p>
