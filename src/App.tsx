@@ -35,9 +35,9 @@ function Nav() {
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <Link className="nav-item nav-link active" to="/">Home <span class="sr-only">(current)</span></Link>
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="navbar-nav">
+                    <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
                     <Link className="nav-item nav-link disabled" to="/Calendar">Schedule a Pickup</Link>
                     <Link className="nav-item nav-link disabled" to="/User">My Schedule</Link>
                     <Link className="nav-item nav-link" to="/Login">Log in</Link>
