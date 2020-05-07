@@ -13,12 +13,57 @@ footer {
   }
 }
 
-.splash {
-  img {
-    width: 100%;
-    height: auto;
+.splash-container {
+  .splash {
+    img {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .splash-text {
     position: absolute;
-    top: 0;
+    top: 15vw;
+    left: 2.5vw;
+
+    h1, h2, h3, a {
+      opacity: 0;
+      animation: fade-in 2.5s ease-out forwards;
+    }
+
+    h1 {
+      font-size: 10vw;
+      color: $primary;
+      animation-delay: 1.5s;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 7.5vw;
+      animation-delay: 2.25s;
+      margin-bottom: 1vw;
+      margin-left: 0.5vw;
+    }
+
+    h3 {
+      font-size: 1.5vw;
+      animation-delay: 2.75s;
+      margin-left: 1vw;
+    }
+
+    a {
+      font-size: 1.5vw;
+      animation-delay: 2.75s;
+      margin-left: 1vw;
+
+      span {
+        display: inline-flex;
+        vertical-align: middle;
+        font-size: 2vw;
+      }
+    }
   }
 }
 

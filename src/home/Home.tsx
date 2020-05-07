@@ -20,14 +20,35 @@
 */
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
-    splash() {
-        return (
+    private splash = {
+        splash: (
             <div className="splash">
                 <img src="pictures/cover.png" alt="Cover"/>
             </div>
+        ),
+        splashText: (
+            <div className="splash-text">
+                <h1>Wellness</h1>
+                <h2>Starts here.</h2>
+                <h3>Register or login to to book a pickup</h3>
+                <Link className="btn btn-primary" to="login">Login or Register 
+                    <span className="material-icons">keyboard_arrow_right</span>
+                </Link>
+                <Link className="btn btn-primary" to="calendar">Book a Pickup 
+                    <span className="material-icons">keyboard_arrow_right</span>
+                </Link>
+            </div>
         )
+    }
+    
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            imageLoaded: false
+        }
     }
 
     updateDimensions() {
@@ -55,7 +76,10 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>{this.splash()}</div>
+            <div className="splash-container">
+                {this.splash.splash}
+                {this.splash.splashText}
+            </div>
         );
     }
 }

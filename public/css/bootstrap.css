@@ -7367,6 +7367,14 @@ template {
     background-color: rgba(0, 0, 0, 0);
   }
 }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 footer {
   background-color: #eff1f3;
   color: #333333;
@@ -7378,11 +7386,47 @@ footer #image-header {
   padding-left: 1vw;
 }
 
-.splash img {
+.splash-container .splash img {
   width: 100%;
   height: auto;
   position: absolute;
   top: 0;
+}
+.splash-container .splash-text {
+  position: absolute;
+  top: 15vw;
+  left: 2.5vw;
+}
+.splash-container .splash-text h1, .splash-container .splash-text h2, .splash-container .splash-text h3, .splash-container .splash-text a {
+  opacity: 0;
+  animation: fade-in 2.5s ease-out forwards;
+}
+.splash-container .splash-text h1 {
+  font-size: 10vw;
+  color: #c50f3c;
+  animation-delay: 1.5s;
+  margin: 0;
+}
+.splash-container .splash-text h2 {
+  font-size: 7.5vw;
+  animation-delay: 2.25s;
+  margin-bottom: 1vw;
+  margin-left: 0.5vw;
+}
+.splash-container .splash-text h3 {
+  font-size: 1.5vw;
+  animation-delay: 2.75s;
+  margin-left: 1vw;
+}
+.splash-container .splash-text a {
+  font-size: 1.5vw;
+  animation-delay: 2.75s;
+  margin-left: 1vw;
+}
+.splash-container .splash-text a span {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: 2vw;
 }
 
 .navbar {
