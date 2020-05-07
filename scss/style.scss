@@ -1,3 +1,5 @@
+@import "animations.scss";
+
 footer {
   background-color: $paper;
   color: $secondary;
@@ -67,4 +69,18 @@ footer {
     top: -2px;
     fill: white;
   }
+}
+
+.override-bg-default {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.override-bg-light {
+  animation: to-white 0.5s cubic-bezier(.39,.58,.57,1);
+  background-color: #eff1f3;
+}
+
+.override-bg-none {
+  animation: to-none 0.5s cubic-bezier(.39,.58,.57,1);
+  background-color: rgba(0, 0, 0, 0);
 }

@@ -1,0 +1,15 @@
+@keyframes to-white {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    } to {
+        background-color: $paper;
+    }
+}
+
+@keyframes to-none {
+    from {
+        background-color: $paper;
+    } to {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}

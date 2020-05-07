@@ -33,7 +33,7 @@ class Nav extends React.Component {
 
     Nav() {
         return (
-            <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-none">
+            <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
                 <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png" alt="logo"/></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

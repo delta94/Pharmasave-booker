@@ -7351,6 +7351,22 @@ template {
   display: none !important;
 }
 
+@keyframes to-white {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: #eff1f3;
+  }
+}
+@keyframes to-none {
+  from {
+    background-color: #eff1f3;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
 footer {
   background-color: #eff1f3;
   color: #333333;
@@ -7409,6 +7425,20 @@ footer #image-header {
   vertical-align: middle;
   top: -2px;
   fill: white;
+}
+
+.override-bg-default {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.override-bg-light {
+  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  background-color: #eff1f3;
+}
+
+.override-bg-none {
+  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 /*# sourceMappingURL=bootstrap.css.map */

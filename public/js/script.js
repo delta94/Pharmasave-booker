@@ -19,19 +19,19 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-window.onscroll = () => {
-    scroll()
-}
-
 // Add a background to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function scroll() {
     var navbar = document.querySelector(".navbar")
     if (window.pageYOffset >= 100) {
-        navbar.classList.remove("bg-default")
-        navbar.classList.remove("bg-none")
-        navbar.classList.add("bg-light")
+        navbar.classList.remove("override-bg-default")
+        navbar.classList.remove("override-bg-none")
+        navbar.classList.add("override-bg-light")
     } else {
-        navbar.classList.remove("bg-light")
-        navbar.classList.add("bg-none")
+        navbar.classList.remove("override-bg-light")
+        navbar.classList.add("override-bg-none")
     }
 }
+
+window.onscroll = () => {
+    scroll()
+};
