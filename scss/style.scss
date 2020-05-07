@@ -34,6 +34,14 @@ footer {
   }
 }
 
+@media only screen and (max-width: 993px) {
+  .navbar {
+    .collapse {
+      padding: 1vw;
+    }
+  }
+}
+
 .unsplash-credit {
   background-color: black;
   color: white;
