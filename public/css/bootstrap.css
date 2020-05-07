@@ -7351,6 +7351,34 @@ template {
   display: none !important;
 }
 
+.fade {
+  transition: opacity 0.15s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    transition: none;
+  }
+}
+.fade:not(.show) {
+  opacity: 0;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .collapsing {
+    transition: none;
+  }
+}
+
 @keyframes to-white {
   from {
     background-color: rgba(0, 0, 0, 0);
@@ -7470,7 +7498,9 @@ footer #image-header {
 }
 
 @media only screen and (max-width: 993px) {
-  .navbar .collapse {
+  .navbar .collapse,
+.navbar .show,
+.navbar .collapsing {
     padding: 1vw;
   }
 }

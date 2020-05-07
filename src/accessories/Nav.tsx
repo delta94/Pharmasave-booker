@@ -35,10 +35,10 @@ class Nav extends React.Component {
         return (
             <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
                 <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png" alt="logo"/></Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav">
                         <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
                         <Link className="nav-item nav-link disabled" to="/Calendar">Schedule a Pickup</Link>
