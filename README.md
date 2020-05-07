@@ -20,7 +20,7 @@
 
 <p align="center">
     <a href="https://app.codacy.com/manual/luke.zhang2004/Pharmasave-booker?utm_source=github.com&utm_medium=referral&utm_content=Luke-zhang-04/Pharmasave-booker&utm_campaign=Badge_Grade_Dashboard"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/f6eca690ab994e30be69031fad344f40"/></a>
-    <a href="https://codeclimate.com/github/Luke-zhang-04/Pharmasave-booker"><img alt="Maintainability" src="https://img.shields.io/codeclimate/maintainability-percentage/Luke-zhang-04/Pharmasave-booker"/></a>
+    <a href="https://codeclimate.com/github/Luke-zhang-04/Pharmasave-booker"><img alt="Maintainability" src="https://img.shields.io/codeclimate/maintainability-percentage/Luke-zhang-04/Pharmasave-booker?logo=code-climate"/></a>
 </p>
 
 A web application to help the Carriage Crossing Pharmacy coordinate pickups and appointments during the CoronaVirus pandemic.
