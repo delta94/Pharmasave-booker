@@ -7386,6 +7386,31 @@ footer #image-header {
   padding-left: 1vw;
 }
 
+.unsplash-credit {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  padding: 4px 6px;
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+  display: inline-block;
+  border-radius: 3px;
+}
+.unsplash-credit span {
+  display: inline-block;
+  padding: 2px 3px;
+}
+.unsplash-credit svg {
+  height: 12px;
+  width: auto;
+  position: relative;
+  vertical-align: middle;
+  top: -2px;
+  fill: white;
+}
+
 .splash-container .splash img {
   width: 100%;
   height: auto;
@@ -7397,7 +7422,10 @@ footer #image-header {
   top: 15vw;
   left: 2.5vw;
 }
-.splash-container .splash-text h1, .splash-container .splash-text h2, .splash-container .splash-text h3, .splash-container .splash-text a {
+.splash-container .splash-text h1,
+.splash-container .splash-text h2,
+.splash-container .splash-text h3,
+.splash-container .splash-text a {
   opacity: 0;
   animation: fade-in 2.5s ease-out forwards;
 }
@@ -7446,31 +7474,6 @@ footer #image-header {
     padding: 1vw;
   }
 }
-.unsplash-credit {
-  background-color: black;
-  color: white;
-  text-decoration: none;
-  padding: 4px 6px;
-  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 1.2;
-  display: inline-block;
-  border-radius: 3px;
-}
-.unsplash-credit span {
-  display: inline-block;
-  padding: 2px 3px;
-}
-.unsplash-credit svg {
-  height: 12px;
-  width: auto;
-  position: relative;
-  vertical-align: middle;
-  top: -2px;
-  fill: white;
-}
-
 .override-bg-default {
   background-color: rgba(0, 0, 0, 0);
 }

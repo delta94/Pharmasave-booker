@@ -13,6 +13,33 @@ footer {
   }
 }
 
+.unsplash-credit {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  padding: 4px 6px;
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+  display: inline-block;
+  border-radius: 3px;
+
+  span {
+    display: inline-block;
+    padding: 2px 3px;
+  }
+
+  svg {
+    height: 12px;
+    width: auto;
+    position: relative;
+    vertical-align: middle;
+    top: -2px;
+    fill: white;
+  }
+}
+
 .splash-container {
   .splash {
     img {
@@ -28,7 +55,10 @@ footer {
     top: 15vw;
     left: 2.5vw;
 
-    h1, h2, h3, a {
+    h1,
+    h2,
+    h3,
+    a {
       opacity: 0;
       animation: fade-in 2.5s ease-out forwards;
     }
@@ -86,33 +116,6 @@ footer {
     .collapse {
       padding: 1vw;
     }
-  }
-}
-
-.unsplash-credit {
-  background-color: black;
-  color: white;
-  text-decoration: none;
-  padding: 4px 6px;
-  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 1.2;
-  display: inline-block;
-  border-radius: 3px;
-
-  span {
-    display: inline-block;
-    padding: 2px 3px;
-  }
-
-  svg {
-    height: 12px;
-    width: auto;
-    position: relative;
-    vertical-align: middle;
-    top: -2px;
-    fill: white;
   }
 }
 
