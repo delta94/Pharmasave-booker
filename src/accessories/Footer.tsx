@@ -48,6 +48,9 @@ class Footer extends React.Component {
                                 <li>
                                     <Link to="/Login">Login</Link>
                                 </li>
+                                <li>
+                                    <Link to="/Legal">Legal</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-12">
