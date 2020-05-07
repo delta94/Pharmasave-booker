@@ -34,6 +34,9 @@ function Legal() {
             <h2>Limitation of Warranty</h2>
             <p>Section 16 of the GNU General Public License</p>
             <p>IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MOD-IFIES AND/OR CONVEYS THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+            <h1>Additional</h1>
+            <h2>INDEMNIFICATION</h2>
+            <p>You agree to defend, indemnify and hold harmless each of Pharmasave Drugs (National) Ltd., its affiliates (including the Pharmasave Affiliates) and officers, directors, employees, agents, representatives of the foregoing and all service providers of the foregoing, including all third parties mentioned on or in any way involved in providing any of the Services, from and against any and all claims, actions or demands, including without limitation reasonable legal and accounting fees, resulting from or related to: (a) your breach of these Terms; (b) your access to, use of or reliance upon the Services, your personal information that is accessible through the Services, or the Content of the Services; or (c) your infringement of any intellectual property or privacy rights of any person.</p>
         </div>
     );
 }
