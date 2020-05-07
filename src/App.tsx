@@ -24,13 +24,14 @@ import Calendar from "./calendar/Calendar";
 import Home from "./home/Home";
 import Login from "./login/Login";
 import User from "./user/User";
+import Footer from "./accessories/Footer";
+import Nav from "./accessories/Nav";
+import Legal from "./legal/Legal"
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
-import Footer from "./accessories/Footer";
-import Nav from "./accessories/Nav";
 
 class App extends React.Component {
     render() {
@@ -42,6 +43,7 @@ class App extends React.Component {
                     <Route path="/Calendar" component={Calendar}/>
                     <Route path="/User" component={User}/>
                     <Route path="/Login" component={Login}/>
+                    <Route path="/Legal" component={Legal}/>
                 </Switch>
                 <Footer/>
             </Router>
