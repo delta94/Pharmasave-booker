@@ -27,6 +27,7 @@ import User from "./user/User";
 import Footer from "./accessories/Footer";
 import Nav from "./accessories/Nav";
 import Legal from "./legal/Legal"
+import PrivacyPolicy from "./legal/Privacy-policy"
 import {
     BrowserRouter as Router,
     Switch,
@@ -44,6 +45,7 @@ class App extends React.Component {
                     <Route path="/User" component={User}/>
                     <Route path="/Login" component={Login}/>
                     <Route path="/Legal" component={Legal}/>
+                    <Route path="/Privacy-policy" component={PrivacyPolicy}/>
                 </Switch>
                 <Footer/>
             </Router>

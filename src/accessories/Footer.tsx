@@ -48,9 +48,6 @@ class Footer extends React.Component {
                                 <li>
                                     <Link to="/Login">Login</Link>
                                 </li>
-                                <li>
-                                    <Link to="/Legal">Legal</Link>
-                                </li>
                             </ul>
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-12">
@@ -84,7 +81,15 @@ class Footer extends React.Component {
                     </div>
                 </div>
                 <div className="footer-copyright text-center py-3">© 2020 Copyright:
-                    <Link to="https://github.com/Luke-zhang-04"> Luke Zhang</Link>, <Link to="https://github.com/ethanlim04">Ethan Lim</Link>, and Carriage Crossing Pharamcy
+                    <Link to="https://github.com/Luke-zhang-04"> Luke Zhang</Link>, <Link to="https://github.com/ethanlim04">Ethan Lim</Link>, and Pharmasave Carriage Crossing Pharamcy
+                    <ul className="list-unstyled">
+                    <li>
+                        <Link to="/Legal">Terms and Conditions</Link>
+                    </li>
+                    <li>
+                        <Link to="/Privacy-policy">Privacy Policy</Link>
+                    </li>
+                </ul>
                 </div>
             </footer>
         );
