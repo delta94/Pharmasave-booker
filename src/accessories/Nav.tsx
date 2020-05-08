@@ -20,22 +20,10 @@
 */
 
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
 
 class Nav extends React.Component {
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            width: 800,
-            height: 182
-        }
-    }
-
-    switchActive() {
-        let location = useLocation()
-        console.log(location.pathname)
-    }
-
     Nav() {
         return (
             <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
@@ -45,10 +33,27 @@ class Nav extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav">
-                        <Link className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></Link>
-                        <Link className="nav-item nav-link disabled" to="/Calendar">Schedule a Pickup</Link>
-                        <Link className="nav-item nav-link disabled" to="/User">My Schedule</Link>
-                        <Link className="nav-item nav-link" to="/Login">Log in</Link>
+                        <NavLink
+                            exact
+                            className = "nav-item nav-link"
+                            activeClassName = "active"
+                            to = "/">Home <span className="sr-only">(current)</span>
+                        </NavLink>
+                        <NavLink
+                            className = "nav-item nav-link disabled"
+                            activeClassName = "active"
+                            to = "/Calendar">Schedule a Pickup
+                        </NavLink>
+                        <NavLink
+                            className = "nav-item nav-link disabled"
+                            activeClassName = "active"
+                            to="/User">My Schedule
+                        </NavLink>
+                        <NavLink
+                            className = "nav-item nav-link"
+                            activeClassName = "active"
+                            to = "/Login">Log in
+                        </NavLink>
                     </div>
                 </div>
             </nav>
