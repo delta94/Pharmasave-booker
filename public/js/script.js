@@ -43,7 +43,7 @@ function resizeDivider() {
     let navbar = document.querySelector(".navbar")
     if (splash && navbar) {
         splash.style.height = (
-            window.innerWidth*(7559/11811) - navbar.offsetHeight - 26
+            window.innerWidth*(7559/11811) - navbar.offsetHeight
         ).toString() + "px"
         if (document.getElementById("navbarNav").classList.contains("collapsing")) {
             setTimeout(resizeDivider, 1)

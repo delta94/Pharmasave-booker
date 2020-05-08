@@ -61,7 +61,7 @@ class Home extends React.Component {
             let splash = document.querySelector(".splash")
             if (splash) {
                 let ratio = 7559/11811; //height:width ratio
-                (splash as HTMLElement).style.height = (windowWidth*ratio - navBarHeight - 26).toString() + "px";
+                (splash as HTMLElement).style.height = (windowWidth*ratio - navBarHeight).toString() + "px";
             }
         }
     }
