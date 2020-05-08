@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test should give no errors 1`] = `
+Array [
+  <nav
+    className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      <img
+        alt="logo"
+        src="pictures/pharmasave-logo.png"
+      />
+    </a>
+    <button
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      className="navbar-toggler"
+      data-target="#navbarNav"
+      data-toggle="collapse"
+      type="button"
+    >
+      <span
+        className="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarNav"
+    >
+      <div
+        className="navbar-nav"
+      >
+        <a
+          className="nav-item nav-link active"
+          href="/"
+          onClick={[Function]}
+        >
+          Home 
+          <span
+            className="sr-only"
+          >
+            (current)
+          </span>
+        </a>
+        <a
+          className="nav-item nav-link disabled"
+          href="/Calendar"
+          onClick={[Function]}
+        >
+          Schedule a Pickup
+        </a>
+        <a
+          className="nav-item nav-link disabled"
+          href="/User"
+          onClick={[Function]}
+        >
+          My Schedule
+        </a>
+        <a
+          className="nav-item nav-link"
+          href="/Login"
+          onClick={[Function]}
+        >
+          Log in
+        </a>
+      </div>
+    </div>
+  </nav>,
+  <div
+    className="splash-container"
+  >
+    <div
+      className="splash"
+    >
+      <img
+        alt="Cover"
+        src="pictures/cover.png"
+      />
+    </div>
+    <div
+      className="splash-text"
+    >
+      <h1>
+        Wellness
+      </h1>
+      <h2>
+        Starts here.
+      </h2>
+      <h3>
+        Register or login to to book a pickup
+      </h3>
+      <a
+        className="btn btn-primary"
+        href="/login"
+        onClick={[Function]}
+      >
+        Login or Register
+        <span
+          className="material-icons"
+        >
+          keyboard_arrow_right
+        </span>
+      </a>
+      <a
+        className="btn btn-primary"
+        href="/calendar"
+        onClick={[Function]}
+      >
+        Book a Pickup
+        <span
+          className="material-icons"
+        >
+          keyboard_arrow_right
+        </span>
+      </a>
+    </div>
+  </div>,
+  <footer
+    className="page-footer font-small blue pt-4"
+  >
+    <div
+      className="container-fluid text-center text-md-left"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-lg-3 col-md-3 col-sm-12"
+        >
+          <h5
+            className="text-uppercase"
+            id="image-header"
+          >
+            Carriage Crossing Pharmacy
+          </h5>
+          <img
+            alt="pharmasave logo"
+            src="pictures/pharmasave-logo.png"
+          />
+        </div>
+        <hr
+          className="clearfix w-100 d-md-none pb-3"
+        />
+        <div
+          className="col-lg-3 col-md-3 col-sm-12"
+        >
+          <h5
+            className="text-uppercase"
+          >
+            Navagation
+          </h5>
+          <ul
+            className="list-unstyled"
+          >
+            <li>
+              <a
+                href="/"
+                onClick={[Function]}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                className="btn-link disabled"
+                href="/Calendar"
+                onClick={[Function]}
+              >
+                Book a Pickup
+              </a>
+            </li>
+            <li>
+              <a
+                className="btn-link disabled"
+                href="/User"
+                onClick={[Function]}
+              >
+                Your Scheduled Pickups
+              </a>
+            </li>
+            <li>
+              <a
+                href="/Login"
+                onClick={[Function]}
+              >
+                Login
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          className="col-lg-3 col-md-3 col-sm-12"
+        >
+          <h5
+            className="text-uppercase"
+          >
+            Contact
+          </h5>
+          <ul
+            className="list-unstyled"
+          >
+            <li>
+              <p>
+                <span
+                  className="material-icons"
+                >
+                  call
+                </span>
+                  (519) 885-5555
+              </p>
+            </li>
+            <li>
+              <p>
+                <span
+                  className="material-icons"
+                >
+                  print
+                </span>
+                  (519) 885-5554 
+              </p>
+            </li>
+            <li>
+              <a
+                href="https://goo.gl/maps/jABcwNoBWiG9ahBo6"
+                target="_blank"
+              >
+                <span
+                  className="material-icons"
+                >
+                  business
+                </span>
+                  105 Oak Park Dr #4, Waterloo, ON N2K 0B3
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          className="col-lg-3 col-md-3 col-sm-12"
+        >
+          <h5
+            className="text-uppercase"
+          >
+            Image Credits
+          </h5>
+          <ul
+            className="list-unstyled"
+          >
+            <li>
+              <a
+                className="unsplash-credit"
+                href="https://unsplash.com/@adamsky1973?utm_medium=referral&utm_campaign=photographer-credit&utm_content=creditBadge"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Download free do whatever you want high-resolution photos from Adam Nieścioruk"
+              >
+                <span>
+                  <svg
+                    viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>
+                      unsplash-logo
+                    </title>
+                    <path
+                      d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"
+                    />
+                  </svg>
+                </span>
+                <span>
+                  Adam Nieścioruk
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                className="btn btn-secondary"
+                href="https://material.io/resources/icons/?search=arrow&icon=keyboard_arrow_right&style=baseline"
+              >
+                Google Material Icons
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      className="footer-copyright text-center py-3"
+    >
+      © 2020 Copyright:
+      <a
+        href="/https://github.com/Luke-zhang-04"
+        onClick={[Function]}
+      >
+         Luke Zhang
+      </a>
+      , 
+      <a
+        href="/https://github.com/ethanlim04"
+        onClick={[Function]}
+      >
+        Ethan Lim
+      </a>
+      , and Pharmasave Carriage Crossing Pharamcy
+      <ul
+        className="list-unstyled"
+      >
+        <li>
+          <a
+            href="/Legal"
+            onClick={[Function]}
+          >
+            Terms and Conditions
+          </a>
+        </li>
+        <li>
+          <a
+            href="/Privacy-policy"
+            onClick={[Function]}
+          >
+            Privacy Policy
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>,
+]
+`;
