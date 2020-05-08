@@ -22,7 +22,7 @@
 let toggled = false
 
 function scroll() {
-    var navbar = document.querySelector(".navbar")
+    let navbar = document.querySelector(".navbar")
     if (window.pageYOffset >= 100) {
         toggled = true
         navbar.classList.remove("override-bg-default")
@@ -38,14 +38,31 @@ window.onscroll = () => {
     scroll()
 };
 
+function resizeDivider() {
+    let splash = document.querySelector(".splash")
+    let navbar = document.querySelector(".navbar")
+    if (splash && navbar) {
+        splash.style.height = (
+            window.innerWidth*(7559/11811) - navbar.offsetHeight - 26
+        ).toString() + "px"
+        if (document.getElementById("navbarNav").classList.contains("collapsing")) {
+            setTimeout(resizeDivider, 1)
+        }
+    }
+}
+
 document.querySelector(".navbar-toggler").addEventListener("click", event => {
     const navSelection = document.getElementById("navbarNav")
     const navbar = document.querySelector(".navbar")
     if (!navSelection.classList.contains("show")) {
         navbar.classList.add("override-bg-light")
         navbar.classList.remove("override-bg-none")
+        setTimeout(resizeDivider, 1)
     } else if (window.pageYOffset < 100) {
         navbar.classList.remove("override-bg-light")
         navbar.classList.add("override-bg-none")
+        setTimeout(resizeDivider, 1)
+    } else {
+        setTimeout(resizeDivider, 1)
     }
 })
