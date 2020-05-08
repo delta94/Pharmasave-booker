@@ -48,16 +48,13 @@ class Footer extends React.Component {
                 <h5 className="text-uppercase">Contact</h5>
                 <ul className="list-unstyled">
                     <li>
-                        <Link to="#!">TBD</Link>
+                        <p><span className="material-icons">call</span>  (519) 885-5555</p>
                     </li>
                     <li>
-                        <Link to="#!">TBD</Link>
+                        <p><span className="material-icons">print</span>  (519) 885-5554 </p>
                     </li>
                     <li>
-                        <Link to="#!">TBD</Link>
-                    </li>
-                    <li>
-                        <Link to="#!">TBD</Link>
+                        <a href="https://goo.gl/maps/jABcwNoBWiG9ahBo6" target="_blank"><span className="material-icons">business</span>  105 Oak Park Dr #4, Waterloo, ON N2K 0B3</a>
                     </li>
                 </ul>
             </div>
