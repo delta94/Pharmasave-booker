@@ -19,14 +19,16 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// Add a background to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+let toggled = false
+
 function scroll() {
     var navbar = document.querySelector(".navbar")
     if (window.pageYOffset >= 100) {
+        toggled = true
         navbar.classList.remove("override-bg-default")
         navbar.classList.remove("override-bg-none")
         navbar.classList.add("override-bg-light")
-    } else {
+    } else if (toggled) {
         navbar.classList.remove("override-bg-light")
         navbar.classList.add("override-bg-none")
     }
@@ -35,3 +37,15 @@ function scroll() {
 window.onscroll = () => {
     scroll()
 };
+
+document.querySelector(".navbar-toggler").addEventListener("click", event => {
+    const navSelection = document.getElementById("navbarNav")
+    const navbar = document.querySelector(".navbar")
+    if (!navSelection.classList.contains("show")) {
+        navbar.classList.add("override-bg-light")
+        navbar.classList.remove("override-bg-none")
+    } else if (window.pageYOffset < 100) {
+        navbar.classList.remove("override-bg-light")
+        navbar.classList.add("override-bg-none")
+    }
+})
