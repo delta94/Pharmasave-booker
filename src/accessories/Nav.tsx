@@ -20,7 +20,7 @@
 */
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 class Nav extends React.Component {
     constructor(props: any) {
@@ -29,6 +29,11 @@ class Nav extends React.Component {
             width: 800,
             height: 182
         }
+    }
+
+    switchActive() {
+        let location = useLocation()
+        console.log(location.pathname)
     }
 
     Nav() {
