@@ -54,7 +54,7 @@ class Footer extends React.Component {
                         <p><span className="material-icons">print</span>  (519) 885-5554 </p>
                     </li>
                     <li>
-                        <a href="https://goo.gl/maps/jABcwNoBWiG9ahBo6" target="_blank"><span className="material-icons">business</span>  105 Oak Park Dr #4, Waterloo, ON N2K 0B3</a>
+                        <a href="https://goo.gl/maps/jABcwNoBWiG9ahBo6" target="_blank" rel="noopener noreferrer"><span className="material-icons">business</span>  105 Oak Park Dr #4, Waterloo, ON N2K 0B3</a>
                     </li>
                 </ul>
             </div>
