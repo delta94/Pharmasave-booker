@@ -20,6 +20,7 @@
 */
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 class GoogleSignInButton extends React.Component {
     buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
@@ -150,6 +151,17 @@ class Reg extends React.Component<any, any> {
                 </div>
                 <div className="form-group">
                     {this.form_components.password2}
+                </div>
+                <div className="form-group">
+                    <p> By signing up, you agree to our <Link to="/Legal">Terms and Conditions</Link> and <Link to="/Privacy-policy">Privacy Policy</Link></p>
+                    <label id="tandc">
+                    I have read, and agree to the <Link to="/Legal">Terms and Conditions</Link>
+                        <input type="checkbox" className="form-check-input" id="tandc-check"></input>
+                    </label>
+                    <label id="ppolicy">
+                        I have read, and agree to the <Link to="/Privacy-policy">Privacy Policy</Link>
+                        <input type="checkbox" className="form-check-input" id="ppolicy-check"></input>
+                    </label>
                 </div>
                 {this.form_components.buttons}
             </form>

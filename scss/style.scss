@@ -1,6 +1,7 @@
 @use "mixins";
-@use "animations";
 @use "variables";
+
+@import "animations";
 
 footer {
   background-color: variables.$paper;
@@ -62,7 +63,7 @@ footer {
     h3,
     a {
       opacity: 0;
-      animation: "animations.fade-in" 2.5s ease-out forwards;
+      animation: fade-in 2.5s ease-out forwards;
     }
 
     h1 {
@@ -128,20 +129,47 @@ footer {
 }
 
 .override-bg-light {
-  animation: "animations.to-white" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: #eff1f3;
 }
 
 .override-bg-none {
-  animation: "animations.to-none" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: rgba(0, 0, 0, 0);
 }
 
 .auth-container {
+  p,
+  a,
+  label,
+  input,
+  button {
+    font-size: 1vw;
+  }
+
+  p,
+  a {
+    margin-bottom: 1vw;
+  }
+
+  .form-group {
+    p {
+      color: variables.$paper !important;
+    }
+
+    a {
+      color: variables.$secondary !important;
+    }
+
+    .form-check-input {
+      width: 5vw;
+    }
+  }
+
   .back-container {
     z-index: -1;
     background-color: variables.$secondary;
-    width: 80vw;
+    width: 70vw;
     height: 30vw;
     position: absolute;
     top: 7.5vw;
@@ -151,7 +179,7 @@ footer {
   #switch-btns {
     position: absolute;
     right: 30vw;
-    top: 30vw;
+    top: 25vw;
     color: variables.$paper;
   }
 
@@ -163,7 +191,7 @@ footer {
     z-index: 5;
     background-color: variables.$primary;
     width: 35vw;
-    height: 45vw;
+    height: 55vw;
     margin-bottom: 50px;
     box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
 
@@ -191,6 +219,10 @@ footer {
 
       .google-sign-in {
         cursor: pointer;
+        img {
+          width: 12.5vw;
+          height: auto;
+        }
       }
 
       a {

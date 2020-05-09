@@ -1,17 +1,17 @@
-@use "variables";
+@import "variables";
 
 @keyframes to-white {
   from {
     background-color: rgba(0, 0, 0, 0);
   }
   to {
-    background-color: variables.$paper;
+    background-color: $paper;
   }
 }
 
 @keyframes to-none {
   from {
-    background-color: variables.$paper;
+    background-color: $paper;
   }
   to {
     background-color: rgba(0, 0, 0, 0);

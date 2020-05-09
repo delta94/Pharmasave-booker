@@ -7867,7 +7867,7 @@ footer #image-header {
 .splash-container .splash-text h3,
 .splash-container .splash-text a {
   opacity: 0;
-  animation: "animations.fade-in" 2.5s ease-out forwards;
+  animation: fade-in 2.5s ease-out forwards;
 }
 .splash-container .splash-text h1 {
   font-size: 10vw;
@@ -7921,19 +7921,39 @@ footer #image-header {
 }
 
 .override-bg-light {
-  animation: "animations.to-white" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: #eff1f3;
 }
 
 .override-bg-none {
-  animation: "animations.to-none" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: rgba(0, 0, 0, 0);
 }
 
+.auth-container p,
+.auth-container a,
+.auth-container label,
+.auth-container input,
+.auth-container button {
+  font-size: 1vw;
+}
+.auth-container p,
+.auth-container a {
+  margin-bottom: 1vw;
+}
+.auth-container .form-group p {
+  color: #eff1f3 !important;
+}
+.auth-container .form-group a {
+  color: #333333 !important;
+}
+.auth-container .form-group .form-check-input {
+  width: 5vw;
+}
 .auth-container .back-container {
   z-index: -1;
   background-color: #333333;
-  width: 80vw;
+  width: 70vw;
   height: 30vw;
   position: absolute;
   top: 7.5vw;
@@ -7942,7 +7962,7 @@ footer #image-header {
 .auth-container #switch-btns {
   position: absolute;
   right: 30vw;
-  top: 30vw;
+  top: 25vw;
   color: #eff1f3;
 }
 .auth-container button {
@@ -7953,7 +7973,7 @@ footer #image-header {
   z-index: 5;
   background-color: #c50f3c;
   width: 35vw;
-  height: 45vw;
+  height: 55vw;
   margin-bottom: 50px;
   box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
 }
@@ -7977,6 +7997,10 @@ footer #image-header {
 }
 .auth-container .form-container form .google-sign-in {
   cursor: pointer;
+}
+.auth-container .form-container form .google-sign-in img {
+  width: 12.5vw;
+  height: auto;
 }
 .auth-container .form-container form a {
   color: #fff;
