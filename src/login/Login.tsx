@@ -173,7 +173,8 @@ class Auth extends React.Component<any, any> {
     render() {
         const switch_btns = (
             <div id="switch-btns">
-                <div id="switch-login" style = {{display: this.state.loginButton}}>
+                <div id="switch-login" style={{display: this.state.loginButton}}>
+                    <p>Already have an account?</p>
                     <button
                         className = "btn btn-primary"
                         onClick = {() => {
@@ -187,7 +188,8 @@ class Auth extends React.Component<any, any> {
                         }}
                     >Login</button>
                 </div>
-                <div id="switch-reg" style = {{display: this.state.regButton}}>
+                <div id="switch-reg" style={{display: this.state.regButton}}>
+                    <p>Don't have an account?</p>
                     <button
                         className = "btn btn-primary"
                         onClick = {() => {

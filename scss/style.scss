@@ -1,9 +1,10 @@
 @use "mixins";
-@import "animations";
+@use "animations";
+@use "variables";
 
 footer {
-  background-color: $paper;
-  color: $secondary;
+  background-color: variables.$paper;
+  color: variables.$secondary;
 
   img {
     max-width: 20vw;
@@ -61,12 +62,12 @@ footer {
     h3,
     a {
       opacity: 0;
-      animation: fade-in 2.5s ease-out forwards;
+      animation: "animations.fade-in" 2.5s ease-out forwards;
     }
 
     h1 {
       font-size: 10vw;
-      color: $primary;
+      color: variables.$primary;
       animation-delay: 1.5s;
       margin: 0;
     }
@@ -127,19 +128,19 @@ footer {
 }
 
 .override-bg-light {
-  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: "animations.to-white" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: #eff1f3;
 }
 
 .override-bg-none {
-  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: "animations.to-none" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: rgba(0, 0, 0, 0);
 }
 
 .auth-container {
   .back-container {
     z-index: -1;
-    background-color: $secondary;
+    background-color: variables.$secondary;
     width: 80vw;
     height: 30vw;
     position: absolute;
@@ -148,13 +149,10 @@ footer {
   }
 
   #switch-btns {
-    button {
-      position: absolute;
-      right: 30vw;
-      top: 30vw;
-      cursor: pointer;
-      z-index: 1000;
-    }
+    position: absolute;
+    right: 30vw;
+    top: 30vw;
+    color: variables.$paper;
   }
 
   button {
@@ -163,7 +161,7 @@ footer {
 
   .form-container {
     z-index: 5;
-    background-color: $primary;
+    background-color: variables.$primary;
     width: 35vw;
     height: 45vw;
     margin-bottom: 50px;
@@ -172,7 +170,7 @@ footer {
     .container {
       padding: 3vw 2vw;
       font-size: 5vw;
-      color: $paper;
+      color: variables.$paper;
     }
 
     form {
@@ -180,7 +178,7 @@ footer {
 
       label,
       .form-text {
-        color: $paper !important;
+        color: variables.$paper !important;
       }
 
       input {
@@ -200,7 +198,7 @@ footer {
       }
 
       a:hover {
-        color: $paper;
+        color: variables.$paper;
       }
     }
   }

@@ -7867,7 +7867,7 @@ footer #image-header {
 .splash-container .splash-text h3,
 .splash-container .splash-text a {
   opacity: 0;
-  animation: fade-in 2.5s ease-out forwards;
+  animation: "animations.fade-in" 2.5s ease-out forwards;
 }
 .splash-container .splash-text h1 {
   font-size: 10vw;
@@ -7921,12 +7921,12 @@ footer #image-header {
 }
 
 .override-bg-light {
-  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: "animations.to-white" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: #eff1f3;
 }
 
 .override-bg-none {
-  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  animation: "animations.to-none" 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -7939,12 +7939,11 @@ footer #image-header {
   top: 7.5vw;
   left: 5vw;
 }
-.auth-container #switch-btns button {
+.auth-container #switch-btns {
   position: absolute;
   right: 30vw;
   top: 30vw;
-  cursor: pointer;
-  z-index: 1000;
+  color: #eff1f3;
 }
 .auth-container button {
   border-radius: 0;
