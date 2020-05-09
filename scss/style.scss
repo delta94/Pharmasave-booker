@@ -187,11 +187,20 @@ footer {
     @include mixins.btn-auth;
   }
 
+  .Register-container {
+    height: 55vw;
+    animation: auth-expand .25s ease-out;
+  }
+
+  .Login-container {
+    height: 40vw;
+    animation: auth-shrink .25s ease-out;
+  }
+
   .form-container {
     z-index: 5;
     background-color: variables.$primary;
     width: 35vw;
-    height: 55vw;
     margin-bottom: 50px;
     box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
 

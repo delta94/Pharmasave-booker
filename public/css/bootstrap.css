@@ -7815,6 +7815,22 @@ template {
     opacity: 1;
   }
 }
+@keyframes auth-expand {
+  from {
+    height: 40vw;
+  }
+  to {
+    height: 55vw;
+  }
+}
+@keyframes auth-shrink {
+  from {
+    height: 55vw;
+  }
+  to {
+    height: 40vw;
+  }
+}
 footer {
   background-color: #eff1f3;
   color: #333333;
@@ -7969,11 +7985,18 @@ footer #image-header {
   border-radius: 0;
   width: 10vw;
 }
+.auth-container .Register-container {
+  height: 55vw;
+  animation: auth-expand 0.25s ease-out;
+}
+.auth-container .Login-container {
+  height: 40vw;
+  animation: auth-shrink 0.25s ease-out;
+}
 .auth-container .form-container {
   z-index: 5;
   background-color: #c50f3c;
   width: 35vw;
-  height: 55vw;
   margin-bottom: 50px;
   box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
 }

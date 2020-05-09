@@ -222,7 +222,7 @@ class Auth extends React.Component<any, any> {
             <div className="auth-container container">
                 {switch_btns}
                 <div className="back-container"></div>
-                <div className="form-container">
+                <div className={`form-container ${this.state.current}-container`}>
                     <h1 className="container">{this.state.current}</h1>
                     <Login ref={this.loginRef}/>
                     <Reg ref={this.regRef}/>
