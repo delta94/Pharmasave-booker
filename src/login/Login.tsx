@@ -21,6 +21,29 @@
 
 import React from "react";
 
+class GoogleSignInButton extends React.Component {
+    constructor(props: Object) {
+        super(props)
+    }
+
+    buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+        (event.target as HTMLInputElement).setAttribute("src", `../pictures/btn_google_signin_dark_${state}_web.png`)
+    }
+
+    render() {
+        return (
+            <div className="google-sign-in">
+                <img
+                    alt="google-sign-in"
+                    src="../pictures/btn_google_signin_dark_normal_web.png"
+                    onMouseEnter={(e) => this.buttonState("focus", e)}
+                    onMouseLeave={(e) => this.buttonState("normal", e)}
+                />
+            </div>
+        );
+    }
+}
+
 class Login extends React.Component {
     render() {
         return (
@@ -44,7 +67,7 @@ class Login extends React.Component {
                         <button type="submit" className="btn btn-secondary">Login</button>  
                     </div>
                     <div className="col-6">
-                        <div className="google-sign-in"><img alt="google-sign-in" src="../pictures/btn_google_signin_dark_normal_web.png"/></div>
+                        <GoogleSignInButton/>
                     </div>
                 </div>
             </form>
