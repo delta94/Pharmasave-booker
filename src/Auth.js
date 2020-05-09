@@ -19,18 +19,23 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import firebase from "firebase/app";
-import "firebase/auth";
+import React from "react";
+import firebaseApp from "./firebase";
 
-const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyCDtmIH9q9hf0Yw-8CVW-3Bf2e0HGPRCk8",
-    authDomain: "carriage-crossing-pharmacy.firebaseapp.com",
-    databaseURL: "https://carriage-crossing-pharmacy.firebaseio.com",
-    projectId: "carriage-crossing-pharmacy",
-    storageBucket: "carriage-crossing-pharmacy.appspot.com",
-    messagingSenderId: "663905550795",
-    appId: "1:663905550795:web:e812497f884f32fd95364e",
-    measurementId: "G-LSVBP608QP"
-})
+export const AuthContext = React.createContext()
 
-export default firebaseApp;
+export const AuthProvider = ({children}) => {
+    const [currentUser, setCurrentUser] = React.useState(null)
+
+    React.useEffect(() => {
+        firebaseApp.auth().onAuthStateChanged(setCurrentUser)
+    }, [])
+
+    return (
+        <AuthContext.Provider
+            value = {{currentUser}}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
+}

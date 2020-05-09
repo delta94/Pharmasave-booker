@@ -28,6 +28,7 @@ import Footer from "./accessories/Footer";
 import Nav from "./accessories/Nav";
 import Legal from "./legal/Legal"
 import PrivacyPolicy from "./legal/Privacy-policy"
+import { AuthProvider } from "./Auth.js"
 import {
     BrowserRouter as Router,
     Switch,
@@ -37,18 +38,20 @@ import {
 class App extends React.Component {
     render() {
         return (
-            <Router>
-                <Nav/>
-                <Switch>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/Calendar" component={Calendar}/>
-                    <Route path="/User" component={User}/>
-                    <Route path="/Login" component={Auth}/>
-                    <Route path="/Legal" component={Legal}/>
-                    <Route path="/Privacy-policy" component={PrivacyPolicy}/>
-                </Switch>
-                <Footer/>
-            </Router>
+            <AuthProvider>
+                <Router>
+                    <Nav/>
+                    <Switch>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/Calendar" component={Calendar}/>
+                        <Route path="/User" component={User}/>
+                        <Route path="/Login" component={Auth}/>
+                        <Route path="/Legal" component={Legal}/>
+                        <Route path="/Privacy-policy" component={PrivacyPolicy}/>
+                    </Switch>
+                    <Footer/>
+                </Router>
+            </AuthProvider>
         );
     }
 }
