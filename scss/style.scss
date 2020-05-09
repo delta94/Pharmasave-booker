@@ -1,4 +1,4 @@
-@import "animations.scss";
+@import "animations";
 
 footer {
   background-color: $paper;
@@ -133,4 +133,64 @@ footer {
 .override-bg-none {
   animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
   background-color: rgba(0, 0, 0, 0);
+}
+
+.auth-container {
+  .back-container {
+    z-index: -1;
+    background-color: $secondary;
+    width: 80vw;
+    height: 30vw;
+    position: absolute;
+    top: 7.5vw;
+    left: 5vw;
+  }
+
+  .form-container {
+    z-index: 5;
+    background-color: $primary;
+    width: 35vw;
+    height: 35vw;
+    margin-bottom: 50px;
+    box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
+  
+    .container {
+      padding: 3vw 2vw;
+      font-size: 5vw;
+      color: $paper;
+    }
+
+    form {
+      margin-left: 2vw;
+
+      label,
+      .form-text {
+        color: $paper !important;
+      }
+
+      input, button {
+        border-radius: 0;
+      }
+
+      input {
+        width: 20vw;
+      }
+
+      button {
+        width: 10vw;
+      }
+
+      .google-sign-in {
+        cursor: pointer;
+      }
+
+      a {
+        color: $white;
+      }
+
+      a:hover {
+        color: $paper;
+      }
+    }
+  }
 }

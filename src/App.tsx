@@ -22,7 +22,7 @@
 import React from "react";
 import Calendar from "./calendar/Calendar";
 import Home from "./home/Home";
-import Login from "./login/Login";
+import Auth from "./login/Login";
 import User from "./user/User";
 import Footer from "./accessories/Footer";
 import Nav from "./accessories/Nav";
@@ -43,7 +43,7 @@ class App extends React.Component {
                     <Route path="/" exact component={Home}/>
                     <Route path="/Calendar" component={Calendar}/>
                     <Route path="/User" component={User}/>
-                    <Route path="/Login" component={Login}/>
+                    <Route path="/Login" component={Auth}/>
                     <Route path="/Legal" component={Legal}/>
                     <Route path="/Privacy-policy" component={PrivacyPolicy}/>
                 </Switch>
