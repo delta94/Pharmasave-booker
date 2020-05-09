@@ -162,39 +162,13 @@ class Auth extends React.Component<any, any> {
         super(props)
         this.state = {
             loginButton: "none",
-            regButton: "block"
+            regButton: "block",
+            current: "Login"
         }
     }
 
     private regRef = React.createRef<any>()
     private loginRef = React.createRef<any>()
-
-    // private switch_btns = (
-    //     <div id="switch-btns">
-    //         <div id="switch-login">
-    //             <button
-    //                 className = "btn btn-primary"
-    //                 onClick = {() => {
-    //                     this.regRef.current.setState({display: "none"})
-    //                     this.loginRef.current.setState({display: "block"})
-    //                     this.setState({loginButton: "block", regButton: "none"})
-    //                 }}
-    //                 style = {{display: this.state.display}}
-    //             >Login</button>
-    //         </div>
-    //         <div id="switch-reg">
-    //             <button
-    //                 className = "btn btn-primary"
-    //                 onClick = {() => {
-    //                     this.regRef.current.setState({display: "block"})
-    //                     this.loginRef.current.setState({display: "none"})
-    //                     this.setState({loginButton: "none", regButton: "block"})
-    //                 }}
-    //                 style = {{display: this.state.display}}
-    //             >Register</button>
-    //         </div>
-    //     </div>
-    // );
 
     render() {
         const switch_btns = (
@@ -205,7 +179,11 @@ class Auth extends React.Component<any, any> {
                         onClick = {() => {
                             this.regRef.current.setState({display: "none"})
                             this.loginRef.current.setState({display: "block"})
-                            this.setState({loginButton: "none", regButton: "block"})
+                            this.setState({
+                                loginButton: "none",
+                                regButton: "block",
+                                current: "Login"
+                            })
                         }}
                     >Login</button>
                 </div>
@@ -215,7 +193,11 @@ class Auth extends React.Component<any, any> {
                         onClick = {() => {
                             this.regRef.current.setState({display: "block"})
                             this.loginRef.current.setState({display: "none"})
-                            this.setState({loginButton: "block", regButton: "none"})
+                            this.setState({
+                                loginButton: "block",
+                                regButton: "none",
+                                current: "Register"
+                            })
                         }}
                     >Register</button>
                 </div>
@@ -227,7 +209,7 @@ class Auth extends React.Component<any, any> {
                 {switch_btns}
                 <div className="back-container"></div>
                 <div className="form-container">
-                    <h1 className="container">Login</h1>
+                    <h1 className="container">{this.state.current}</h1>
                     <Login ref={this.loginRef}/>
                     <Reg ref={this.regRef}/>
                 </div>
