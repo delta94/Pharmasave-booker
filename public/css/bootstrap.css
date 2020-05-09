@@ -7939,11 +7939,22 @@ footer #image-header {
   top: 7.5vw;
   left: 5vw;
 }
+.auth-container #switch-btns button {
+  position: absolute;
+  right: 30vw;
+  top: 30vw;
+  cursor: pointer;
+  z-index: 1000;
+}
+.auth-container button {
+  border-radius: 0;
+  width: 10vw;
+}
 .auth-container .form-container {
   z-index: 5;
   background-color: #c50f3c;
   width: 35vw;
-  height: 35vw;
+  height: 45vw;
   margin-bottom: 50px;
   box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
 }
@@ -7959,14 +7970,11 @@ footer #image-header {
 .auth-container .form-container form .form-text {
   color: #eff1f3 !important;
 }
-.auth-container .form-container form input, .auth-container .form-container form button {
+.auth-container .form-container form input {
   border-radius: 0;
 }
 .auth-container .form-container form input {
   width: 20vw;
-}
-.auth-container .form-container form button {
-  width: 10vw;
 }
 .auth-container .form-container form .google-sign-in {
   cursor: pointer;

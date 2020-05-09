@@ -22,10 +22,6 @@
 import React from "react";
 
 class GoogleSignInButton extends React.Component {
-    constructor(props: Object) {
-        super(props)
-    }
-
     buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
         (event.target as HTMLInputElement).setAttribute("src", `../pictures/btn_google_signin_dark_${state}_web.png`)
     }
@@ -80,14 +76,14 @@ class Login extends React.Component<any, any> {
 
     render() {
         return (
-            <form style={{display: this.state.display}}>
+            <form style={{display: this.state.display}} >
                 <div className="form-group">
                     {this.form_components.email}
                 </div>
                 <div className="form-group">
                     {this.form_components.password}
                 </div>
-                <a href="#">Forgot your password?</a>
+                <a>Forgot your password?</a>
                 {this.form_components.buttons}
             </form>
         );
@@ -161,17 +157,79 @@ class Reg extends React.Component<any, any> {
     }
 }
 
-class Auth extends React.Component {
+class Auth extends React.Component<any, any> {
+    constructor(props: object) {
+        super(props)
+        this.state = {
+            loginButton: "none",
+            regButton: "block"
+        }
+    }
+
+    private regRef = React.createRef<any>()
+    private loginRef = React.createRef<any>()
+
+    // private switch_btns = (
+    //     <div id="switch-btns">
+    //         <div id="switch-login">
+    //             <button
+    //                 className = "btn btn-primary"
+    //                 onClick = {() => {
+    //                     this.regRef.current.setState({display: "none"})
+    //                     this.loginRef.current.setState({display: "block"})
+    //                     this.setState({loginButton: "block", regButton: "none"})
+    //                 }}
+    //                 style = {{display: this.state.display}}
+    //             >Login</button>
+    //         </div>
+    //         <div id="switch-reg">
+    //             <button
+    //                 className = "btn btn-primary"
+    //                 onClick = {() => {
+    //                     this.regRef.current.setState({display: "block"})
+    //                     this.loginRef.current.setState({display: "none"})
+    //                     this.setState({loginButton: "none", regButton: "block"})
+    //                 }}
+    //                 style = {{display: this.state.display}}
+    //             >Register</button>
+    //         </div>
+    //     </div>
+    // );
+
     render() {
+        const switch_btns = (
+            <div id="switch-btns">
+                <div id="switch-login" style = {{display: this.state.loginButton}}>
+                    <button
+                        className = "btn btn-primary"
+                        onClick = {() => {
+                            this.regRef.current.setState({display: "none"})
+                            this.loginRef.current.setState({display: "block"})
+                            this.setState({loginButton: "none", regButton: "block"})
+                        }}
+                    >Login</button>
+                </div>
+                <div id="switch-reg" style = {{display: this.state.regButton}}>
+                    <button
+                        className = "btn btn-primary"
+                        onClick = {() => {
+                            this.regRef.current.setState({display: "block"})
+                            this.loginRef.current.setState({display: "none"})
+                            this.setState({loginButton: "block", regButton: "none"})
+                        }}
+                    >Register</button>
+                </div>
+            </div>
+        );
+
         return (
             <div className="auth-container container">
-                <div className="back-container">
-
-                </div>
+                {switch_btns}
+                <div className="back-container"></div>
                 <div className="form-container">
                     <h1 className="container">Login</h1>
-                    <Login/>
-                    <Reg/>
+                    <Login ref={this.loginRef}/>
+                    <Reg ref={this.regRef}/>
                 </div>
             </div>
         );
