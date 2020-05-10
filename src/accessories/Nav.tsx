@@ -21,7 +21,7 @@
 
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-
+import firebaseApp from "../firebase";
 
 class Nav extends React.Component {
     Nav() {
@@ -54,6 +54,14 @@ class Nav extends React.Component {
                             activeClassName = "active"
                             to = "/Login">Log in
                         </NavLink>
+                        <Link
+                            style = {{cursor: "pointer"}}
+                            className = "nav-item nav-link"
+                            onClick = {() => {firebaseApp.auth().signOut()}}
+                            to = "/"
+                        >
+                            Logout
+                        </Link>
                     </div>
                 </div>
             </nav>

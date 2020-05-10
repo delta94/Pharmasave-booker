@@ -84,7 +84,7 @@ class Login extends React.Component<any, any> {
                 <div className="form-group">
                     {this.form_components.password}
                 </div>
-                <a>Forgot your password?</a>
+                <a href="#!">Forgot your password?</a>
                 {this.form_components.buttons}
             </form>
         );
