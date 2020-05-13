@@ -51,7 +51,7 @@ function resizeDivider() {
     }
 }
 
-document.querySelector(".navbar-toggler").addEventListener("click", event => {
+document.querySelector(".navbar-toggler").addEventListener("click", () => {
     const navSelection = document.getElementById("navbarNav")
     const navbar = document.querySelector(".navbar")
     if (!navSelection.classList.contains("show")) {

@@ -24,6 +24,32 @@ import { NavLink, Link } from "react-router-dom";
 import firebaseApp from "../firebase";
 
 class Nav extends React.Component {
+    private NavbarNav = (
+        <div className="navbar-nav">
+            <NavLink
+                exact
+                className = "nav-item nav-link"
+                activeClassName = "active"
+                to = "/">Home <span className="sr-only">(current)</span>
+            </NavLink>
+            <NavLink
+                className = "nav-item nav-link disabled"
+                activeClassName = "active"
+                to = "/Calendar">Schedule a Pickup
+            </NavLink>
+            <NavLink
+                className = "nav-item nav-link disabled"
+                activeClassName = "active"
+                to="/User">My Schedule
+            </NavLink>
+            <NavLink
+                className = "nav-item nav-link"
+                activeClassName = "active"
+                to = "/Login">Log in
+            </NavLink>
+        </div>
+    )
+
     Nav() {
         return (
             <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
