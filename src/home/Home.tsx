@@ -77,9 +77,9 @@ class Home extends React.Component {
                 // eslint-disable-next-line
                 const ratio = 7559 / 11811; // Height:width ratio
 
-                (splash as HTMLElement).style.height = (
+                (splash as HTMLElement).style.height = `${(
                     windowWidth * ratio - navBarHeight
-                ).toString() + "px";
+                ).toString()}px`;
             }
         }
     }
