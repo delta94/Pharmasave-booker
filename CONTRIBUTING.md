@@ -87,6 +87,10 @@ const myObj = {
 }
 ```
 
+### Importing ###
+-   Sort imports alphabetically
+-   Do not use `require()`
+
 ### Semicolons ###
 -   For all `JS`, `JSX`, `TS`, and `TSX` files, use semicolons only in these cases:
     -   After an import
