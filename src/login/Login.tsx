@@ -23,8 +23,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {Login, Reg} from "./_Forms";
+
 import React from "react";
-import { Reg, Login } from "./_Forms";
 
 class Auth extends React.Component<{}, {[key: string]: string}> {
     constructor(props: object) {

@@ -23,9 +23,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+
 import firebaseApp from "../firebase";
+import React from "react";
 
 /**
  * The navbar component

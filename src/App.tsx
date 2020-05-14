@@ -22,22 +22,22 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-import React from "react";
-import Calendar from "./calendar/Calendar";
-import Home from "./home/Home";
-import Auth from "./login/Login";
-import User from "./user/User";
-import Footer from "./accessories/Footer";
-import Nav from "./accessories/Nav";
-import Legal from "./legal/Legal"
-import PrivacyPolicy from "./legal/Privacy-policy"
-import { AuthProvider } from "./Auth.js"
 import {
+    Route,
     BrowserRouter as Router,
     Switch,
-    Route
 } from "react-router-dom";
+import {AuthProvider} from "./Auth.js"
+
+import Auth from "./login/Login";
+import Calendar from "./calendar/Calendar";
+import Footer from "./accessories/Footer";
+import Home from "./home/Home";
+import Legal from "./legal/Legal"
+import Nav from "./accessories/Nav";
+import PrivacyPolicy from "./legal/Privacy-policy"
+import React from "react";
+import User from "./user/User";
 
 class App extends React.Component {
     public render() {

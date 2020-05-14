@@ -23,8 +23,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {AuthContext} from "../Auth";
+
 import React from "react";
-import { AuthContext } from "../Auth";
 
 /**
  * Class for checking for authentication

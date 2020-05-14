@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import firebase from "firebase/app";
 import "firebase/auth";
+import firebase from "firebase/app";
 
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyCDtmIH9q9hf0Yw-8CVW-3Bf2e0HGPRCk8",
