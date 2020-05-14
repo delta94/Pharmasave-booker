@@ -53,7 +53,7 @@
             "objects": "only-multiline",
             "imports": "never",
             "exports": "only-multiline",
-            "functions": "never"
+            "functions": "only-multiline"
         }],
         "comma-spacing": "error",
         "comma-style": "error",
