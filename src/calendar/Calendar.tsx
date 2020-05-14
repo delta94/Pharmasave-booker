@@ -26,11 +26,13 @@
 import React from "react";
 
 class Calendar extends React.Component {
+
     public render = (): JSX.Element => {
         return (
             <h1>Calendar</h1>
         );
     }
+    
 }
 
 export default Calendar;
