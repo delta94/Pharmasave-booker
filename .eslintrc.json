@@ -41,10 +41,10 @@
         "capitalized-comments": "error",
         "class-methods-use-this": "error",
         "comma-dangle": ["error", {
-            "arrays": "always",
-            "objects": "always",
+            "arrays": "only-multiline",
+            "objects": "only-multiline",
             "imports": "never",
-            "exports": "always",
+            "exports": "only-multiline",
             "functions": "never"
         }],
         "comma-spacing": "error",
@@ -87,7 +87,7 @@
         "lines-around-comment": "error",
         "lines-around-directive": "error",
         "lines-between-class-members": "error",
-        "max-classes-per-file": "error",
+        "max-classes-per-file": ["error", 3],
         "max-depth": "error",
         "max-len": "error",
         "max-lines": "error",
