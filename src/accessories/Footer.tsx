@@ -31,6 +31,7 @@ import React from "react";
  * Footer component
  */
 class Footer extends React.Component {
+    
     private footerParts = {
         nav: (
             <div className="col-lg-3 col-md-3 col-sm-12">
@@ -40,10 +41,20 @@ class Footer extends React.Component {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/Calendar" className="btn-link disabled">Book a Pickup</Link>
+                        <Link
+                            to = "/Calendar"
+                            className = "btn-link disabled"
+                        >
+                            Book a Pickup
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/User" className="btn-link disabled">Your Scheduled Pickups</Link>
+                        <Link
+                            to = "/User"
+                            className = "btn-link disabled"
+                        >
+                            Your Scheduled Pickups
+                        </Link>
                     </li>
                     <li>
                         <Link to="/Login">Login</Link>
@@ -56,13 +67,26 @@ class Footer extends React.Component {
                 <h5 className="text-uppercase">Contact</h5>
                 <ul className="list-unstyled">
                     <li>
-                        <p><span className="material-icons">call</span>  (519) 885-5555</p>
+                        <p>
+                            <span className="material-icons">call</span>
+                              (519) 885-5555
+                        </p>
                     </li>
                     <li>
-                        <p><span className="material-icons">print</span>  (519) 885-5554 </p>
+                        <p>
+                            <span className="material-icons">print</span>
+                              (519) 885-5554
+                        </p>
                     </li>
                     <li>
-                        <a href="https://goo.gl/maps/jABcwNoBWiG9ahBo6" target="_blank" rel="noopener noreferrer"><span className="material-icons">business</span>  105 Oak Park Dr #4, Waterloo, ON N2K 0B3</a>
+                        <a
+                            href = "https://goo.gl/maps/jABcwNoBWiG9ahBo6"
+                            target = "_blank"
+                            rel = "noopener noreferrer"
+                        >
+                            <span className="material-icons">business</span>
+                              105 Oak Park Dr #4, Waterloo, ON N2K 0B3
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -72,17 +96,23 @@ class Footer extends React.Component {
                 <h5 className="text-uppercase">Image Credits</h5>
                 <ul className="list-unstyled">
                     <li>
+                        {/* eslint-disable-next-line */}
                         <a className="unsplash-credit" href="https://unsplash.com/@adamsky1973?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Adam Nieścioruk"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span>Adam Nieścioruk</span></a>
                     </li>
                     <li>
+                        {/* eslint-disable-next-line */}
                         <a className="btn btn-secondary" href="https://material.io/resources/icons/?search=arrow&icon=keyboard_arrow_right&style=baseline">Google Material Icons</a>
                     </li>
                 </ul>
             </div>
         ),
         copyright: (
-            <div className="footer-copyright text-center py-3">© 2020 Copyright:
-                <Link to="https://github.com/Luke-zhang-04"> Luke Zhang</Link>, <Link to="https://github.com/ethanlim04">Ethan Lim</Link>, and Pharmasave Carriage Crossing Pharamcy
+            <div className="footer-copyright text-center py-3">
+                © 2020 Copyright:{" "}
+                <Link to="https://github.com/Luke-zhang-04">Luke Zhang</Link>,
+                {" "}
+                <Link to="https://github.com/ethanlim04">Ethan Lim</Link>,{" "}
+                and Pharmasave Carriage Crossing Pharamcy
                 <ul className="list-unstyled">
                     <li>
                         <Link to="/Legal">Terms and Conditions</Link>
@@ -95,14 +125,16 @@ class Footer extends React.Component {
         ),
         logo: (
             <div className="col-lg-3 col-md-3 col-sm-12">
-                <h5 id="image-header" className="text-uppercase">Carriage Crossing Pharmacy</h5>
+                <h5 id="image-header" className="text-uppercase">
+                    Carriage Crossing Pharmacy
+                </h5>
                 <img src="pictures/pharmasave-logo.png" alt="pharmasave logo"/>
             </div>
         ),
     }
 
     /**
-     * Footer component
+     * @returns {JSX.Element} footer component
      */
     private footer = (): JSX.Element => {
         return (
@@ -121,9 +153,13 @@ class Footer extends React.Component {
         );
     }
 
+    /**
+     * @returns {JSX.Element} footer component
+     */
     public render = (): JSX.Element => {
         return this.footer()
     }
+
 }
 
 export default Footer;
