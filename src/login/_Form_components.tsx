@@ -29,34 +29,44 @@ import React from "react";
  * Google sign in button
  */
 class GoogleSignInButton extends React.Component {
+
     /**
-     * updates button on hover
+     * Updates button on hover
      * @param {string} state - current state of button
-     * @param {React.MouseEvent<HTMLImageElement, MouseEvent} event - mouse event
+     * @param {React.MouseEvent<HTMLImageElement, MouseEvent>} event - event
+     * @returns {void} voic
      */
     private buttonState = (
         state: string,
         event: React.MouseEvent<HTMLImageElement, MouseEvent>,
     ): void => {
-        (event.target as HTMLInputElement)
-            .setAttribute(
-                "src",
-                `../pictures/btn_google_signin_dark_${state}_web.png`,
-            )
+        (event.target as HTMLInputElement).setAttribute(
+            "src",
+            `../pictures/btn_google_signin_dark_${state}_web.png`,
+        )
     }
 
+    /**
+     * Renders Google sign in button
+     * @returns {JSX.Element} Google sign in button
+     */
     public render = (): JSX.Element => {
         return (
             <div className="google-sign-in">
                 <img
-                    alt="google-sign-in"
-                    src="../pictures/btn_google_signin_dark_normal_web.png"
-                    onMouseEnter={(e) => this.buttonState("focus", e)}
-                    onMouseLeave={(e) => this.buttonState("normal", e)}
+                    alt = "google-sign-in"
+                    src = "../pictures/btn_google_signin_dark_normal_web.png"
+                    onMouseEnter = {(event) => {
+                        this.buttonState("focus", event)
+                    }}
+                    onMouseLeave = {(event) => {
+                        this.buttonState("normal", event)
+                    }}
                 />
             </div>
         );
     }
+
 }
 
 
@@ -86,7 +96,9 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => {
  * @param {"reg" | "login"} type  - "reg" or "login" email feild
  * @returns {JSX.Element} regristration or login email field
  */
+/* eslint-disable one-var */
 export const makeEmailField = (type: "reg" | "login"): JSX.Element => {
+    /* eslint-enable one-var */
     return (
         <label>
             Email
@@ -102,7 +114,7 @@ export const makeEmailField = (type: "reg" | "login"): JSX.Element => {
                 id = "emailHelp"
                 className = "form-text text-muted"
             >
-                    We'll never share your email with anyone else.
+                    We&apos;ll never share your email with anyone else.
             </small>
         </label>
     );
