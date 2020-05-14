@@ -31,6 +31,7 @@ import firebaseApp from "../firebase";
  * The navbar component
  */
 class Nav extends React.Component {
+
     private navbarComponents = {
         home: (
             <NavLink
@@ -65,7 +66,9 @@ class Nav extends React.Component {
             <Link
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
-                onClick = {() => {firebaseApp.auth().signOut()}}
+                onClick = {() => {
+                    firebaseApp.auth().signOut()
+                }}
                 to = "/"
             >
                 Logout
@@ -83,14 +86,28 @@ class Nav extends React.Component {
         </div>
     );
 
+    private navbarClassNames =
+        "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
+
     /**
      * The navbar component
+     * @returns {JSX.Element} navbar element
      */
-    private Nav = (): JSX.Element => {
+    private nav = (): JSX.Element => {
         return (
-            <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
-                <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png" alt="logo"/></Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <nav className = {this.navbarClassNames}>
+                <Link className="navbar-brand" to="/">
+                    <img src="pictures/pharmasave-logo.png" alt="logo"/>
+                </Link>
+                <button
+                    className = "navbar-toggler"
+                    type = "button"
+                    data-toggle = "collapse"
+                    data-target = "#navbarNav"
+                    aria-controls = "navbarNav"
+                    aria-expanded = "false"
+                    aria-label = "Toggle navigation"
+                >
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
@@ -102,9 +119,13 @@ class Nav extends React.Component {
         );
     }
 
+    /**
+     * @returns {JSX.Element} navbar element
+     */
     public render = (): JSX.Element => {
-        return this.Nav()
+        return this.nav()
     }
+
 }
 
 export default Nav;
