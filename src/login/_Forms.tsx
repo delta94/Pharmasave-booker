@@ -25,7 +25,7 @@
 
 import {
     makeButton, 
-    makeEmailField,
+    makeEmailField
 } from "./_Form_components";
 import {Link} from "react-router-dom";
 import React from "react";
@@ -33,8 +33,9 @@ import React from "react";
 /**
  * Login form
  */
-class Login extends React.Component<{}, {[key: string]: string}>  {
-    constructor(props: object) {
+class Login extends React.Component<{}, {[key: string]: string}> {
+
+    constructor (props: object) {
         super(props)
         this.state = {
             display: "block"
@@ -45,11 +46,20 @@ class Login extends React.Component<{}, {[key: string]: string}>  {
         password: (
             <label>
                 Password
-                <input type="password" className="form-control" id="login-password" placeholder="Password"/>
+                <input
+                    type = "password"
+                    className = "form-control"
+                    id = "login-password"
+                    placeholder = "Password"
+                />
             </label>
         ),
     }
 
+    /**
+     * Render login form
+     * @returns {JSX.Element} login form
+     */
     public render = (): JSX.Element => {
         return (
             <form style={{display: this.state.display}} >
@@ -64,14 +74,16 @@ class Login extends React.Component<{}, {[key: string]: string}>  {
             </form>
         );
     }
+
 }
 
 
 /**
  * Registration form
  */
-class Reg extends React.Component<{}, {[key: string]: string}>  {
-    constructor(props: object) {
+class Reg extends React.Component<{}, {[key: string]: string}> {
+
+    constructor (props: object) {
         super(props)
         this.state = {
             display: "none"
@@ -82,36 +94,68 @@ class Reg extends React.Component<{}, {[key: string]: string}>  {
         name: (
             <label>
                 Full, legal name
-                <input type="name" className="form-control" id="reg-name" aria-describedby="emailHelp" placeholder="Full, legal name"/>
+                <input
+                    type = "name"
+                    className = "form-control"
+                    id = "reg-name"
+                    aria-describedby = "emailHelp"
+                    placeholder = "Full, legal name"
+                />
             </label>
         ),
         password: (
             <label>
                 Password
-                <input type="password" className="form-control" id="reg-password" placeholder="Password"/>
+                <input
+                    type = "password"
+                    className = "form-control"
+                    id = "reg-password"
+                    placeholder = "Password"
+                />
             </label>
         ),
         password2: (
             <label>
                 Confirm you Password
-                <input type="password" className="form-control" id="reg-password-2" placeholder="Retype password"/>
+                <input
+                    type = "password"
+                    className = "form-control"
+                    id = "reg-password-2"
+                    placeholder = "Retype password"
+                />
             </label>
         ),
         agreement: (
             <div className="form-group">
-                <p> By signing up, you agree to our <Link to="/Legal">Terms and Conditions</Link> and <Link to="/Privacy-policy">Privacy Policy</Link></p>
+                <p>By signing up, you agree to our
+                    <Link to="/Legal">Terms and Conditions</Link>
+                    and
+                    <Link to="/Privacy-policy">Privacy Policy</Link></p>
                 <label id="tandc">
-                    I have read, and agree to the <Link to="/Legal">Terms and Conditions</Link>
-                    <input type="checkbox" className="form-check-input" id="tandc-check"></input>
+                    I have read, and agree to the
+                    <Link to="/Legal">Terms and Conditions</Link>
+                    <input
+                        type = "checkbox"
+                        className = "form-check-input"
+                        id = "tandc-check"
+                    ></input>
                 </label>
                 <label id="ppolicy">
-                    I have read, and agree to the <Link to="/Privacy-policy">Privacy Policy</Link>
-                    <input type="checkbox" className="form-check-input" id="ppolicy-check"></input>
+                    I have read, and agree to the
+                    <Link to="/Privacy-policy">Privacy Policy</Link>
+                    <input
+                        type = "checkbox"
+                        className = "form-check-input"
+                        id = "ppolicy-check"></input>
                 </label>
             </div>
         ),
     }
 
+    /**
+     * Render resitration form
+     * @returns {JSX.Element} login form
+     */
     public render = (): JSX.Element => {
         return (
             <form style={{display: this.state.display}}>
@@ -132,6 +176,7 @@ class Reg extends React.Component<{}, {[key: string]: string}>  {
             </form>
         );
     }
+
 }
 
 export {
