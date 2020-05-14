@@ -29,7 +29,7 @@ const firebaseConfig = {
     storageBucket: "carriage-crossing-pharmacy.appspot.com",
     messagingSenderId: "663905550795",
     appId: "1:663905550795:web:e812497f884f32fd95364e",
-    measurementId: "G-LSVBP608QP"
+    measurementId: "G-LSVBP608QP",
 };
 
 firebase.initializeApp(firebaseConfig);

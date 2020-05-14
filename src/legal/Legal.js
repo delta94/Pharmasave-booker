@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
     Carriage Crossing Pharmacy Booker
     Copyright (C) 2020 Luke Zhang, Ethan Lim
