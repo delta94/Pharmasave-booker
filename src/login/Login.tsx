@@ -97,7 +97,9 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
                 {this.switchButtons()}
                 <div className="back-container"></div>
                 <div
-                    className = {`form-container ${this.state.current}-container`}
+                    className = {
+                        `form-container ${this.state.current}-container`
+                    }
                 >
                     <h1 className="container">{this.state.current}</h1>
                     <Login ref={this.loginRef}/>
