@@ -7,6 +7,48 @@ When contributing please try to adhere to these rules. Other rules exist, though
 -   For `CSS` and `SCSS` files, use 2 spaces of indentation
 -   For everything else, use 4 spaces of indentation
 
+### Brace style ###
+-   Use the <i>one true brace style</i>
+#### Good ###
+```javascript
+if (true) {
+    // stuff
+} else {
+    // stuff
+}
+```
+#### Bad ####
+The Stroustrup
+```javascript
+if (true) {
+    // stuff
+}
+else {
+    // stuff
+}
+```
+the Allman
+```javascript
+if (true)
+{
+    // stuff
+}
+else
+{
+    // stuff
+}
+```
+Or this weird one
+```javascript
+if (true)
+{
+    // stuff
+} else
+{
+    // stuff
+}
+```
+
 ### Lists ###
 -   Use trailing comma
 ### Good ###
