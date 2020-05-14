@@ -22,11 +22,13 @@
 import React from "react";
 
 class User extends React.Component {
+
     public render = (): JSX.Element => {
         return (
             <h1>User info</h1>
         );
     }
+    
 }
 
 export default User;
