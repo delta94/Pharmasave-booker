@@ -22,7 +22,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prefer-arrow"
     ],
     "rules": {
         "accessor-pairs": "error",
@@ -208,6 +209,14 @@
         "padded-blocks": "error",
         "padding-line-between-statements": "error",
         "prefer-arrow-callback": "error",
+        "prefer-arrow/prefer-arrow-functions": [
+            "warn", {
+                "disallowPrototype": true,
+                "singleReturnOnly": false,
+                "classPropertiesAllowed": true,
+                "allowStandaloneDeclarations": false
+            }
+        ],
         "prefer-const": "error",
         "prefer-destructuring": "error",
         "prefer-exponentiation-operator": "error",
