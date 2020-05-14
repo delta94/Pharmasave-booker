@@ -28,7 +28,8 @@ import {Login, Reg} from "./_Forms";
 import React from "react";
 
 class Auth extends React.Component<{}, {[key: string]: string}> {
-    constructor(props: object) {
+
+    constructor (props: object) {
         super(props)
         this.state = {
             loginButton: "none",
@@ -38,6 +39,7 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
     }
 
     private regRef = React.createRef<any>()
+
     private loginRef = React.createRef<any>()
 
     private switchLogin = (): JSX.Element => {
@@ -63,7 +65,7 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
     private switchReg = (): JSX.Element => {
         return (
             <div id="switch-reg" style={{display: this.state.regButton}}>
-                <p>Don't have an account?</p>
+                <p>Don&apos;t have an account?</p>
                 <button
                     className = "btn btn-primary"
                     onClick = {() => {
@@ -94,7 +96,9 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
             <div className="auth-container container">
                 {this.switchButtons()}
                 <div className="back-container"></div>
-                <div className={`form-container ${this.state.current}-container`}>
+                <div
+                    className = {`form-container ${this.state.current}-container`}
+                >
                     <h1 className="container">{this.state.current}</h1>
                     <Login ref={this.loginRef}/>
                     <Reg ref={this.regRef}/>
@@ -102,6 +106,7 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
             </div>
         );
     }
+
 }
 
 export default Auth;
