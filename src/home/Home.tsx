@@ -31,6 +31,7 @@ import React from "react";
  * Home component
  */
 class Home extends React.Component {
+
     private splash = {
         splash: (
             <div className="splash">
@@ -52,7 +53,7 @@ class Home extends React.Component {
         ),
     }
     
-    constructor(props: {}) {
+    constructor (props: {}) {
         super(props)
         this.state = {
             imageLoaded: false,
@@ -61,30 +62,48 @@ class Home extends React.Component {
 
     /**
      * When page size is changed
+     * @returns {void} void
      */
     private updateDimensions = (): void => {
-        //Size a relative div so absolute image isn't overtop of everything
-        const navBarCurrent = document.querySelector(".navbar")
-        const windowWidth = window.innerWidth
+        // Size a relative div so absolute image isn't overtop of everything
+        const navBarCurrent = document.querySelector(".navbar"),
+            windowWidth = window.innerWidth
+
         if (navBarCurrent) {
-            const navBarHeight = navBarCurrent.clientHeight
-            let splash = document.querySelector(".splash")
+            const navBarHeight = navBarCurrent.clientHeight,
+                splash = document.querySelector(".splash")
+
             if (splash) {
-                let ratio = 7559/11811; //height:width ratio
-                (splash as HTMLElement).style.height = (windowWidth*ratio - navBarHeight).toString() + "px";
+                // eslint-disable-next-line
+                const ratio = 7559 / 11811; // Height:width ratio
+
+                (splash as HTMLElement).style.height = (
+                    windowWidth * ratio - navBarHeight
+                ).toString() + "px";
             }
         }
     }
 
+    /**
+     * Updates on window resize
+     * @returns {void} void
+     */
     public componentDidMount = (): void => {
         this.updateDimensions()
         window.addEventListener("resize", this.updateDimensions.bind(this))
     }
 
+    /**
+     * @returns {void} void
+     */
     public componentWillUnmount = (): void => {
         window.removeEventListener("resize", this.updateDimensions.bind(this))
     }
 
+    /**
+     * Renders homepage
+     * @returns {JSX.Element} homepage
+     */
     public render = (): JSX.Element => {
         return (
             <div className="splash-container">
@@ -93,6 +112,7 @@ class Home extends React.Component {
             </div>
         );
     }
+
 }
 
 export default Home;
