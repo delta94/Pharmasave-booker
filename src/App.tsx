@@ -52,13 +52,17 @@ class App extends React.Component {
                         <Route path="/User" component={User}/>
                         <Route path="/Login" component={Auth}/>
                         <Route path="/Legal" component={Legal}/>
-                        <Route path="/Privacy-policy" component={PrivacyPolicy}/>
+                        <Route
+                            path = "/Privacy-policy"
+                            component = {PrivacyPolicy}
+                        />
                     </Switch>
                     <Footer/>
                 </Router>
             </AuthProvider>
         );
     }
+
 }
 
 export default App;
