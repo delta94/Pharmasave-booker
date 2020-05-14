@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Defines component for displaying privacy policy
  */

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Defines components for terms and conditions
  */
