@@ -25,33 +25,10 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-
-/**
- * Google sign in button
- */
-class GoogleSignInButton extends React.Component {
-    /**
-     * updates button on hover
-     * @param {string} state - current state of button
-     * @param {React.MouseEvent<HTMLImageElement, MouseEvent} event - mouse event
-     */
-    private buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-        (event.target as HTMLInputElement).setAttribute("src", `../pictures/btn_google_signin_dark_${state}_web.png`)
-    }
-
-    public render() {
-        return (
-            <div className="google-sign-in">
-                <img
-                    alt="google-sign-in"
-                    src="../pictures/btn_google_signin_dark_normal_web.png"
-                    onMouseEnter={(e) => this.buttonState("focus", e)}
-                    onMouseLeave={(e) => this.buttonState("normal", e)}
-                />
-            </div>
-        );
-    }
-}
+import {
+    makeButton, 
+    makeEmailField,
+} from "./_Form_components";
 
 /**
  * Login form
@@ -65,42 +42,25 @@ class Login extends React.Component<any, any> {
     }
     
     private form_components = {
-        email: (
-            <label>
-                Email
-                <input type="email" className="form-control" id="login-email" aria-describedby="emailHelp" placeholder="Enter email"/>
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-            </label>
-        ),
         password: (
             <label>
                 Password
                 <input type="password" className="form-control" id="login-password" placeholder="Password"/>
             </label>
         ),
-        buttons: (
-            <div className="row">
-                <div className="col-6">
-                    <button type="submit" className="btn btn-secondary">Login</button>  
-                </div>
-                <div className="col-6">
-                    <GoogleSignInButton/>
-                </div>
-            </div>
-        )
     }
 
     public render() {
         return (
             <form style={{display: this.state.display}} >
                 <div className="form-group">
-                    {this.form_components.email}
+                    {makeEmailField("login")}
                 </div>
                 <div className="form-group">
                     {this.form_components.password}
                 </div>
                 <a href="#!">Forgot your password?</a>
-                {this.form_components.buttons}
+                {makeButton("Login")}
             </form>
         );
     }
@@ -124,13 +84,6 @@ class Reg extends React.Component<any, any> {
                 <input type="name" className="form-control" id="reg-name" aria-describedby="emailHelp" placeholder="Full, legal name"/>
             </label>
         ),
-        email: (
-            <label>
-                Email
-                <input type="email" className="form-control" id="reg-email" aria-describedby="emailHelp" placeholder="Email"/>
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-            </label>
-        ),
         password: (
             <label>
                 Password
@@ -143,16 +96,19 @@ class Reg extends React.Component<any, any> {
                 <input type="password" className="form-control" id="reg-password-2" placeholder="Retype password"/>
             </label>
         ),
-        buttons: (
-            <div className="row">
-                <div className="col-6">
-                    <button type="submit" className="btn btn-secondary">Register</button>  
-                </div>
-                <div className="col-6">
-                    <GoogleSignInButton/>
-                </div>
+        agreement: (
+            <div className="form-group">
+                <p> By signing up, you agree to our <Link to="/Legal">Terms and Conditions</Link> and <Link to="/Privacy-policy">Privacy Policy</Link></p>
+                <label id="tandc">
+                    I have read, and agree to the <Link to="/Legal">Terms and Conditions</Link>
+                    <input type="checkbox" className="form-check-input" id="tandc-check"></input>
+                </label>
+                <label id="ppolicy">
+                    I have read, and agree to the <Link to="/Privacy-policy">Privacy Policy</Link>
+                    <input type="checkbox" className="form-check-input" id="ppolicy-check"></input>
+                </label>
             </div>
-        )
+        ),
     }
 
     public render() {
@@ -162,7 +118,7 @@ class Reg extends React.Component<any, any> {
                     {this.form_components.name}
                 </div>
                 <div className="form-group">
-                    {this.form_components.email}
+                    {makeEmailField("reg")}
                 </div>
                 <div className="form-group">
                     {this.form_components.password}
@@ -170,25 +126,14 @@ class Reg extends React.Component<any, any> {
                 <div className="form-group">
                     {this.form_components.password2}
                 </div>
-                <div className="form-group">
-                    <p> By signing up, you agree to our <Link to="/Legal">Terms and Conditions</Link> and <Link to="/Privacy-policy">Privacy Policy</Link></p>
-                    <label id="tandc">
-                    I have read, and agree to the <Link to="/Legal">Terms and Conditions</Link>
-                        <input type="checkbox" className="form-check-input" id="tandc-check"></input>
-                    </label>
-                    <label id="ppolicy">
-                        I have read, and agree to the <Link to="/Privacy-policy">Privacy Policy</Link>
-                        <input type="checkbox" className="form-check-input" id="ppolicy-check"></input>
-                    </label>
-                </div>
-                {this.form_components.buttons}
+                {this.form_components.agreement}
+                {makeButton("Register")}
             </form>
         );
     }
 }
 
 export {
-    GoogleSignInButton,
     Reg,
-    Login
-}
+    Login,
+};

@@ -31,29 +31,55 @@ import firebaseApp from "../firebase";
  * The navbar component
  */
 class Nav extends React.Component {
-    private NavbarNav = (
-        <div className="navbar-nav">
+    private navbarComponents = {
+        home: (
             <NavLink
                 exact
                 className = "nav-item nav-link"
                 activeClassName = "active"
                 to = "/">Home <span className="sr-only">(current)</span>
             </NavLink>
+        ),
+        calendar: (
             <NavLink
                 className = "nav-item nav-link disabled"
                 activeClassName = "active"
                 to = "/Calendar">Schedule a Pickup
             </NavLink>
+        ),
+        user: (
             <NavLink
                 className = "nav-item nav-link disabled"
                 activeClassName = "active"
                 to="/User">My Schedule
             </NavLink>
+        ),
+        auth: (
             <NavLink
                 className = "nav-item nav-link"
                 activeClassName = "active"
                 to = "/Login">Log in
             </NavLink>
+        ),
+        logout: (
+            <Link
+                style = {{cursor: "pointer"}}
+                className = "nav-item nav-link"
+                onClick = {() => {firebaseApp.auth().signOut()}}
+                to = "/"
+            >
+                Logout
+            </Link>
+        ),
+    }
+
+    private navbarNav = (
+        <div className="navbar-nav">
+            {this.navbarComponents.home}
+            {this.navbarComponents.calendar}
+            {this.navbarComponents.user}
+            {this.navbarComponents.auth}
+            {this.navbarComponents.logout}
         </div>
     )
 
@@ -69,35 +95,7 @@ class Nav extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <div className="navbar-nav">
-                        <NavLink
-                            exact
-                            className = "nav-item nav-link"
-                            activeClassName = "active"
-                            to = "/">Home <span className="sr-only">(current)</span>
-                        </NavLink>
-                        <NavLink
-                            className = "nav-item nav-link disabled"
-                            activeClassName = "active"
-                            to = "/Calendar">Schedule a Pickup
-                        </NavLink>
-                        <NavLink
-                            className = "nav-item nav-link disabled"
-                            activeClassName = "active"
-                            to="/User">My Schedule
-                        </NavLink>
-                        <NavLink
-                            className = "nav-item nav-link"
-                            activeClassName = "active"
-                            to = "/Login">Log in
-                        </NavLink>
-                        <Link
-                            style = {{cursor: "pointer"}}
-                            className = "nav-item nav-link"
-                            onClick = {() => {firebaseApp.auth().signOut()}}
-                            to = "/"
-                        >
-                            Logout
-                        </Link>
+                        {this.navbarNav}
                     </div>
                 </div>
             </nav>

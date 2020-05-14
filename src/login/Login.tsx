@@ -26,7 +26,6 @@
 import React from "react";
 import { Reg, Login } from "./_Forms";
 
-
 class Auth extends React.Component<any, any> {
     constructor(props: object) {
         super(props)
@@ -40,45 +39,59 @@ class Auth extends React.Component<any, any> {
     private regRef = React.createRef<any>()
     private loginRef = React.createRef<any>()
 
-    public render() {
-        const switch_btns = (
-            <div id="switch-btns">
-                <div id="switch-login" style={{display: this.state.loginButton}}>
-                    <p>Already have an account?</p>
-                    <button
-                        className = "btn btn-primary"
-                        onClick = {() => {
-                            this.regRef.current.setState({display: "none"})
-                            this.loginRef.current.setState({display: "block"})
-                            this.setState({
-                                loginButton: "none",
-                                regButton: "block",
-                                current: "Login"
-                            })
-                        }}
-                    >Login</button>
-                </div>
-                <div id="switch-reg" style={{display: this.state.regButton}}>
-                    <p>Don't have an account?</p>
-                    <button
-                        className = "btn btn-primary"
-                        onClick = {() => {
-                            this.regRef.current.setState({display: "block"})
-                            this.loginRef.current.setState({display: "none"})
-                            this.setState({
-                                loginButton: "block",
-                                regButton: "none",
-                                current: "Register"
-                            })
-                        }}
-                    >Register</button>
-                </div>
+    private switchLogin = () => {
+        return (
+            <div id="switch-login" style={{display: this.state.loginButton}}>
+                <p>Already have an account?</p>
+                <button
+                    className = "btn btn-primary"
+                    onClick = {() => {
+                        this.regRef.current.setState({display: "none"})
+                        this.loginRef.current.setState({display: "block"})
+                        this.setState({
+                            loginButton: "none",
+                            regButton: "block",
+                            current: "Login"
+                        })
+                    }}
+                >Login</button>
             </div>
         );
+    }
 
+    private switchReg = () => {
+        return (
+            <div id="switch-reg" style={{display: this.state.regButton}}>
+                <p>Don't have an account?</p>
+                <button
+                    className = "btn btn-primary"
+                    onClick = {() => {
+                        this.regRef.current.setState({display: "block"})
+                        this.loginRef.current.setState({display: "none"})
+                        this.setState({
+                            loginButton: "block",
+                            regButton: "none",
+                            current: "Register"
+                        })
+                    }}
+                >Register</button>
+            </div>
+        );
+    }
+
+    private switch_btns = () => {
+        return (
+            <div id="switch-btns">
+                {this.switchLogin()}
+                {this.switchReg()}
+            </div>
+        );
+    }
+
+    public render() {
         return (
             <div className="auth-container container">
-                {switch_btns}
+                {this.switch_btns()}
                 <div className="back-container"></div>
                 <div className={`form-container ${this.state.current}-container`}>
                     <h1 className="container">{this.state.current}</h1>
