@@ -79,7 +79,7 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
         );
     }
 
-    private switch_btns = (): JSX.Element => {
+    private switchButtons = (): JSX.Element => {
         return (
             <div id="switch-btns">
                 {this.switchLogin()}
@@ -91,7 +91,7 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
     public render = (): JSX.Element => {
         return (
             <div className="auth-container container">
-                {this.switch_btns()}
+                {this.switchButtons()}
                 <div className="back-container"></div>
                 <div className={`form-container ${this.state.current}-container`}>
                     <h1 className="container">{this.state.current}</h1>
