@@ -40,7 +40,7 @@ class Auth extends React.Component<any, any> {
     private regRef = React.createRef<any>()
     private loginRef = React.createRef<any>()
 
-    render() {
+    public render() {
         const switch_btns = (
             <div id="switch-btns">
                 <div id="switch-login" style={{display: this.state.loginButton}}>

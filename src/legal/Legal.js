@@ -30,7 +30,7 @@ const Legal = () => {
     return (
         <div className='container'>
             <h1>Pharmasave Carriage Crossing Pharmacy Booker Terms of Use</h1>
-            <p>Copyright (C) 2020 <a href="https://luke-zhang-04.github.io/">Luke Zhang</a>, <a href="https://github.com/ethanlim04">Ethan Lim</a>, and Pharmasave Carriage Crossing Pharmacy</p>
+            <p>Copyright (C) 2020 <a href="https://luke-zhang-04.github.io/">Luke Zhang</a>, <a href="https://github.com/ethanlim04">Ethan Lim</a>, Pharmasave, and Pharmasave Carriage Crossing Pharmacy</p>
             <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License (below) for more details.</p>
             <iframe title="GNU General Public License" src="gpl.pdf" style={{width: "100%", height: "80vh"}}></iframe>
             <h1>Important Sections</h1>

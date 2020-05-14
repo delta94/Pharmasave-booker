@@ -26,7 +26,7 @@
 import React from "react";
 
 class Calendar extends React.Component {
-    render() {
+    public render() {
         return (
             <h1>Calendar</h1>
         );

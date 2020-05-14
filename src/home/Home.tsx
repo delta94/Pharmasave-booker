@@ -61,7 +61,7 @@ class Home extends React.Component {
     /**
      * When page size is changed
      */
-    updateDimensions() {
+    private updateDimensions() {
         //Size a relative div so absolute image isn't overtop of everything
         const navBarCurrent = document.querySelector(".navbar")
         const windowWidth = window.innerWidth
@@ -75,16 +75,16 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.updateDimensions()
         window.addEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    render() {
+    public render() {
         return (
             <div className="splash-container">
                 {this.splash.splash}

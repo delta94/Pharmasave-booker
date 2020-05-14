@@ -60,7 +60,7 @@ class Nav extends React.Component {
     /**
      * The navbar component
      */
-    Nav() {
+    private Nav() {
         return (
             <nav className="navbar sticky-top navbar-expand-lg navbar-light override-bg-default">
                 <Link className="navbar-brand" to="/"><img src="pictures/pharmasave-logo.png" alt="logo"/></Link>
@@ -104,10 +104,7 @@ class Nav extends React.Component {
         );
     }
 
-    /**
-     * Render
-     */
-    render() {
+    public render() {
         return this.Nav()
     }
 }

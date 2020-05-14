@@ -40,7 +40,7 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
-    render() {
+    public render() {
         return (
             <AuthProvider>
                 <Router>

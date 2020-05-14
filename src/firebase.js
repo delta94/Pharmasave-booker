@@ -33,5 +33,5 @@ const firebaseApp = firebase.initializeApp({
     measurementId: "G-LSVBP608QP",
 });
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseApp)
 export default firebase;

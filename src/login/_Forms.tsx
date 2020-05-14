@@ -35,11 +35,11 @@ class GoogleSignInButton extends React.Component {
      * @param {string} state - current state of button
      * @param {React.MouseEvent<HTMLImageElement, MouseEvent} event - mouse event
      */
-    buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+    private buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
         (event.target as HTMLInputElement).setAttribute("src", `../pictures/btn_google_signin_dark_${state}_web.png`)
     }
 
-    render() {
+    public render() {
         return (
             <div className="google-sign-in">
                 <img
@@ -90,7 +90,7 @@ class Login extends React.Component<any, any> {
         )
     }
 
-    render() {
+    public render() {
         return (
             <form style={{display: this.state.display}} >
                 <div className="form-group">
@@ -155,7 +155,7 @@ class Reg extends React.Component<any, any> {
         )
     }
 
-    render() {
+    public render() {
         return (
             <form style={{display: this.state.display}}>
                 <div className="form-group">

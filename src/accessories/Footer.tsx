@@ -103,7 +103,7 @@ class Footer extends React.Component {
     /**
      * Footer component
      */
-    Footer() {
+    private footer() {
         return (
             <footer className="page-footer font-small blue pt-4">
                 <div className="container-fluid text-center text-md-left">
@@ -120,11 +120,8 @@ class Footer extends React.Component {
         );
     }
 
-    /**
-     * Render
-     */
-    render() {
-        return this.Footer()
+    public render() {
+        return this.footer()
     }
 }
 
