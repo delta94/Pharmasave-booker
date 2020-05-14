@@ -30,16 +30,29 @@ import React from "react";
 /**
  * Class for checking for authentication
  */
-class Auth { 
+class Auth {
+
+    /**
+     * Checks if a user is signed in
+     * @returns {boolean} whether a user is signed in or not
+     */
     public user = (): boolean => {
         const currentUser = React.useContext(AuthContext)
-        return !!currentUser ? true : false
+        
+        return Boolean(currentUser)
     }
     
+    /**
+     * Gets user info
+     * @returns {{} | null} user info or null if no user is signed in
+     */
     public userInfo = (): unknown | null => {
         const currentUser = React.useContext(AuthContext)
-        return !!currentUser ? currentUser : null
+
+        // eslint-disable-next-line
+        return Boolean(currentUser) ? currentUser : null
     }
+
 }
 
 export default Auth;
