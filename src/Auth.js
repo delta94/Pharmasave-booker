@@ -25,7 +25,7 @@ import firebaseApp from "./firebase";
 export const AuthContext = React.createContext()
 
 // eslint-disable-next-line
-export const AuthProvider = (children) => {
+export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = React.useState(null)
 
     React.useEffect(() => {
