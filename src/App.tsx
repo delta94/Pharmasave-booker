@@ -25,11 +25,10 @@
 import {
     Route,
     BrowserRouter as Router,
-    Switch,
+    Switch
 } from "react-router-dom";
-import {AuthProvider} from "./Auth.js"
-
 import Auth from "./login/Login";
+import {AuthProvider} from "./Auth.js"
 import Calendar from "./calendar/Calendar";
 import Footer from "./accessories/Footer";
 import Home from "./home/Home";

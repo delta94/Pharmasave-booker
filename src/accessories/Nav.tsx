@@ -24,9 +24,8 @@
  */
 
 import {Link, NavLink} from "react-router-dom";
-
-import firebaseApp from "../firebase";
 import React from "react";
+import firebaseApp from "../firebase";
 
 /**
  * The navbar component

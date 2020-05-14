@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import firebaseApp from "./firebase";
 import React from "react";
+import firebaseApp from "./firebase";
 
 export const AuthContext = React.createContext()
 
