@@ -38,8 +38,10 @@ import PrivacyPolicy from "./legal/Privacy-policy"
 import React from "react";
 import User from "./user/User";
 
+
 class App extends React.Component {
-    public render() {
+    
+    public render = (): JSX.Element => {
         return (
             <AuthProvider>
                 <Router>
