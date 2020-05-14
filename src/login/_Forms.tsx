@@ -33,7 +33,7 @@ import {
 /**
  * Login form
  */
-class Login extends React.Component<any, any> {
+class Login extends React.Component<{}, {[key: string]: string}>  {
     constructor(props: object) {
         super(props)
         this.state = {
@@ -41,7 +41,7 @@ class Login extends React.Component<any, any> {
         }
     }
     
-    private form_components = {
+    private formComponents = {
         password: (
             <label>
                 Password
@@ -50,14 +50,14 @@ class Login extends React.Component<any, any> {
         ),
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return (
             <form style={{display: this.state.display}} >
                 <div className="form-group">
                     {makeEmailField("login")}
                 </div>
                 <div className="form-group">
-                    {this.form_components.password}
+                    {this.formComponents.password}
                 </div>
                 <a href="#!">Forgot your password?</a>
                 {makeButton("Login")}
@@ -66,10 +66,11 @@ class Login extends React.Component<any, any> {
     }
 }
 
+
 /**
- * Regristration form
+ * Registration form
  */
-class Reg extends React.Component<any, any> {
+class Reg extends React.Component<{}, {[key: string]: string}>  {
     constructor(props: object) {
         super(props)
         this.state = {
@@ -77,7 +78,7 @@ class Reg extends React.Component<any, any> {
         }
     }
 
-    private form_components = {
+    private formComponents = {
         name: (
             <label>
                 Full, legal name
@@ -111,22 +112,22 @@ class Reg extends React.Component<any, any> {
         ),
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return (
             <form style={{display: this.state.display}}>
                 <div className="form-group">
-                    {this.form_components.name}
+                    {this.formComponents.name}
                 </div>
                 <div className="form-group">
                     {makeEmailField("reg")}
                 </div>
                 <div className="form-group">
-                    {this.form_components.password}
+                    {this.formComponents.password}
                 </div>
                 <div className="form-group">
-                    {this.form_components.password2}
+                    {this.formComponents.password2}
                 </div>
-                {this.form_components.agreement}
+                {this.formComponents.agreement}
                 {makeButton("Register")}
             </form>
         );

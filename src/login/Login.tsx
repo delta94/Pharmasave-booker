@@ -26,7 +26,7 @@
 import React from "react";
 import { Reg, Login } from "./_Forms";
 
-class Auth extends React.Component<any, any> {
+class Auth extends React.Component<{}, {[key: string]: string}> {
     constructor(props: object) {
         super(props)
         this.state = {
@@ -39,7 +39,7 @@ class Auth extends React.Component<any, any> {
     private regRef = React.createRef<any>()
     private loginRef = React.createRef<any>()
 
-    private switchLogin = () => {
+    private switchLogin = (): JSX.Element => {
         return (
             <div id="switch-login" style={{display: this.state.loginButton}}>
                 <p>Already have an account?</p>
@@ -59,7 +59,7 @@ class Auth extends React.Component<any, any> {
         );
     }
 
-    private switchReg = () => {
+    private switchReg = (): JSX.Element => {
         return (
             <div id="switch-reg" style={{display: this.state.regButton}}>
                 <p>Don't have an account?</p>
@@ -79,7 +79,7 @@ class Auth extends React.Component<any, any> {
         );
     }
 
-    private switch_btns = () => {
+    private switch_btns = (): JSX.Element => {
         return (
             <div id="switch-btns">
                 {this.switchLogin()}
@@ -88,7 +88,7 @@ class Auth extends React.Component<any, any> {
         );
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return (
             <div className="auth-container container">
                 {this.switch_btns()}

@@ -30,12 +30,12 @@ import { AuthContext } from "../Auth";
  * Class for checking for authentication
  */
 class Auth { 
-    public user(): boolean {
+    public user = (): boolean => {
         const currentUser = React.useContext(AuthContext)
         return !!currentUser ? true : false
     }
     
-    public userInfo(): unknown | null {
+    public userInfo = (): unknown | null => {
         const currentUser = React.useContext(AuthContext)
         return !!currentUser ? currentUser : null
     }

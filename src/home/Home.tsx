@@ -48,20 +48,20 @@ class Home extends React.Component {
                     <span className="material-icons">keyboard_arrow_right</span>
                 </Link>
             </div>
-        )
+        ),
     }
     
     constructor(props: {}) {
-        super(props);
+        super(props)
         this.state = {
-            imageLoaded: false
+            imageLoaded: false,
         }
     }
 
     /**
      * When page size is changed
      */
-    private updateDimensions() {
+    private updateDimensions = (): void => {
         //Size a relative div so absolute image isn't overtop of everything
         const navBarCurrent = document.querySelector(".navbar")
         const windowWidth = window.innerWidth
@@ -75,16 +75,16 @@ class Home extends React.Component {
         }
     }
 
-    public componentDidMount() {
+    public componentDidMount = (): void => {
         this.updateDimensions()
         window.addEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    public componentWillUnmount() {
+    public componentWillUnmount = (): void => {
         window.removeEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return (
             <div className="splash-container">
                 {this.splash.splash}

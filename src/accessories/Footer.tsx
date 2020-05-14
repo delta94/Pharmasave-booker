@@ -97,13 +97,13 @@ class Footer extends React.Component {
                 <h5 id="image-header" className="text-uppercase">Carriage Crossing Pharmacy</h5>
                 <img src="pictures/pharmasave-logo.png" alt="pharmasave logo"/>
             </div>
-        )
+        ),
     }
 
     /**
      * Footer component
      */
-    private footer() {
+    private footer = (): JSX.Element => {
         return (
             <footer className="page-footer font-small blue pt-4">
                 <div className="container-fluid text-center text-md-left">
@@ -120,7 +120,7 @@ class Footer extends React.Component {
         );
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return this.footer()
     }
 }

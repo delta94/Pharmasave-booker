@@ -34,11 +34,18 @@ class GoogleSignInButton extends React.Component {
      * @param {string} state - current state of button
      * @param {React.MouseEvent<HTMLImageElement, MouseEvent} event - mouse event
      */
-    private buttonState(state: string, event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-        (event.target as HTMLInputElement).setAttribute("src", `../pictures/btn_google_signin_dark_${state}_web.png`)
+    private buttonState = (
+        state: string,
+        event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    ): void => {
+        (event.target as HTMLInputElement)
+            .setAttribute(
+                "src",
+                `../pictures/btn_google_signin_dark_${state}_web.png`,
+            )
     }
 
-    public render() {
+    public render = (): JSX.Element => {
         return (
             <div className="google-sign-in">
                 <img
@@ -52,6 +59,7 @@ class GoogleSignInButton extends React.Component {
     }
 }
 
+
 /**
  * Creates a button for authentication.
  * @param {"Register" | "Login"} type - "login" or "register"
@@ -61,7 +69,9 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => {
     return (
         <div className="row">
             <div className="col-6">
-                <button type="submit" className="btn btn-secondary">{type}</button>  
+                <button type="submit" className="btn btn-secondary">
+                    {type}
+                </button>
             </div>
             <div className="col-6">
                 <GoogleSignInButton/>
@@ -69,6 +79,7 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => {
         </div>
     );
 }
+
 
 /**
  * Creates a form field for authentication.
@@ -79,8 +90,20 @@ export const makeEmailField = (type: "reg" | "login"): JSX.Element => {
     return (
         <label>
             Email
-            <input type="email" className="form-control" id={`login-${type}`} aria-describedby="emailHelp" placeholder="Enter email"/>
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            <input
+                type = "email"
+                className = "form-control"
+                id = {`login-${type}`}
+                aria-describedby = "emailHelp"
+                placeholder = "Enter email"
+            />
+
+            <small
+                id = "emailHelp"
+                className = "form-text text-muted"
+            >
+                    We'll never share your email with anyone else.
+            </small>
         </label>
     );
 }
