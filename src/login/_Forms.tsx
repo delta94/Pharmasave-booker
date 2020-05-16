@@ -29,7 +29,7 @@ import {
     makeEmailField,
     makeNameField,
     makePasswordField,
-    makePasswordField2,
+    makePasswordField2
 } from "./_Form_components";
 import React from "react";
 
