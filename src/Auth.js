@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {auth} from "./firebase";
 import React from "react";
-import firebaseApp from "./firebase";
 
 export const AuthContext = React.createContext()
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = React.useState(null)
 
     React.useEffect(() => {
-        firebaseApp.auth().onAuthStateChanged(setCurrentUser)
+        auth.onAuthStateChanged(setCurrentUser)
     },
     [])
 

@@ -39,7 +39,13 @@ import React from "react";
 import User from "./user/User";
 
 
-class App extends React.Component {
+class App extends React.Component<{}, {[key: string]: string}> {
+
+    constructor (props: {}) {
+        super(props)
+    }
+
+    private user = null
     
     public render = (): JSX.Element => {
         return (

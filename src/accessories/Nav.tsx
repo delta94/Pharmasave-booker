@@ -23,9 +23,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {auth} from "../firebase";
 import {Link, NavLink} from "react-router-dom";
 import React from "react";
-import firebaseApp from "../firebase";
 
 /**
  * The navbar component
@@ -67,7 +67,7 @@ class Nav extends React.Component {
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
                 onClick = {() => {
-                    firebaseApp.auth().signOut()
+                    auth.signOut()
                 }}
                 to = "/"
             >

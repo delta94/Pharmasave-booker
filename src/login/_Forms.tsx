@@ -24,36 +24,58 @@
  */
 
 import {
+    makeAgreementField,
     makeButton, 
-    makeEmailField
+    makeEmailField,
+    makeNameField,
+    makePasswordField,
+    makePasswordField2,
 } from "./_Form_components";
-import {Link} from "react-router-dom";
 import React from "react";
 
 /**
  * Login form
  */
-class Login extends React.Component<{}, {[key: string]: string}> {
+class Login extends React.Component<{}, {[key: string]: string | null}> {
 
     constructor (props: {}) {
         super(props)
         this.state = {
-            display: "block"
+            display: "block",
+            email: "",
+            password: "",
+            error: null,
         }
     }
-    
-    private formComponents = {
-        password: (
-            <label>
-                Password
-                <input
-                    type = "password"
-                    className = "form-control"
-                    id = "login-password"
-                    placeholder = "Password"
-                />
-            </label>
-        ),
+
+    /**
+     * Sign a user in with email and password
+     * @param {React.FormEvent<HTMLInputElement>} event - submit event
+     * @param {string} email - email of user
+     * @param {string} password - password of user
+     * @returns {void} void
+     */
+    private signInWithEmailAndPassword = (
+        event: React.FormEvent<HTMLInputElement>,
+        email: string,
+        password: string,
+    ): void => {
+        event.preventDefault()
+    }
+
+    /**
+     * On form change
+     * @param {React.FormEvent<HTMLInputElement>} event - submit event
+     * @returns {void} void
+     */
+    public onChange = (event: React.FormEvent<HTMLInputElement>): void => {
+        const {name, value} = event.currentTarget;
+
+        if (name === "userEmail") {
+            this.setState({email: value})
+        } else if (name === "userPassword") {
+            this.setState({password: value})
+        }
     }
 
     /**
@@ -62,12 +84,14 @@ class Login extends React.Component<{}, {[key: string]: string}> {
      */
     public render = (): JSX.Element => {
         return (
-            <form style={{display: this.state.display}} >
+            <form style={
+                this.state.display ? {display: this.state.display} : {}
+            }>
                 <div className="form-group">
-                    {makeEmailField("login")}
+                    {makeEmailField(this, "login")}
                 </div>
                 <div className="form-group">
-                    {this.formComponents.password}
+                    {makePasswordField(this, "login")}
                 </div>
                 <a href="#!">Forgot your password?</a>
                 {makeButton("Login")}
@@ -90,66 +114,34 @@ class Reg extends React.Component<{}, {[key: string]: string}> {
         }
     }
 
-    private formComponents = {
-        name: (
-            <label>
-                Full, legal name
-                <input
-                    type = "name"
-                    className = "form-control"
-                    id = "reg-name"
-                    aria-describedby = "emailHelp"
-                    placeholder = "Full, legal name"
-                />
-            </label>
-        ),
-        password: (
-            <label>
-                Password
-                <input
-                    type = "password"
-                    className = "form-control"
-                    id = "reg-password"
-                    placeholder = "Password"
-                />
-            </label>
-        ),
-        password2: (
-            <label>
-                Confirm you Password
-                <input
-                    type = "password"
-                    className = "form-control"
-                    id = "reg-password-2"
-                    placeholder = "Retype password"
-                />
-            </label>
-        ),
-        agreement: (
-            <div className="form-group">
-                <p>By signing up, you agree to our
-                    <Link to="/Legal">Terms and Conditions</Link>
-                    and
-                    <Link to="/Privacy-policy">Privacy Policy</Link></p>
-                <label id="tandc">
-                    I have read, and agree to the
-                    <Link to="/Legal">Terms and Conditions</Link>
-                    <input
-                        type = "checkbox"
-                        className = "form-check-input"
-                        id = "tandc-check"
-                    ></input>
-                </label>
-                <label id="ppolicy">
-                    I have read, and agree to the
-                    <Link to="/Privacy-policy">Privacy Policy</Link>
-                    <input
-                        type = "checkbox"
-                        className = "form-check-input"
-                        id = "ppolicy-check"></input>
-                </label>
-            </div>
-        ),
+    /**
+     * Sign a user in with email and password
+     * @param {React.FormEvent<HTMLInputElement>} event - submit event
+     * @param {string} email - email of user
+     * @param {string} password - password of user
+     * @returns {void} void
+     */
+    private signUpWithEmailAndPassword = (
+        event: React.FormEvent<HTMLInputElement>,
+        email: string,
+        password: string,
+    ): void => {
+        event.preventDefault()
+    }
+
+    /**
+     * On form change
+     * @param {React.FormEvent<HTMLInputElement>} event - submit event
+     * @returns {void} void
+     */
+    public onChange = (event: React.FormEvent<HTMLInputElement>): void => {
+        const {name, value} = event.currentTarget;
+
+        if (name === "userEmail") {
+            this.setState({email: value})
+        } else if (name === "userPassword") {
+            this.setState({password: value})
+        }
     }
 
     /**
@@ -160,18 +152,18 @@ class Reg extends React.Component<{}, {[key: string]: string}> {
         return (
             <form style={{display: this.state.display}}>
                 <div className="form-group">
-                    {this.formComponents.name}
+                    {makeNameField(this)}
                 </div>
                 <div className="form-group">
-                    {makeEmailField("reg")}
+                    {makeEmailField(this, "reg")}
                 </div>
                 <div className="form-group">
-                    {this.formComponents.password}
+                    {makePasswordField(this, "reg")}
                 </div>
                 <div className="form-group">
-                    {this.formComponents.password2}
+                    {makePasswordField2(this)}
                 </div>
-                {this.formComponents.agreement}
+                {makeAgreementField(this)}
                 {makeButton("Register")}
             </form>
         );

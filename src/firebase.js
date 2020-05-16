@@ -20,9 +20,10 @@
  */
 
 import "firebase/auth";
+import "firebase/firestore";
 import firebase from "firebase/app";
 
-const firebaseApp = firebase.initializeApp({
+const firebaseConfig = {
     apiKey: "AIzaSyCDtmIH9q9hf0Yw-8CVW-3Bf2e0HGPRCk8",
     authDomain: "carriage-crossing-pharmacy.firebaseapp.com",
     databaseURL: "https://carriage-crossing-pharmacy.firebaseio.com",
@@ -31,6 +32,9 @@ const firebaseApp = firebase.initializeApp({
     messagingSenderId: "663905550795",
     appId: "1:663905550795:web:e812497f884f32fd95364e",
     measurementId: "G-LSVBP608QP",
-});
+}
 
-export default firebaseApp;
+firebase.initializeApp(firebaseConfig)
+
+export const auth = firebase.auth(),
+    firestore = firebase.firestore();

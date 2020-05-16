@@ -2,6 +2,8 @@
  * Partial which defines forms components for authentication
  */
 
+/* eslint-disable one-var */
+
 /**
  * Carriage Crossing Pharmacy Booker
  * Copyright (C) 2020 Luke Zhang, Ethan Lim
@@ -23,6 +25,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {Login, Reg} from "./_Forms"
+import {Link} from "react-router-dom";
 import React from "react";
 
 /**
@@ -93,21 +97,26 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => {
 
 /**
  * Creates a form field for authentication.
+ * @param {Login | Reg} self - bind with this
  * @param {"reg" | "login"} type  - "reg" or "login" email feild
  * @returns {JSX.Element} regristration or login email field
  */
-/* eslint-disable one-var */
-export const makeEmailField = (type: "reg" | "login"): JSX.Element => {
-    /* eslint-enable one-var */
+export const makeEmailField = (
+    self: Login | Reg,
+    type: "reg" | "login"
+): JSX.Element => {
     return (
         <label>
             Email
             <input
                 type = "email"
                 className = "form-control"
-                id = {`login-${type}`}
+                id = {`${type}-email`}
                 aria-describedby = "emailHelp"
                 placeholder = "Enter email"
+                onChange = {(event) => {
+                    self.onChange(event)
+                }}
             />
 
             <small
@@ -117,5 +126,116 @@ export const makeEmailField = (type: "reg" | "login"): JSX.Element => {
                     We&apos;ll never share your email with anyone else.
             </small>
         </label>
+    );
+}
+
+/**
+ * Creates a form field for authentication.
+ * @param {Login | Reg} self - bind with this
+ * @param {"reg" | "login"} type  - "reg" or "login" email feild
+ * @returns {JSX.Element} regristration or login email field
+ */
+export const makePasswordField = (
+    self: Login | Reg,
+    type: "reg" | "login"
+): JSX.Element => {
+    return (
+        <label>
+            Password
+            <input
+                type = "password"
+                className = "form-control"
+                id = {`${type}-password`}
+                placeholder = "Password"
+                onChange = {(event) => {
+                    self.onChange(event)
+                }}
+            />
+        </label>
+    );
+}
+
+/**
+ * Makes a name field
+ * @param {Reg} self bind to this
+ * @returns {JSX.Element} name field
+ */
+export const makeNameField = (self: Reg): JSX.Element => {
+    return (
+        <label>
+            Full, legal name
+            <input
+                type = "name"
+                className = "form-control"
+                id = "reg-name"
+                aria-describedby = "emailHelp"
+                placeholder = "Full, legal name"
+                onChange = {(event) => {
+                    self.onChange(event)
+                }}
+            />
+        </label>
+    );
+}
+
+/**
+ * Create confirm password field
+ * @param {Reg} self - bind to this
+ * @returns {JSX.Element} confirm password field
+ */
+export const makePasswordField2 = (self: Reg): JSX.Element => {
+    return (
+        <label>
+            Confirm you Password
+            <input
+                type = "password"
+                className = "form-control"
+                id = "reg-password-2"
+                placeholder = "Retype password"
+                onChange = {(event) => {
+                    self.onChange(event)
+                }}
+            />
+        </label>
+    );
+}
+
+/**
+ * Create agree to terms and conditions and privacy policy field
+ * @param {Reg} self - bind to this
+ * @returns {JSX.Element} terms and conditions and priv policy field
+ */
+export const makeAgreementField = (self: Reg): JSX.Element => {
+    return (
+        <div className="form-group">
+            <p>By signing up, you agree to our
+                <Link to="/Legal">Terms and Conditions</Link>
+                and
+                <Link to="/Privacy-policy">Privacy Policy</Link></p>
+            <label id="tandc">
+                I have read, and agree to the
+                <Link to="/Legal">Terms and Conditions</Link>
+                <input
+                    type = "checkbox"
+                    className = "form-check-input"
+                    id = "tandc-check"
+                    onChange = {(event) => {
+                        self.onChange(event)
+                    }}
+                ></input>
+            </label>
+            <label id="ppolicy">
+                I have read, and agree to the
+                <Link to="/Privacy-policy">Privacy Policy</Link>
+                <input
+                    type = "checkbox"
+                    className = "form-check-input"
+                    id = "ppolicy-check"
+                    onChange = {(event) => {
+                        self.onChange(event)
+                    }}
+                ></input>
+            </label>
+        </div>
     );
 }
