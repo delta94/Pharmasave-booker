@@ -28,7 +28,6 @@ import {
     Switch
 } from "react-router-dom";
 import Auth from "./login/Login";
-import {AuthProvider} from "./Auth.js"
 import Calendar from "./calendar/Calendar";
 import Footer from "./accessories/Footer";
 import Home from "./home/Home";
@@ -49,7 +48,6 @@ class App extends React.Component<{}, {[key: string]: string}> {
     
     public render = (): JSX.Element => {
         return (
-            <AuthProvider>
                 <Router>
                     <Nav/>
                     <Switch>
@@ -65,7 +63,6 @@ class App extends React.Component<{}, {[key: string]: string}> {
                     </Switch>
                     <Footer/>
                 </Router>
-            </AuthProvider>
         );
     }
 

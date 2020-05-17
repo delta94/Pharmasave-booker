@@ -22,22 +22,33 @@
 import {auth} from "./firebase";
 import React from "react";
 
-export const AuthContext = React.createContext()
+export const AuthContext = React.createContext({ user: null })
 
-// eslint-disable-next-line
-export const AuthProvider = ({children}) => {
-    const [currentUser, setCurrentUser] = React.useState(null)
+export default class AuthProvider extends React.Component {
 
-    React.useEffect(() => {
-        auth.onAuthStateChanged(setCurrentUser)
-    },
-    [])
+    constructor (props) {
+        super(props)
+        this.state = {
+            user: null
+        }
+    }
 
-    return (
-        <AuthContext.Provider
-            value = {{currentUser}}
-        >
-            {children}
-        </AuthContext.Provider>
-    );
+    componentDidMount = () => {
+        auth.onAuthStateChanged((user) => {
+            this.setState({
+                user,
+            })
+            console.log(user)
+            console.log(this.state.user)
+        })
+    }
+
+    render = () => {
+        return (
+            <AuthContext.Provider value={this.state.user}>
+                {this.props.children}
+            </AuthContext.Provider>
+        );
+      }
+
 }

@@ -25,7 +25,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Login, Reg} from "./_Forms"
+import {signInWithGoogle} from "../firebase";
+import {Login, Reg} from "./_Forms";
 import {Link} from "react-router-dom";
 import React from "react";
 
@@ -66,6 +67,7 @@ class GoogleSignInButton extends React.Component {
                     onMouseLeave = {(event) => {
                         this.buttonState("normal", event)
                     }}
+                    onClick = {signInWithGoogle}
                 />
             </div>
         );

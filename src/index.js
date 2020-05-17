@@ -21,15 +21,17 @@
 
 import * as serviceWorker from "./serviceWorker";
 import App from "./App.tsx";
+import AuthProvider from "./Auth.js"
 import React from "react";
 import ReactDOM from "react-dom";
 
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <AuthProvider>
+            <App/>
+        </AuthProvider>
     </React.StrictMode>,
-    // eslint-disable-next-line
-    document.getElementById("root")
+    document.getElementById("root"),
 );
 
 /**
