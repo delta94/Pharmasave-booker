@@ -25,10 +25,6 @@ import firebase from "firebase/app";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
-export const signInWithGoogle = () => {
-    auth.signInWithPopup(googleProvider);
-}
-
 const firebaseConfig = {
     apiKey: "AIzaSyCDtmIH9q9hf0Yw-8CVW-3Bf2e0HGPRCk8",
     authDomain: "carriage-crossing-pharmacy.firebaseapp.com",
@@ -43,4 +39,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 export const auth = firebase.auth(),
-    firestore = firebase.firestore();
+    firestore = firebase.firestore(),
+    
+    signInWithGoogle = () => {
+        auth.signInWithPopup(googleProvider);
+    }
