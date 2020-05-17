@@ -38,7 +38,7 @@ import React from "react";
  */
 class Login extends React.Component<{}, {[key: string]: string | null}> {
 
-    constructor (props: {}) {
+    public constructor (props: {}) {
         super(props)
         this.state = {
             display: "block",
@@ -114,7 +114,7 @@ class Reg extends React.Component<
     {}, {[key: string]: string | null | boolean}
 > {
 
-    constructor (props: {}) {
+    public constructor (props: {}) {
         super(props)
         this.state = {
             display: "none",

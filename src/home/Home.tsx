@@ -53,7 +53,7 @@ class Home extends React.Component {
         ),
     }
     
-    constructor (props: {}) {
+    public constructor (props: {}) {
         super(props)
         this.state = {
             imageLoaded: false,

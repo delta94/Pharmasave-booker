@@ -32,7 +32,7 @@ import React from "react";
  */
 class Nav extends React.Component<{}, {[key: string]: string}> {
 
-    constructor (props: {}) {
+    public constructor (props: {}) {
         super(props)
     }
 

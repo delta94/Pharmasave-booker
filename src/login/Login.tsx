@@ -30,7 +30,7 @@ import React from "react";
 
 class Auth extends React.Component<{}, {[key: string]: string}> {
 
-    constructor (props: {}) {
+    public constructor (props: {}) {
         super(props)
         this.state = {
             loginButton: "none",
