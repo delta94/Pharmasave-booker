@@ -112,6 +112,7 @@ export const makeEmailField = (
             Email
             <input
                 type = "email"
+                name = "email"
                 className = "form-control"
                 id = {`${type}-email`}
                 aria-describedby = "emailHelp"
@@ -146,6 +147,7 @@ export const makePasswordField = (
             Password
             <input
                 type = "password"
+                name = "password"
                 className = "form-control"
                 id = {`${type}-password`}
                 placeholder = "Password"
@@ -168,6 +170,7 @@ export const makeNameField = (self: Reg): JSX.Element => {
             Full, legal name
             <input
                 type = "name"
+                name = "displayName"
                 className = "form-control"
                 id = "reg-name"
                 aria-describedby = "emailHelp"
@@ -188,9 +191,10 @@ export const makeNameField = (self: Reg): JSX.Element => {
 export const makePasswordField2 = (self: Reg): JSX.Element => {
     return (
         <label>
-            Confirm you Password
+            Confirm your Password
             <input
                 type = "password"
+                name = "password2"
                 className = "form-control"
                 id = "reg-password-2"
                 placeholder = "Retype password"
@@ -202,6 +206,14 @@ export const makePasswordField2 = (self: Reg): JSX.Element => {
     );
 }
 
+const agreementHeader = (
+    <p>By signing up, you agree to our
+        <Link to="/Legal">Terms and Conditions</Link>
+        and
+        <Link to="/Privacy-policy">Privacy Policy</Link>
+    </p>
+);
+
 /**
  * Create agree to terms and conditions and privacy policy field
  * @param {Reg} self - bind to this
@@ -210,34 +222,29 @@ export const makePasswordField2 = (self: Reg): JSX.Element => {
 export const makeAgreementField = (self: Reg): JSX.Element => {
     return (
         <div className="form-group">
-            <p>By signing up, you agree to our
-                <Link to="/Legal">Terms and Conditions</Link>
-                and
-                <Link to="/Privacy-policy">Privacy Policy</Link></p>
-            <label id="tandc">
-                I have read, and agree to the
+            {agreementHeader}
+            <label id="tandc">I have read, and agree to the
                 <Link to="/Legal">Terms and Conditions</Link>
                 <input
                     type = "checkbox"
                     className = "form-check-input"
                     id = "tandc-check"
+                    name = "agreement1"
                     onChange = {(event) => {
                         self.onChange(event)
                     }}
                 ></input>
             </label>
-            <label id="ppolicy">
-                I have read, and agree to the
+            <label id="ppolicy">I have read, and agree to the
                 <Link to="/Privacy-policy">Privacy Policy</Link>
                 <input
                     type = "checkbox"
                     className = "form-check-input"
                     id = "ppolicy-check"
+                    name = "agreement2"
                     onChange = {(event) => {
                         self.onChange(event)
                     }}
-                ></input>
-            </label>
-        </div>
+                ></input></label></div>
     );
 }

@@ -71,11 +71,17 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
     public onChange = (event: React.FormEvent<HTMLInputElement>): void => {
         const {name, value} = event.currentTarget;
 
-        if (name === "userEmail") {
-            this.setState({email: value})
-        } else if (name === "userPassword") {
-            this.setState({password: value})
+        switch (name) {
+            case "email":
+                this.setState({email: value})
+                break
+            case "password":
+                this.setState({password: value})
+                break
+            default:
+                break
         }
+        console.log(this.state)
     }
 
     /**
@@ -101,16 +107,24 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
 
 }
 
-
 /**
  * Registration form
  */
-class Reg extends React.Component<{}, {[key: string]: string}> {
+class Reg extends React.Component<
+    {}, {[key: string]: string | null | boolean}
+> {
 
     constructor (props: {}) {
         super(props)
         this.state = {
-            display: "none"
+            display: "none",
+            email: "",
+            password: "",
+            password2: "",
+            displayName: "",
+            agreement1: false,
+            agreement2: false,
+            error: null,
         }
     }
 
@@ -135,13 +149,31 @@ class Reg extends React.Component<{}, {[key: string]: string}> {
      * @returns {void} void
      */
     public onChange = (event: React.FormEvent<HTMLInputElement>): void => {
-        const {name, value} = event.currentTarget;
+        const {name, value} = event.currentTarget
 
-        if (name === "userEmail") {
-            this.setState({email: value})
-        } else if (name === "userPassword") {
-            this.setState({password: value})
+        switch (name) {
+            case "displayName":
+                this.setState({displayName: value})
+                break
+            case "email":
+                this.setState({email: value})
+                break
+            case "password":
+                this.setState({password: value})
+                break
+            case "password2":
+                this.setState({password2: value})
+                break
+            case "agreement1":
+                this.setState({agreement1: value})
+                break
+            case "agreement2":
+                this.setState({agremeent2: value})
+                break
+            default:
+                break
         }
+        console.log(this.state)
     }
 
     /**
@@ -150,7 +182,10 @@ class Reg extends React.Component<{}, {[key: string]: string}> {
      */
     public render = (): JSX.Element => {
         return (
-            <form style={{display: this.state.display}}>
+            <form style={
+                typeof(this.state.display) === "string" ?
+                {display: this.state.display} : {}
+            }>
                 <div className="form-group">
                     {makeNameField(this)}
                 </div>
