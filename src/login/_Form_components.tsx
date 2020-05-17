@@ -221,8 +221,7 @@ const agreementHeader = (
  */
 export const makeAgreementField = (self: Reg): JSX.Element => {
     return (
-        <div className="form-group">
-            {agreementHeader}
+        <div className="form-group">{agreementHeader}
             <label id="tandc">I have read, and agree to the
                 <Link to="/Legal">Terms and Conditions</Link>
                 <input
@@ -233,8 +232,7 @@ export const makeAgreementField = (self: Reg): JSX.Element => {
                     onChange = {(event) => {
                         self.onChange(event)
                     }}
-                ></input>
-            </label>
+                ></input></label>
             <label id="ppolicy">I have read, and agree to the
                 <Link to="/Privacy-policy">Privacy Policy</Link>
                 <input
