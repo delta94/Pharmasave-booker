@@ -30,7 +30,15 @@ import React from "react";
 /**
  * The navbar component
  */
-class Nav extends React.Component {
+class Nav extends React.Component<{}, {[key: string]: string}> {
+
+    constructor (props: {}) {
+        super(props)
+    }
+
+    private logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+
+    private loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
     private navbarComponents = {
         home: (
@@ -59,7 +67,9 @@ class Nav extends React.Component {
             <NavLink
                 className = "nav-item nav-link"
                 activeClassName = "active"
-                to = "/Login">Log in
+                to = "/Login"
+                ref = {this.loginBtn}
+            >Log in
             </NavLink>
         ),
         logout: (
@@ -70,6 +80,7 @@ class Nav extends React.Component {
                     auth.signOut()
                 }}
                 to = "/"
+                ref = {this.logoutBtn}
             >
                 Logout
             </Link>
@@ -85,6 +96,30 @@ class Nav extends React.Component {
             {this.navbarComponents.logout}
         </div>
     );
+
+    /**
+     * Authentication checking
+     * @returns {void} void
+     */
+    componentDidMount = (): void => {
+        auth.onAuthStateChanged((user) => {
+            if (Boolean(user)) {
+                if (this.logoutBtn.current) {
+                    this.logoutBtn.current.style.display = "block"
+                }
+                if (this.loginBtn.current) {
+                    this.loginBtn.current.style.display = "none"
+                }
+            } else {
+                if (this.logoutBtn.current) {
+                    this.logoutBtn.current.style.display = "none"
+                }
+                if (this.loginBtn.current) {
+                    this.loginBtn.current.style.display = "block"
+                }
+            }
+        })
+    }
 
     private navbarClassNames =
         "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"

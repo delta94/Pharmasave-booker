@@ -23,13 +23,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {auth} from "../firebase";
 import {Login, Reg} from "./_Forms";
 
 import React from "react";
 
 class Auth extends React.Component<{}, {[key: string]: string}> {
 
-    constructor (props: object) {
+    constructor (props: {}) {
         super(props)
         this.state = {
             loginButton: "none",
@@ -89,6 +90,18 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
                 {this.switchReg()}
             </div>
         );
+    }
+
+     /**
+     * Authentication checking
+     * @returns {void} void
+     */
+    componentDidMount = (): void => {
+        auth.onAuthStateChanged((user) => {
+            if (Boolean(user)) {
+                window.location.href = "/";
+            }
+        })
     }
 
     public render = (): JSX.Element => {
