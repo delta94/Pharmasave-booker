@@ -3,6 +3,10 @@
 
 @import "animations";
 
+a {
+  cursor: pointer;
+}
+
 footer {
   background-color: variables.$paper;
   color: variables.$secondary;

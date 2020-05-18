@@ -23,7 +23,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {auth} from "../firebase";
+// import {auth} from "../firebase";
 import {Login, Reg} from "./_Forms";
 
 import React from "react";
