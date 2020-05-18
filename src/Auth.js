@@ -1,8 +1,4 @@
 /**
- * Defines the calendar component
- */
-
-/**
  * Carriage Crossing Pharmacy Booker
  * Copyright (C) 2020 Luke Zhang, Ethan Lim
  * 
@@ -22,17 +18,25 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 import React from "react";
 
-class Calendar extends React.Component {
+export const AuthContext = React.createContext({user: null})
 
-    public render = (): JSX.Element => {
+export default class AuthProvider extends React.Component {
+
+    constructor (props) {
+        super(props)
+        this.state = {
+            user: null
+        }
+    }
+
+    render = () => {
         return (
-            <h1>Calendar</h1>
+            <AuthContext.Provider value={this.state.user}>
+                {this.props.children}
+            </AuthContext.Provider>
         );
     }
-    
-}
 
-export default Calendar;
+}

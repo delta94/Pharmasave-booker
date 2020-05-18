@@ -1,3 +1,5 @@
+@import "variables";
+
 @keyframes to-white {
   from {
     background-color: rgba(0, 0, 0, 0);
@@ -22,5 +24,23 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes auth-expand {
+  from {
+    height: 40vw;
+  }
+  to {
+    height: 55vw;
+  }
+}
+
+@keyframes auth-shrink {
+  from {
+    height: 55vw;
+  }
+  to {
+    height: 40vw;
   }
 }

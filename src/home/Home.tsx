@@ -1,28 +1,37 @@
-/*
-    Carriage Crossing Pharmacy Booker
-    Copyright (C) 2020 Luke Zhang, Ethan Lim
+/**
+ * Defines components for homepage
+ */
 
-    https://luke-zhang-04.github.io/
-    https://github.com/ethanlim04
+/**
+ * Carriage Crossing Pharmacy Booker
+ * Copyright (C) 2020 Luke Zhang, Ethan Lim
+ * 
+ * https://luke-zhang-04.github.io/
+ * https://github.com/ethanlim04
+ * This program is free software: you can redistribute it and/or modif
+ * it under the terms of the GNU General Public License as published b
+ * the Free Software Foundation, either version 3 of the License, o
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be usefu
+ * but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See t
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public Licen
+ * 
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+import {Link} from "react-router-dom";
 
 import React from "react";
-import { Link } from "react-router-dom";
 
+/**
+ * Home component
+ */
 class Home extends React.Component {
+
     private splash = {
         splash: (
             <div className="splash">
@@ -41,40 +50,61 @@ class Home extends React.Component {
                     <span className="material-icons">keyboard_arrow_right</span>
                 </Link>
             </div>
-        )
+        ),
     }
     
-    constructor(props: any) {
-        super(props);
+    public constructor (props: {}) {
+        super(props)
         this.state = {
-            imageLoaded: false
+            imageLoaded: false,
         }
     }
 
-    updateDimensions() {
-        //Size a relative div so absolute image isn't overtop of everything
-        const navBarCurrent = document.querySelector(".navbar")
-        const windowWidth = window.innerWidth
+    /**
+     * When page size is changed
+     * @returns {void} void
+     */
+    private updateDimensions = (): void => {
+        // Size a relative div so absolute image isn't overtop of everything
+        const navBarCurrent = document.querySelector(".navbar"),
+            windowWidth = window.innerWidth
+
         if (navBarCurrent) {
-            const navBarHeight = navBarCurrent.clientHeight
-            let splash = document.querySelector(".splash")
+            const navBarHeight = navBarCurrent.clientHeight,
+                splash = document.querySelector(".splash")
+
             if (splash) {
-                let ratio = 7559/11811; //height:width ratio
-                (splash as HTMLElement).style.height = (windowWidth*ratio - navBarHeight).toString() + "px";
+                // eslint-disable-next-line
+                const ratio = 7559 / 11811; // Height:width ratio
+
+                (splash as HTMLElement).style.height = `${(
+                    windowWidth * ratio - navBarHeight
+                ).toString()}px`;
             }
         }
     }
 
-    componentDidMount() {
+    /**
+     * Updates on window resize
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
         this.updateDimensions()
         window.addEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    componentWillUnmount() {
+    /**
+     * @returns {void} void
+     */
+    public componentWillUnmount = (): void => {
         window.removeEventListener("resize", this.updateDimensions.bind(this))
     }
 
-    render() {
+    /**
+     * Renders homepage
+     * @returns {JSX.Element} homepage
+     */
+    public render = (): JSX.Element => {
         return (
             <div className="splash-container">
                 {this.splash.splash}
@@ -82,6 +112,7 @@ class Home extends React.Component {
             </div>
         );
     }
+
 }
 
 export default Home;
