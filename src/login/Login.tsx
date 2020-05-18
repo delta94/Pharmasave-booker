@@ -25,6 +25,7 @@
 
 // import {auth} from "../firebase";
 import {Login, Reg} from "./_Forms";
+import {makeModal} from "./_Reset_modal";
 
 import React from "react";
 
@@ -108,6 +109,20 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
         return (
             <div className="auth-container container">
                 {this.switchButtons()}
+                {makeModal(
+                    <h5>Reset your Password</h5>,
+                    <label>
+                        Email
+                        <input
+                            type = "email"
+                            name = "email"
+                            className = "form-control"
+                            id = "reset-email"
+                            aria-describedby = "emailHelp"
+                            placeholder = "Enter email"
+                        />
+                    </label>,
+                )}
                 <div className="back-container"></div>
                 <div
                     className = {

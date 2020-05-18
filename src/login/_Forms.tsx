@@ -31,8 +31,7 @@ import {
     makePasswordField,
     makePasswordField2
 } from "./_Form_components";
-import {auth} from "../firebase"
-import {makeModal} from "./_Reset_modal"
+import {auth} from "../firebase";
 import React from "react";
 
 /**
@@ -117,9 +116,10 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
                 <div className="form-group">
                     {makePasswordField(this, "login")}
                 </div>
-                <a data-toggle="modal" data-target="#reset-modal">Forgot your password?</a>
+                <a data-toggle="modal" data-target="#reset-modal">
+                    Forgot your password?
+                </a>
                 {makeButton("Login")}
-                {makeModal()}
             </form>
         );
     }

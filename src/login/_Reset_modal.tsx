@@ -23,6 +23,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {auth} from "../firebase";
 import React from "react";
 
 
@@ -51,14 +52,25 @@ const modalHeader = (title: JSX.Element): JSX.Element => {
 const modalFooter = (
     <div className="modal-footer">
         <button
-            type = "button"
+            type = "submit"
             className = "btn btn-secondary"
-            data-dismiss = "modal"
+            // data-dismiss = "modal"
         >
             Send Reset Email
         </button>
     </div>
 )
+
+
+const sendResetEmail = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    const email = (event.target as HTMLInputElement).querySelector("input")!.value
+    auth.sendPasswordResetEmail(email).then(() => {
+        alert("An email has been sent")
+    }).catch((err: {}) => {
+        alert(`Error resetting password`)
+    })
+}
 
 
 /**
@@ -68,16 +80,18 @@ const modalFooter = (
  * @returns {JSX.Element} modal
  */
 export const makeModal = (
-  title: JSX.Element = <h5></h5>,
-  body: JSX.Element = <div className="modal-body"></div>,
+    title: JSX.Element = <h5></h5>,
+    body: JSX.Element = <div className="modal-body"></div>,
 ) => {
     return (
-        <div className="modal" id="reset-modal" tabIndex={-1} role="dialog">
+        <div className="modal fade" id="reset-modal" tabIndex={-1} role="dialog">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     {modalHeader(title)}
-                    {body}
-                    {modalFooter}
+                    <form onSubmit={sendResetEmail}>
+                        {body}
+                        {modalFooter}
+                    </form>
                 </div>
             </div>
         </div>
