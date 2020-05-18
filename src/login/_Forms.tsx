@@ -49,6 +49,18 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
         }
     }
 
+     /**
+     * Authentication checking
+     * @returns {void} void
+     */
+    componentDidMount = (): void => {
+        auth.onAuthStateChanged((user) => {
+            if (Boolean(user)) {
+                window.location.href = "/";
+            }
+        })
+    }
+
     /**
      * Sign a user in with email and password
      * @param {React.FormEvent<HTMLFormElement>} event - submit event
@@ -65,7 +77,7 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
         ).catch((err) => {
             this.setState({error: "Error Signing up with email and password"})
             console.error("Error signing in with password and email", err)
-            alert("Unable to sign you in. Please try again later.")
+            alert(`Unable to sign you in. Please try again later. ${err.code}`)
         })
     }
 
@@ -134,6 +146,24 @@ class Reg extends React.Component<
     }
 
     /**
+     * Verifies everything is good to go for registration
+     * @returns {boolean} false if error true if success
+     */
+    private verifyReg = (): boolean => {
+        if (this.state.password != this.state.password2) {
+            alert("Passwords do not match")
+            return false
+        }
+
+        if (!this.state.agreement1 && !this.state.agreement2) {
+            /* eslint-disable-next-line */
+            alert("Please make sure you have read and agree to the terms and conditions")
+            return false
+        }
+        return true
+    }
+
+    /**
      * Sign a user in with email and password
      * @param {React.FormEvent<HTMLFormElement>} event - submit event
      * @returns {void} void
@@ -142,15 +172,9 @@ class Reg extends React.Component<
         event: React.FormEvent<HTMLFormElement>
     ): Promise<any> => {
         event.preventDefault()
-        try {
-            if (this.state.password != this.state.password2) {
-                alert("Passwords do not match")
-                return
-            }
 
-            if (!this.state.agreement1 && !this.state.agreement2) {
-                /* eslint-disable-next-line */
-                alert("Please make sure you have read and agree to the terms and conditions")
+        try {
+            if (!this.verifyReg()) {
                 return
             }
 
@@ -159,8 +183,21 @@ class Reg extends React.Component<
                 typeof(this.state.password) === "string" ? this.state.password:
                 "",
             )
+
+            await Promise.resolve(user).then((user) => {
+                if (user) {
+                    return user.sendEmailVerification().then(() => {
+                        alert(`Please verify your email at ${this.state.email}`)
+                        window.location.href = "/";
+                    }).catch((err: {}) => {
+                        throw err
+                    })
+                }
+            })
         } catch (error){
             this.setState({error: "Error Signing up with email and password"})
+            alert(`Error registering you. ${error.code}`)
+            console.log(error)
         }
     }
 

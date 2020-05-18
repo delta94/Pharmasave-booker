@@ -92,17 +92,17 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
         );
     }
 
-     /**
-     * Authentication checking
-     * @returns {void} void
-     */
-    componentDidMount = (): void => {
-        auth.onAuthStateChanged((user) => {
-            if (Boolean(user)) {
-                window.location.href = "/";
-            }
-        })
-    }
+    //  /**
+    //  * Authentication checking
+    //  * @returns {void} void
+    //  */
+    // componentDidMount = (): void => {
+    //     auth.onAuthStateChanged((user) => {
+    //         if (Boolean(user)) {
+    //             window.location.href = "/";
+    //         }
+    //     })
+    // }
 
     public render = (): JSX.Element => {
         return (
