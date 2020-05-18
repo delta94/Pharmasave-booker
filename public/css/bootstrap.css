@@ -8255,4 +8255,9 @@ footer #image-header {
   color: #eff1f3;
 }
 
+#reset-form label {
+  width: 80%;
+  margin-left: 10%;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

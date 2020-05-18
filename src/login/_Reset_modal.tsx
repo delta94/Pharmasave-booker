@@ -84,11 +84,16 @@ export const makeModal = (
     body: JSX.Element = <div className="modal-body"></div>,
 ) => {
     return (
-        <div className="modal fade" id="reset-modal" tabIndex={-1} role="dialog">
+        <div
+            className = "modal fade"
+            id = "reset-modal"
+            tabIndex = {-1}
+            role = "dialog"
+        >
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     {modalHeader(title)}
-                    <form onSubmit={sendResetEmail}>
+                    <form onSubmit = {sendResetEmail} id="reset-form">
                         {body}
                         {modalFooter}
                     </form>
