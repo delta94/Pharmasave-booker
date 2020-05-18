@@ -18,6 +18,7 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+/* eslint-disable one-var */
 
 import "firebase/auth";
 import "firebase/firestore";

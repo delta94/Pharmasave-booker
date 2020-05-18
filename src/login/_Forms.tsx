@@ -31,6 +31,7 @@ import {
     makePasswordField,
     makePasswordField2
 } from "./_Form_components";
+import {auth} from "../firebase"
 import React from "react";
 
 /**
@@ -50,17 +51,22 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
 
     /**
      * Sign a user in with email and password
-     * @param {React.FormEvent<HTMLInputElement>} event - submit event
-     * @param {string} email - email of user
-     * @param {string} password - password of user
+     * @param {React.FormEvent<HTMLFormElement>} event - submit event
      * @returns {void} void
      */
     private signInWithEmailAndPassword = (
-        event: React.FormEvent<HTMLInputElement>,
-        email: string,
-        password: string,
+        event: React.FormEvent<HTMLFormElement>
     ): void => {
         event.preventDefault()
+        auth.signInWithEmailAndPassword(
+            typeof(this.state.email) === "string" ? this.state.email : "",
+            typeof(this.state.password) === "string" ? this.state.password:
+            "",
+        ).catch((err) => {
+            this.setState({error: "Error Signing up with email and password"})
+            console.error("Error signing in with password and email", err)
+            alert("Unable to sign you in. Please try again later.")
+        })
     }
 
     /**
@@ -81,7 +87,6 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
             default:
                 break
         }
-        console.log(this.state)
     }
 
     /**
@@ -92,7 +97,7 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
         return (
             <form style={
                 this.state.display ? {display: this.state.display} : {}
-            }>
+            } onSubmit = {this.signInWithEmailAndPassword}>
                 <div className="form-group">
                     {makeEmailField(this, "login")}
                 </div>
@@ -130,17 +135,33 @@ class Reg extends React.Component<
 
     /**
      * Sign a user in with email and password
-     * @param {React.FormEvent<HTMLInputElement>} event - submit event
-     * @param {string} email - email of user
-     * @param {string} password - password of user
+     * @param {React.FormEvent<HTMLFormElement>} event - submit event
      * @returns {void} void
      */
-    private signUpWithEmailAndPassword = (
-        event: React.FormEvent<HTMLInputElement>,
-        email: string,
-        password: string,
-    ): void => {
+    private signUpWithEmailAndPassword = async (
+        event: React.FormEvent<HTMLFormElement>
+    ): Promise<any> => {
         event.preventDefault()
+        try {
+            if (this.state.password != this.state.password2) {
+                alert("Passwords do not match")
+                return
+            }
+
+            if (!this.state.agreement1 && !this.state.agreement2) {
+                /* eslint-disable-next-line */
+                alert("Please make sure you have read and agree to the terms and conditions")
+                return
+            }
+
+            const {user} = await auth.createUserWithEmailAndPassword(
+                typeof(this.state.email) === "string" ? this.state.email : "",
+                typeof(this.state.password) === "string" ? this.state.password:
+                "",
+            )
+        } catch (error){
+            this.setState({error: "Error Signing up with email and password"})
+        }
     }
 
     /**
@@ -152,28 +173,20 @@ class Reg extends React.Component<
         const {name, value} = event.currentTarget
 
         switch (name) {
-            case "displayName":
-                this.setState({displayName: value})
-                break
-            case "email":
-                this.setState({email: value})
-                break
-            case "password":
-                this.setState({password: value})
-                break
-            case "password2":
-                this.setState({password2: value})
-                break
+            case "displayName": this.setState({displayName: value}); break
+            case "email": this.setState({email: value}); break
+            case "password": this.setState({password: value}); break
+            case "password2": this.setState({password2: value}); break
             case "agreement1":
-                this.setState({agreement1: value})
-                break
+                this.setState({
+                    agreement1: (event.target as HTMLInputElement).checked
+                }); break
             case "agreement2":
-                this.setState({agremeent2: value})
-                break
-            default:
-                break
+                this.setState({
+                    agremeent2: (event.target as HTMLInputElement).checked
+                }); break
+            default: break
         }
-        console.log(this.state)
     }
 
     /**
@@ -185,7 +198,8 @@ class Reg extends React.Component<
             <form style={
                 typeof(this.state.display) === "string" ?
                 {display: this.state.display} : {}
-            }>
+            } onSubmit = {this.signUpWithEmailAndPassword}
+            >
                 <div className="form-group">
                     {makeNameField(this)}
                 </div>

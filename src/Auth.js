@@ -20,7 +20,7 @@
  */
 import React from "react";
 
-export const AuthContext = React.createContext({ user: null })
+export const AuthContext = React.createContext({user: null})
 
 export default class AuthProvider extends React.Component {
 
@@ -37,6 +37,6 @@ export default class AuthProvider extends React.Component {
                 {this.props.children}
             </AuthContext.Provider>
         );
-      }
+    }
 
 }

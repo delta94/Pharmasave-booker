@@ -120,6 +120,10 @@ export const makeEmailField = (
                 onChange = {(event) => {
                     self.onChange(event)
                 }}
+                value = {
+                    typeof(self.state.email) === "string" ?
+                    self.state.email : ""
+                }
             />
 
             <small
@@ -154,6 +158,10 @@ export const makePasswordField = (
                 onChange = {(event) => {
                     self.onChange(event)
                 }}
+                value = {
+                    typeof(self.state.password) === "string" ?
+                    self.state.password : ""
+                }
             />
         </label>
     );
@@ -169,7 +177,7 @@ export const makeNameField = (self: Reg): JSX.Element => {
         <label>
             Full, legal name
             <input
-                type = "name"
+                type = "text"
                 name = "displayName"
                 className = "form-control"
                 id = "reg-name"
@@ -178,6 +186,10 @@ export const makeNameField = (self: Reg): JSX.Element => {
                 onChange = {(event) => {
                     self.onChange(event)
                 }}
+                value = {
+                    typeof(self.state.displayName) === "string" ?
+                    self.state.displayName : ""
+                }
             />
         </label>
     );
@@ -201,6 +213,10 @@ export const makePasswordField2 = (self: Reg): JSX.Element => {
                 onChange = {(event) => {
                     self.onChange(event)
                 }}
+                value = {
+                    typeof(self.state.password2) === "string" ?
+                    self.state.password2 : ""
+                }
             />
         </label>
     );
@@ -231,7 +247,7 @@ export const makeAgreementField = (self: Reg): JSX.Element => {
                     name = "agreement1"
                     onChange = {(event) => {
                         self.onChange(event)
-                    }}
+                    }} 
                 ></input></label>
             <label id="ppolicy">I have read, and agree to the
                 <Link to="/Privacy-policy">Privacy Policy</Link>
