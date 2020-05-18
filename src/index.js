@@ -21,7 +21,7 @@
 
 import * as serviceWorker from "./serviceWorker";
 import App from "./App.tsx";
-import AuthProvider from "./Auth.js"
+import AuthProvider from "./Auth.js";
 import React from "react";
 import ReactDOM from "react-dom";
 
