@@ -30,15 +30,21 @@ import React from "react";
 /**
  * The navbar component
  */
-class Nav extends React.Component<{}, {[key: string]: string}> {
+class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
 
     public constructor (props: {}) {
         super(props)
+        this.state = {
+            loggedIn: false
+        }
     }
 
     private logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
     private loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+
+    private userNav: React.RefObject<HTMLAnchorElement>[] =
+        [React.createRef(), React.createRef()]
 
     private navbarComponents = {
         home: (
@@ -53,14 +59,18 @@ class Nav extends React.Component<{}, {[key: string]: string}> {
             <NavLink
                 className = "nav-item nav-link disabled"
                 activeClassName = "active"
-                to = "/Calendar">Schedule a Pickup
+                to = "/Calendar"
+                ref = {this.userNav[0]}
+            >Schedule a Pickup
             </NavLink>
         ),
         user: (
             <NavLink
                 className = "nav-item nav-link disabled"
                 activeClassName = "active"
-                to="/User">My Schedule
+                to="/User"
+                ref = {this.userNav[1]}
+            >My Schedule
             </NavLink>
         ),
         auth: (
@@ -101,7 +111,7 @@ class Nav extends React.Component<{}, {[key: string]: string}> {
      * Authentication checking
      * @returns {void} void
      */
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
         auth.onAuthStateChanged((user) => {
             if (Boolean(user)) {
                 if (this.logoutBtn.current) {
@@ -110,12 +120,22 @@ class Nav extends React.Component<{}, {[key: string]: string}> {
                 if (this.loginBtn.current) {
                     this.loginBtn.current.style.display = "none"
                 }
+                for (const unav of this.userNav) {
+                    if (unav.current) {
+                        unav.current.classList.remove("disabled")
+                    }
+                }
             } else {
                 if (this.logoutBtn.current) {
                     this.logoutBtn.current.style.display = "none"
                 }
                 if (this.loginBtn.current) {
                     this.loginBtn.current.style.display = "block"
+                }
+                for (const unav of this.userNav) {
+                    if (unav.current) {
+                        unav.current.classList.add("disabled")
+                    }
                 }
             }
         })
