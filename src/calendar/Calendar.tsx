@@ -27,9 +27,25 @@ import React from "react";
 
 class Calendar extends React.Component {
 
+    private daysInMonth = (year: number, month: number): number => {
+        return 32 - new Date(year, month, 32).getDate()
+    }
+
     public render = (): JSX.Element => {
         return (
-            <h1>Calendar</h1>
+            <table className="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Sun</th>
+                    <th scope="col">Mon</th>
+                    <th scope="col">Tues</th>
+                    <th scope="col">Wed</th>
+                    <th scope="col">Thurs</th>
+                    <th scope="col">Fri</th>
+                    <th scope="col">Sat</th>
+                    </tr>
+                </thead>
+            </table>
         );
     }
     

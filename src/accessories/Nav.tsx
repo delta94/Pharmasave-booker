@@ -45,6 +45,20 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
 
     private userNav: React.RefObject<HTMLAnchorElement>[] =
         [React.createRef(), React.createRef()]
+    
+    private userBtns = (
+        to: string, refIndex: number, name: string
+    ): JSX.Element => {
+        return (
+            <NavLink
+                className = "nav-item nav-link disabled"
+                activeClassName = "active"
+                to = {`/${to}`}
+                ref = {this.userNav[refIndex]}
+            >{name}
+            </NavLink>
+        );
+    }
 
     private navbarComponents = {
         home: (
@@ -53,24 +67,6 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
                 className = "nav-item nav-link"
                 activeClassName = "active"
                 to = "/">Home <span className="sr-only">(current)</span>
-            </NavLink>
-        ),
-        calendar: (
-            <NavLink
-                className = "nav-item nav-link disabled"
-                activeClassName = "active"
-                to = "/Calendar"
-                ref = {this.userNav[0]}
-            >Schedule a Pickup
-            </NavLink>
-        ),
-        user: (
-            <NavLink
-                className = "nav-item nav-link disabled"
-                activeClassName = "active"
-                to="/User"
-                ref = {this.userNav[1]}
-            >My Schedule
             </NavLink>
         ),
         auth: (
@@ -100,12 +96,35 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
     private navbarNav = (
         <div className="navbar-nav">
             {this.navbarComponents.home}
-            {this.navbarComponents.calendar}
-            {this.navbarComponents.user}
+            {this.userBtns("Calendar", 0, "Schedule a Pickup")}
+            {this.userBtns("User", 1, "My Schedule")}
             {this.navbarComponents.auth}
             {this.navbarComponents.logout}
         </div>
     );
+
+    /**
+     * Configure navbar with auth
+     * @param {boolean} auth - if a user is signed in
+     * @returns {void} void
+     */
+    private navConfig = (auth: boolean): void => {
+        if (this.logoutBtn.current) {
+            this.logoutBtn.current.style.display =
+                auth ? "block" : "none"
+        }
+        if (this.loginBtn.current) {
+            this.loginBtn.current.style.display =
+                auth ? "none" : "block"
+        }
+        for (const unav of this.userNav) {
+            if (unav.current) {
+                auth ?
+                    unav.current.classList.remove("disabled") :
+                    unav.current.classList.add("disabled")
+            }
+        }
+    }
 
     /**
      * Authentication checking
@@ -113,31 +132,7 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
      */
     public componentDidMount = (): void => {
         auth.onAuthStateChanged((user) => {
-            if (Boolean(user)) {
-                if (this.logoutBtn.current) {
-                    this.logoutBtn.current.style.display = "block"
-                }
-                if (this.loginBtn.current) {
-                    this.loginBtn.current.style.display = "none"
-                }
-                for (const unav of this.userNav) {
-                    if (unav.current) {
-                        unav.current.classList.remove("disabled")
-                    }
-                }
-            } else {
-                if (this.logoutBtn.current) {
-                    this.logoutBtn.current.style.display = "none"
-                }
-                if (this.loginBtn.current) {
-                    this.loginBtn.current.style.display = "block"
-                }
-                for (const unav of this.userNav) {
-                    if (unav.current) {
-                        unav.current.classList.add("disabled")
-                    }
-                }
-            }
+            this.navConfig(Boolean(user))
         })
     }
 
