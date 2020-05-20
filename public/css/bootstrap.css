@@ -8441,6 +8441,10 @@ template {
     height: 40vw;
   }
 }
+.calendar-header {
+  width: 7%;
+}
+
 a {
   cursor: pointer;
 }

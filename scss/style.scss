@@ -3,6 +3,10 @@
 
 @import "animations";
 
+.calendar-header {
+  width: percentage(1/(100/7));
+}
+
 a {
   cursor: pointer;
 }

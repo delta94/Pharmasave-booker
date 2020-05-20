@@ -27,24 +27,76 @@ import React from "react";
 
 class Calendar extends React.Component {
 
-    private daysInMonth = (year: number, month: number): number => {
-        return 32 - new Date(year, month, 32).getDate()
+    /**
+     * Get the start and end date of the month.
+     * @returns {Date[]} [start of month, end of month]
+     */
+    private monthStartEnd = (): Date[] => {
+        const date = new Date(), y = date.getFullYear(), m = date.getMonth(),
+            firstDay = new Date(y, m, 1),
+            lastDay = new Date(y, m + 1, 0)
+        return [firstDay, lastDay]
+    }
+
+    /**
+     * Create the calendar
+     * @returns {JSX.Element} => <tbody>Calendar</tbody>
+     */
+    private renderCalendar = (): JSX.Element => {
+        const maxAheadTime = 7,
+            end = this.monthStartEnd()[1].getDate(),
+            currentDate = new Date(),
+            startDate = this.monthStartEnd()[0].getDay(),
+            weeks: JSX.Element[][] = []
+        
+        let day = 1,
+            offsetDay = 1,
+            key = 0
+        
+        while (day <= end ) {
+            let week: JSX.Element[] = []
+            for (let i = 0; i < 7; i++) {
+                if (day > end) {
+                    break
+                } else if (offsetDay - startDate < 1) {
+                    week.push(
+                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
+                    )
+                    offsetDay++
+                } else {
+                    week.push(<td key={`calendar-${day.toString()}`}>{day}</td>)
+                    offsetDay++
+                    day++
+                }
+            }
+            weeks.push(week)
+        }
+
+        return (
+            <tbody>
+                {weeks.map((week) => {
+                    key++
+                    return React.createElement("tr", {key: `row-${key}`}, week.map((i) => i))
+                })}
+            </tbody>
+        )
     }
 
     public render = (): JSX.Element => {
         return (
-            <table className="table">
+            <table className="table table-bordered">
                 <thead>
-                    <tr>
-                    <th scope="col">Sun</th>
-                    <th scope="col">Mon</th>
-                    <th scope="col">Tues</th>
-                    <th scope="col">Wed</th>
-                    <th scope="col">Thurs</th>
-                    <th scope="col">Fri</th>
-                    <th scope="col">Sat</th>
+                    <tr key="table-header">
+                        <th className="calendar-header" scope="col">Sun</th>
+                        <th className="calendar-header" scope="col">Mon</th>
+                        <th className="calendar-header" scope="col">Tues</th>
+                        <th className="calendar-header" scope="col">Wed</th>
+                        <th className="calendar-header" scope="col">Thurs</th>
+                        <th className="calendar-header" scope="col">Fri</th>
+                        <th className="calendar-header" scope="col">Sat</th>
                     </tr>
                 </thead>
+                <this.renderCalendar/>
             </table>
         );
     }
