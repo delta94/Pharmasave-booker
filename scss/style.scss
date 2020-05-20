@@ -3,10 +3,6 @@
 
 @import "animations";
 
-.calendar-header {
-  width: percentage(1/(100/7));
-}
-
 a {
   cursor: pointer;
 }
@@ -257,5 +253,35 @@ footer {
   label {
     width: 80%;
     margin-left: 10%;
+  }
+}
+
+#calendar {
+  .calendar-header {
+    width: percentage(1/(100/7));
+  }
+  
+  .day-square {
+    height: 10vw;
+    cursor: pointer;
+  }
+
+  .day-square.selected {
+    cursor: default;
+
+    div {
+      background-color: variables.$primary;
+      color: variables.$paper;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      text-align: center;
+      
+      span {
+        margin: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
   }
 }

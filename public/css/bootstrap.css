@@ -8441,10 +8441,6 @@ template {
     height: 40vw;
   }
 }
-.calendar-header {
-  width: 7%;
-}
-
 a {
   cursor: pointer;
 }
@@ -8653,6 +8649,30 @@ footer #image-header {
 #reset-form label {
   width: 80%;
   margin-left: 10%;
+}
+
+#calendar .calendar-header {
+  width: 7%;
+}
+#calendar .day-square {
+  height: 10vw;
+  cursor: pointer;
+}
+#calendar .day-square.selected {
+  cursor: default;
+}
+#calendar .day-square.selected div {
+  background-color: #c50f3c;
+  color: #eff1f3;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  text-align: center;
+}
+#calendar .day-square.selected div span {
+  margin: auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /*# sourceMappingURL=bootstrap.css.map */

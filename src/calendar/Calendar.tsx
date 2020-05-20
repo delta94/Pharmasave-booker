@@ -67,9 +67,9 @@ class CalendarGen {
                     let className = day == currentDate.getDate() ? "selected" : ""
                     week.push(
                         <td
-                            className = {className}
+                            className = {`day-square ${className}`}
                             key = {`calendar-${day.toString()}`}
-                        >{day}</td>
+                        ><div><span>{day}</span></div></td>
                     )
                     offsetDay++
                     day++
@@ -132,7 +132,7 @@ class Calendar extends React.Component
 
     public render = (): JSX.Element => {
         return (
-            <table className="table table-bordered">
+            <table className="table table-bordered" id="calendar">
                 <thead>
                     <tr key="table-header">
                         <th className="calendar-header" scope="col">
