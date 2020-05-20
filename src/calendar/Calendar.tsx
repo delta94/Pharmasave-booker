@@ -25,13 +25,13 @@
 
 import React from "react";
 
-class Calendar extends React.Component {
+class CalendarGen {
 
     /**
      * Get the start and end date of the month.
      * @returns {Date[]} [start of month, end of month]
      */
-    private monthStartEnd = (): Date[] => {
+    private static monthStartEnd = (): Date[] => {
         const date = new Date(), y = date.getFullYear(), m = date.getMonth(),
             firstDay = new Date(y, m, 1),
             lastDay = new Date(y, m + 1, 0)
@@ -42,11 +42,11 @@ class Calendar extends React.Component {
      * Create the calendar
      * @returns {JSX.Element} => <tbody>Calendar</tbody>
      */
-    private renderCalendar = (): JSX.Element => {
+    public static renderCalendar = (): JSX.Element => {
         const maxAheadTime = 7,
-            end = this.monthStartEnd()[1].getDate(),
+            end = CalendarGen.monthStartEnd()[1].getDate(),
             currentDate = new Date(),
-            startDate = this.monthStartEnd()[0].getDay(),
+            startDate = CalendarGen.monthStartEnd()[0].getDay(),
             weeks: JSX.Element[][] = []
         
         let day = 1,
@@ -64,7 +64,13 @@ class Calendar extends React.Component {
                     )
                     offsetDay++
                 } else {
-                    week.push(<td key={`calendar-${day.toString()}`}>{day}</td>)
+                    let className = day == currentDate.getDate() ? "selected" : ""
+                    week.push(
+                        <td
+                            className = {className}
+                            key = {`calendar-${day.toString()}`}
+                        >{day}</td>
+                    )
                     offsetDay++
                     day++
                 }
@@ -82,21 +88,77 @@ class Calendar extends React.Component {
         )
     }
 
+}
+
+
+class Calendar extends React.Component
+    <{}, {[key: string]: string[]}> {
+
+    public constructor (props: {}) {
+        super(props)
+        this.state = {
+            days: this.days.long
+        }
+    }
+
+    private days = {
+        short: ["S", "M", "T", "W", "T", "F", "S"],
+        med: ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"],
+        /*eslint-disable-next-line*/
+        long: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    }
+
+    /**
+     * Window resize handler.
+     * @returns {void} void
+     */
+    private onWindowResize = (): void => {
+        if (window.innerWidth < 450) {
+            this.setState({days: this.days.short})
+        } else if (window.innerWidth < 800) {
+            this.setState({days: this.days.med})
+        } else {
+            this.setState({days: this.days.long})
+        }
+    }
+
+    /**
+     * Attatch window resize handler.
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        window.addEventListener('resize', this.onWindowResize)
+    }
+
     public render = (): JSX.Element => {
         return (
             <table className="table table-bordered">
                 <thead>
                     <tr key="table-header">
-                        <th className="calendar-header" scope="col">Sun</th>
-                        <th className="calendar-header" scope="col">Mon</th>
-                        <th className="calendar-header" scope="col">Tues</th>
-                        <th className="calendar-header" scope="col">Wed</th>
-                        <th className="calendar-header" scope="col">Thurs</th>
-                        <th className="calendar-header" scope="col">Fri</th>
-                        <th className="calendar-header" scope="col">Sat</th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[0]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[1]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[2]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[3]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[4]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[5]}
+                        </th>
+                        <th className="calendar-header" scope="col">
+                            {this.state.days[6]}
+                        </th>
                     </tr>
                 </thead>
-                <this.renderCalendar/>
+                <CalendarGen.renderCalendar/>
             </table>
         );
     }
