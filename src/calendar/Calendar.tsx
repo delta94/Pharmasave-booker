@@ -25,79 +25,15 @@
 
 import React from "react";
 
-class CalendarGen {
-
-    /**
-     * Get the start and end date of the month.
-     * @returns {Date[]} [start of month, end of month]
-     */
-    private static monthStartEnd = (): Date[] => {
-        const date = new Date(), y = date.getFullYear(), m = date.getMonth(),
-            firstDay = new Date(y, m, 1),
-            lastDay = new Date(y, m + 1, 0)
-        return [firstDay, lastDay]
-    }
-
-    /**
-     * Create the calendar
-     * @returns {JSX.Element} => <tbody>Calendar</tbody>
-     */
-    public static renderCalendar = (): JSX.Element => {
-        const maxAheadTime = 7,
-            end = CalendarGen.monthStartEnd()[1].getDate(),
-            currentDate = new Date(),
-            startDate = CalendarGen.monthStartEnd()[0].getDay(),
-            weeks: JSX.Element[][] = []
-        
-        let day = 1,
-            offsetDay = 1,
-            key = 0
-        
-        while (day <= end ) {
-            let week: JSX.Element[] = []
-            for (let i = 0; i < 7; i++) {
-                if (day > end) {
-                    break
-                } else if (offsetDay - startDate < 1) {
-                    week.push(
-                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
-                    )
-                    offsetDay++
-                } else {
-                    let className = day == currentDate.getDate() ? "selected" : ""
-                    week.push(
-                        <td
-                            className = {`day-square ${className}`}
-                            key = {`calendar-${day.toString()}`}
-                        ><div><span>{day}</span></div></td>
-                    )
-                    offsetDay++
-                    day++
-                }
-            }
-            weeks.push(week)
-        }
-
-        return (
-            <tbody>
-                {weeks.map((week) => {
-                    key++
-                    return React.createElement("tr", {key: `row-${key}`}, week.map((i) => i))
-                })}
-            </tbody>
-        )
-    }
-
-}
-
 
 class Calendar extends React.Component
-    <{}, {[key: string]: string[]}> {
+    <{}, {[key: string]: string[] | string}> {
 
     public constructor (props: {}) {
         super(props)
         this.state = {
-            days: this.days.long
+            days: this.days.long,
+            current: `day-square-${new Date().getDate().toString()}`,
         }
     }
 
@@ -120,6 +56,74 @@ class Calendar extends React.Component
         } else {
             this.setState({days: this.days.long})
         }
+    }
+
+    /**
+     * Get the start and end date of the month.
+     * @returns {Date[]} [start of month, end of month]
+     */
+    private monthStartEnd = (): Date[] => {
+        const date = new Date(), y = date.getFullYear(), m = date.getMonth(),
+            firstDay = new Date(y, m, 1),
+            lastDay = new Date(y, m + 1, 0)
+        return [firstDay, lastDay]
+    }
+
+    /**
+     * Create the calendar
+     * @returns {JSX.Element} => <tbody>Calendar</tbody>
+     */
+    public renderCalendar = (): JSX.Element => {
+        const maxAheadTime = 7,
+            end = this.monthStartEnd()[1].getDate(),
+            currentDate = new Date(),
+            startDate = this.monthStartEnd()[0].getDay(),
+            weeks: JSX.Element[][] = []
+        
+        let day = 1,
+            offsetDay = 1,
+            key = 0
+        
+        while (day <= end ) {
+            let week: JSX.Element[] = []
+            for (let i = 0; i < 7; i++) {
+                if (day > end) {
+                    break
+                } else if (offsetDay - startDate < 1) {
+                    week.push(
+                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
+                    )
+                    offsetDay++
+                } else {
+                    let cur = day
+                    week.push(
+                        <td
+                            className = {
+                                /*eslint-disable-next-line*/
+                                `day-square ${this.state.current === `day-square-${day.toString()}` ? "selected" : ""}`
+                            }
+                            key = {`calendar-${day.toString()}`}
+                            id = {`day-square-${day.toString()}`}
+                            onClick = {() => {
+                                this.setState({current: `day-square-${cur.toString()}`})
+                            }}
+                        ><div><span>{day}</span></div></td>
+                    )
+                    offsetDay++
+                    day++
+                }
+            }
+            weeks.push(week)
+        }
+
+        return (
+            <tbody>
+                {weeks.map((week) => {
+                    key++
+                    return React.createElement("tr", {key: `row-${key}`}, week.map((i) => i))
+                })}
+            </tbody>
+        )
     }
 
     /**
@@ -158,7 +162,7 @@ class Calendar extends React.Component
                         </th>
                     </tr>
                 </thead>
-                <CalendarGen.renderCalendar/>
+                <this.renderCalendar/>
             </table>
         );
     }
