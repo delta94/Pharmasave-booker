@@ -22,11 +22,11 @@
 import * as serviceWorker from "./serviceWorker";
 import App from "./App.tsx";
 import AuthProvider from "./Auth.js";
-import LogRocket from 'logrocket';
+import LogRocket from "logrocket";
 import React from "react";
 import ReactDOM from "react-dom";
 
-LogRocket.init('8ywdga/pharmasave-booker');
+LogRocket.init("8ywdga/pharmasave-booker");
 
 ReactDOM.render(
     <React.StrictMode>
