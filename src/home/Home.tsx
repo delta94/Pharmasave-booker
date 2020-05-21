@@ -23,6 +23,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {auth} from "../firebase"
 import {Link} from "react-router-dom";
 
 import React from "react";
@@ -30,7 +31,15 @@ import React from "react";
 /**
  * Home component
  */
-class Home extends React.Component {
+class Home extends React.Component<{}, {[key: string]: boolean}> {
+
+    public constructor (props: {}) {
+        super(props)
+        this.state = {
+            imageLoaded: false,
+            loggedIn: false,
+        }
+    }
 
     private splash = {
         splash: (
@@ -38,26 +47,16 @@ class Home extends React.Component {
                 <img src="pictures/cover.png" alt="Cover"/>
             </div>
         ),
-        splashText: (
-            <div className="splash-text">
-                <h1>Wellness</h1>
-                <h2>Starts here.</h2>
-                <h3>Register or login to to book a pickup</h3>
-                <Link className="btn btn-primary" to="login">Login or Register 
-                    <span className="material-icons">keyboard_arrow_right</span>
-                </Link>
-                <Link className="btn btn-primary" to="calendar">Book a Pickup 
-                    <span className="material-icons">keyboard_arrow_right</span>
-                </Link>
-            </div>
-        ),
     }
-    
-    public constructor (props: {}) {
-        super(props)
-        this.state = {
-            imageLoaded: false,
-        }
+
+    /**
+     * Attach auth.
+     * @returns {void} void
+     */
+    public componentWillMount = (): void => {
+        auth.onAuthStateChanged((user) => {
+            this.setState({loggedIn: Boolean(user)})
+        })
     }
 
     /**
@@ -85,6 +84,37 @@ class Home extends React.Component {
     }
 
     /**
+     * Create splash text.
+     * @returns {JSX.Element} Splash text
+     */
+    private splashText = (): JSX.Element => {
+        return (
+            <div className="splash-text">
+                <h1>Wellness</h1>
+                <h2>Starts here.</h2>
+                <h3 style = {{display: this.state.loggedIn ? "none" : "block"}}
+                >Register or login to to book a pickup</h3>
+                <Link
+                    className = "btn btn-primary"
+                    to = "login"
+                    style = {{display: this.state.loggedIn ? "none" : "block"}}
+                >Login or Register 
+                    <span className="material-icons">keyboard_arrow_right</span>
+                </Link>
+                <h3 style = {{display: this.state.loggedIn ? "block" : "none"}}
+                >Book a pickup today</h3>
+                <Link
+                    className = "btn btn-primary"
+                    to = "calendar"
+                    style = {{display: this.state.loggedIn ? "block" : "none"}}
+                >Book a Pickup 
+                    <span className="material-icons">keyboard_arrow_right</span>
+                </Link>
+            </div>
+        );
+    }
+
+    /**
      * Updates on window resize
      * @returns {void} void
      */
@@ -108,7 +138,7 @@ class Home extends React.Component {
         return (
             <div className="splash-container">
                 {this.splash.splash}
-                {this.splash.splashText}
+                {this.splashText()}
             </div>
         );
     }

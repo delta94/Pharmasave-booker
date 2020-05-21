@@ -8546,6 +8546,7 @@ footer #image-header {
   font-size: 1.5vw;
   animation-delay: 2.75s;
   margin-left: 1vw;
+  max-width: 20vw;
 }
 .splash-container .splash-text a span {
   display: inline-flex;
