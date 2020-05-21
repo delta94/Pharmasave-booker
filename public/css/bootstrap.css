@@ -8441,6 +8441,22 @@ template {
     height: 40vw;
   }
 }
+@keyframes calendar-mouseover {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #f1c3ce;
+  }
+}
+@keyframes calendar-select {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: #c50f3c;
+  }
+}
 a {
   cursor: pointer;
 }
@@ -8658,14 +8674,20 @@ footer #image-header {
   height: 10vw;
   cursor: pointer;
 }
+#calendar .day-square:hover:not(.selected) {
+  animation: calendar-mouseover 0.25s ease;
+  background-color: #f1c3ce;
+}
 #calendar .day-square.selected {
   cursor: default;
+  background-color: #f1c3ce;
 }
 #calendar .day-square.selected div {
+  animation: calendar-select 0.25s ease;
   background-color: #c50f3c;
   color: #eff1f3;
-  width: 2rem;
-  height: 2rem;
+  width: 1.9rem;
+  height: 1.9rem;
   border-radius: 50%;
   text-align: center;
 }

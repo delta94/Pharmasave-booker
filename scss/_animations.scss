@@ -44,3 +44,21 @@
     height: 40vw;
   }
 }
+
+@keyframes calendar-mouseover {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: mix(white, variables.$primary, 75%);
+  }
+}
+
+@keyframes calendar-select {
+  from {
+    background-color: $none;
+  }
+  to {
+    background-color: variables.$primary;
+  }
+}

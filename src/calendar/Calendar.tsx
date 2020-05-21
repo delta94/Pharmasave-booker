@@ -137,7 +137,7 @@ class Calendar extends React.Component
     public render = (): JSX.Element => {
         return (
             <table className="table table-bordered" id="calendar">
-                <thead>
+                <thead className="thead-light">
                     <tr key="table-header">
                         <th className="calendar-header" scope="col">
                             {this.state.days[0]}
