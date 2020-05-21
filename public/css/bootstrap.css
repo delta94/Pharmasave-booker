@@ -8457,6 +8457,16 @@ template {
     background-color: #c50f3c;
   }
 }
+@keyframes calendar-date-mouseover {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    color: #333333;
+  }
+  to {
+    background-color: #dc6f8a;
+    color: #eff1f3;
+  }
+}
 a {
   cursor: pointer;
 }
@@ -8678,9 +8688,23 @@ footer #image-header {
   animation: calendar-mouseover 0.25s ease;
   background-color: #f1c3ce;
 }
+#calendar .day-square:hover:not(.selected) div {
+  animation: calendar-date-mouseover 0.25s ease;
+  background-color: #dc6f8a;
+  color: #eff1f3;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  text-align: center;
+}
+#calendar .day-square:hover:not(.selected) div span {
+  margin: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
 #calendar .day-square.selected {
   cursor: default;
-  background-color: #f1c3ce;
+  background-color: #e2879e;
 }
 #calendar .day-square.selected div {
   animation: calendar-select 0.25s ease;

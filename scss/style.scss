@@ -268,12 +268,28 @@ footer {
     &:hover:not(.selected) {
       animation: calendar-mouseover .25s ease;
       background-color: mix(white, variables.$primary, 75%);
+
+      div {
+        animation: calendar-date-mouseover .25s ease;
+        background-color: mix(white, variables.$primary, 40%);
+        color: variables.$paper;
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 50%;
+        text-align: center;
+        
+        span {
+          margin: auto;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
   .day-square.selected {
     cursor: default;
-    background-color: mix(white, variables.$primary, 75%);
+    background-color: mix(white, variables.$primary, 50%);
 
     div {
       animation: calendar-select .25s ease;

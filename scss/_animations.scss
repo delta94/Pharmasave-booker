@@ -62,3 +62,14 @@
     background-color: variables.$primary;
   }
 }
+
+@keyframes calendar-date-mouseover {
+  from {
+    background-color: $none;
+    color: $secondary;
+  }
+  to {
+    background-color: mix(white, variables.$primary, 40%);
+    color: $paper;
+  }
+}
