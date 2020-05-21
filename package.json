@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "comp-sass": "sass scss/bootstrap.scss public/css/bootstrap.css"
+    "comp-sass": "sass scss/bootstrap.scss public/css/styles.css"
   },
   "browserslist": {
     "production": [
