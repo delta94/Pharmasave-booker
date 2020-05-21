@@ -8598,6 +8598,9 @@ footer #image-header {
 .auth-container a {
   margin-bottom: 1vw;
 }
+.auth-container .form-group {
+  margin-bottom: 1vw;
+}
 .auth-container .form-group p {
   color: #eff1f3 !important;
 }

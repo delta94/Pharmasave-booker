@@ -109,7 +109,8 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
         return (
             <form style={
                 this.state.display ? {display: this.state.display} : {}
-            } onSubmit = {this.signInWithEmailAndPassword}>
+            } onSubmit = {this.signInWithEmailAndPassword}
+            className = "login-form">
                 <div className="form-group">
                     {makeEmailField(this, "login")}
                 </div>
@@ -230,7 +231,7 @@ class Reg extends React.Component<
 
     /**
      * Render resitration form
-     * @returns {JSX.Element} login form
+     * @returns {JSX.Element} reg form
      */
     public render = (): JSX.Element => {
         return (
@@ -238,7 +239,7 @@ class Reg extends React.Component<
                 typeof(this.state.display) === "string" ?
                 {display: this.state.display} : {}
             } onSubmit = {this.signUpWithEmailAndPassword}
-            >
+            className = "reg-form">
                 <div className="form-group">
                     {makeNameField(this)}
                 </div>
