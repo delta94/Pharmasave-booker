@@ -23,6 +23,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {AuthContext} from "../Auth"
 import {auth} from "../firebase";
 import {Link, NavLink} from "react-router-dom";
 import React from "react";
@@ -46,12 +47,17 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
     private userNav: React.RefObject<HTMLAnchorElement>[] =
         [React.createRef(), React.createRef()]
     
+    public static contextType = AuthContext
+    
     private userBtns = (
         to: string, refIndex: number, name: string
     ): JSX.Element => {
         return (
             <NavLink
-                className = "nav-item nav-link disabled"
+                className = {
+                    `nav-item nav-link 
+                    ${this.state ? this.state.loggedIn ? "" : "disabled" : ""}`
+                }
                 activeClassName = "active"
                 to = {`/${to}`}
                 ref = {this.userNav[refIndex]}
@@ -124,6 +130,7 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
                     unav.current.classList.add("disabled")
             }
         }
+        this.setState({loggedIn: auth})
     }
 
     /**

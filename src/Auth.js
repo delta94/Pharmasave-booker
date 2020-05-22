@@ -18,6 +18,7 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+import {auth} from "./firebase";
 import React from "react";
 
 export const AuthContext = React.createContext({user: null})
@@ -29,6 +30,12 @@ export default class AuthProvider extends React.Component {
         this.state = {
             user: null
         }
+    }
+
+    componentDidMount = () => {
+        auth.onAuthStateChanged(user => {
+            this.setState({user})
+        })
     }
 
     render = () => {

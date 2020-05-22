@@ -8523,28 +8523,28 @@ footer #image-header {
 .splash-container .splash-text h3,
 .splash-container .splash-text a {
   opacity: 0;
-  animation: fade-in 2.5s ease-out forwards;
+  animation: fade-in 1s ease-out forwards;
 }
 .splash-container .splash-text h1 {
   font-size: 10vw;
   color: #c50f3c;
-  animation-delay: 1.5s;
+  animation-delay: 0s;
   margin: 0;
 }
 .splash-container .splash-text h2 {
   font-size: 6vw;
-  animation-delay: 2.25s;
+  animation-delay: 0.4s;
   margin-bottom: 1vw;
   margin-left: 0.5vw;
 }
 .splash-container .splash-text h3 {
   font-size: 1.5vw;
-  animation-delay: 2.75s;
+  animation-delay: 0.75s;
   margin-left: 1vw;
 }
 .splash-container .splash-text a {
   font-size: 1.5vw;
-  animation-delay: 2.75s;
+  animation-delay: 0.75s;
   margin-left: 1vw;
   max-width: 20vw;
 }
