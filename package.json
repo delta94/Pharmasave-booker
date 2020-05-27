@@ -1,18 +1,24 @@
 {
-  "name": "carriage-crossing-pharmacy-booker",
-  "version": "0.1.0",
-  "private": false,
+  "name": "pharmasave-booker",
+  "version": "0.0.1",
+  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "@types/scrollmagic": "^2.0.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "logrocket": "^1.0.7",
+    "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "scrollmagic": "^2.0.7",
     "typescript": "^3.8.3"
@@ -20,9 +26,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cd functions\nnpm test\ncd ..",
     "eject": "react-scripts eject",
-    "comp-sass": "sass scss/bootstrap.scss public/css/styles.css"
+    "comp-sass": "sass scss/main.scss public/css/style.css",
+    "lint": "npx eslint \"*/**/*.{js,jsx,ts,tsx}\"",
+    "git-lint": "npx eslint \"*/**/*.{js,jsx,ts,tsx}\" --rule \"{@typescript-eslint/no-unsafe-assignment: off, @typescript-eslint/no-unsafe-member-access: off, @typescript-eslint/no-unsafe-call: off, @typescript-eslint/no-unsafe-return: off}\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -37,10 +48,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
+    "@typescript-eslint/eslint-plugin": "3.0.0",
+    "@typescript-eslint/parser": "3.0.0",
     "eslint-plugin-prefer-arrow": "^1.2.1",
-    "firebase": "^7.14.2",
-    "react-test-renderer": "^16.13.1"
+    "eslint-plugin-react": "^7.20.0",
+    "firebase": "^7.14.5"
   }
 }
