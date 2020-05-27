@@ -402,7 +402,14 @@
         {
             "files": ["*.tsx", "*.jsx"],
             "rules": {
-                "max-len": "off"
+                "max-len": "off",
+                "react/prop-types": [2, { "ignore": ["children"] }]
+            }
+        },
+        {
+            "files": ["./public/js/*", "./src/index.js"],
+            "env": {
+                "browser": true
             }
         }
     ],
