@@ -170,7 +170,10 @@
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": ["warn", { "ignoreArrayIndexes": true}],
+        "no-magic-numbers": ["warn", {
+            "ignoreArrayIndexes": true,
+            "allowed-numbers": [0, 1, 2, 4, 5, 6, 7, 8, 9, 10]
+        }],
         "no-mixed-operators": "off",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
