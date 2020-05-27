@@ -72,7 +72,7 @@
         "camelcase": "error",
         "capitalized-comments": "warn",
         "class-methods-use-this": "error",
-        "comma-dangle": ["error", {
+        "comma-dangle": ["warn", {
             "arrays": "only-multiline",
             "objects": "only-multiline",
             "imports": "never",
@@ -170,7 +170,7 @@
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-loop-func": "error",
-        "no-magic-numbers": ["off", { "ignoreArrayIndexes": true}],
+        "no-magic-numbers": ["warn", { "ignoreArrayIndexes": true}],
         "no-mixed-operators": "off",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
