@@ -24,6 +24,8 @@
  */
 
 /* eslint-disable @typescript-eslint/semi */
+// import Agenda from "_Agenda";
+import CustomDate from "../CustomDate"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
@@ -39,6 +41,7 @@ export default class Calendar extends React.Component
                 .getDate()
                 .toString()
             }`,
+            selected: new CustomDate().formatDate(),
         }
     }
 
@@ -87,7 +90,15 @@ export default class Calendar extends React.Component
      * @param {number} cur - current day
      * @returns {void} void
      */
-    private _pushToGoodWeek = (week: JSX.Element[], day: number, cur: number): void => {
+    private _pushToGoodWeek = (
+        week: JSX.Element[],
+        day: number,
+        cur: number,
+    ): void => {
+        
+        const curDay =
+            `${(new Date().getFullYear()).toString()}/${(new Date().getMonth()).toString()}`
+
         week.push(
             <td
                 className = {
@@ -97,7 +108,10 @@ export default class Calendar extends React.Component
                 key = {`calendar-${day.toString()}`}
                 id = {`day-square-${day.toString()}`}
                 onClick = {(): void => {
-                    this.setState({current: `day-square-${cur.toString()}`})
+                    this.setState({
+                        current: `day-square-${cur.toString()}`,
+                        selected: `${curDay}/${cur.toString()}`
+                    })
                 }}
             ><div><span>{day}</span></div></td>
         )
