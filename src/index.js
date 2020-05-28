@@ -20,8 +20,8 @@
  */
 /* eslint-disable semi */
 import * as serviceWorker from "./serviceWorker";
-import App from "./App.tsx";
-import AuthProvider from "./Auth.js";
+import App from "./App";
+import AuthProvider from "./Auth";
 import LogRocket from "logrocket";
 import React from "react";
 import ReactDOM from "react-dom";
