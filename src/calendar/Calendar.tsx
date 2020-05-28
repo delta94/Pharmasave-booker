@@ -119,23 +119,26 @@ export default class Calendar extends React.Component
         offsetDay: number,
         startDate: number
     ): void {
-        while (day <= end) {
+        let _offsetDay = offsetDay,
+            _day = day
+
+        while (_day <= end) {
             const week: JSX.Element[] = []
 
             for (let _ = 0; _ < 7; _++) { // 7 days/week
-                if (day > end) { // Don't overshoot month
+                if (_day > end) { // Don't overshoot month
                     break
-                } else if (offsetDay - startDate < 1) { // Don't undershoot either
+                } else if (_offsetDay - startDate < 1) { // Don't undershoot either
                     week.push(
-                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
+                        <td key={`calendar-offsetday-${_offsetDay.toString()}`}/>
                     )
-                    offsetDay++
+                    _offsetDay++
                 } else { // Ah yes, goldilocks
-                    const cur = day
+                    const cur = _day
 
-                    this._pushToGoodWeek(week, day, cur)
-                    offsetDay++
-                    day++
+                    this._pushToGoodWeek(week, _day, cur)
+                    _offsetDay++
+                    _day++
                 }
             }
             weeks.push(week)
@@ -148,9 +151,9 @@ export default class Calendar extends React.Component
      */
     public renderCalendar = (): JSX.Element => {
         const end = this._monthStartEnd()[1].getDate(),
-            // currentDate = new Date(),
+            // Future: currentDate = new Date(),
             startDate = this._monthStartEnd()[0].getDay(),
-            // maxAheadTime = 7,
+            // Future: maxAheadTime = 7,
             weeks: JSX.Element[][] = [],
             day = 1,
             offsetDay = 1

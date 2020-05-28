@@ -87,18 +87,6 @@ export default class Auth extends React.Component<{}, {[key: string]: string}> {
         </div>
     )
 
-    //  /**
-    //  * Authentication checking
-    //  * @returns {void} void
-    //  */
-    // componentDidMount = (): void => {
-    //     auth.onAuthStateChanged((user) => {
-    //         if (Boolean(user)) {
-    //             window.location.href = "/";
-    //         }
-    //     })
-    // }
-
     public render = (): JSX.Element => (
         <div className="auth-container container">
             {this._switchButtons()}
