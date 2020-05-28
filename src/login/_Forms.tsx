@@ -205,7 +205,7 @@ class Reg extends React.Component
                     return newUser.sendEmailVerification().then(() => {
                         alert(`Please verify your email at ${this.state.email}`)
                         // eslint-disable-next-line
-                        window.location.href = "#/"
+                        window.open("/")
                     })
                         .catch((err: Error): void => {
                             throw err
