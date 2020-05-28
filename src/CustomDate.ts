@@ -44,10 +44,10 @@ export default class CustomDate extends Date {
             newDay = day
 
         if (newMonth.length < 2) {
-            newMonth = '0' + month
+            newMonth = `0${month}`
         }
         if (newDay.length < 2) {
-            newDay = '0' + day
+            newDay = `0${day}`
         }
     
         return [year, newMonth, newDay].join(seperator)
@@ -59,22 +59,26 @@ export default class CustomDate extends Date {
      * @param {string} seperator - char to seperate date with
      * @returns {string} formatted date
      */
-    public static formatDate = (date: Date | CustomDate, seperator: string = "/"): string => {
-        let d = new Date(date),
-            month = (d.getMonth() + 1).toString(),
-            day = d.getDate().toString(),
-            year = d.getFullYear().toString()
+    public static formatDate = (
+        date: Date | CustomDate,
+        seperator: string = "/"
+    ): string => {
+        
+        const newDate = new Date(date),
+            month = (newDate.getMonth() + 1).toString(),
+            day = newDate.getDate().toString(),
+            year = newDate.getFullYear().toString()
     
         return CustomDate._calcDate(year, month, day, seperator)
     }
 
-     /**
+    /**
      * Format date in the form yyyy mm dd
      * @param {string} seperator - char to seperate date with
      * @returns {string} formatted date
      */
     public formatDate = (seperator: string = "/"): string => {
-        let year = this.getFullYear().toString(),
+        const year = this.getFullYear().toString(),
             month = this.getMonth().toString(),
             day = this.getDate.toString()
     
