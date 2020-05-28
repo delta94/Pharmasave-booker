@@ -52,10 +52,16 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
     
     public static contextType = AuthContext
 
+    /**
+     * Returns logged in from this.state in the form of a className
+     * @returns {string} className disabled or none
+     */
     private _loggedInState = (): string => {
         if (this.state) {
+
             return this.state.loggedIn ? "" : "disabled"
         }
+        
         return ""
     }
     
