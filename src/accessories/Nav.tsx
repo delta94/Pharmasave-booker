@@ -51,6 +51,13 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         [React.createRef(), React.createRef()]
     
     public static contextType = AuthContext
+
+    private _loggedInState = (): string => {
+        if (this.state) {
+            return this.state.loggedIn ? "" : "disabled"
+        }
+        return ""
+    }
     
     /**
      * Creates a buttons for exclusively users
@@ -65,7 +72,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         <NavLink
             className = {
                 `nav-item nav-link 
-                ${this.state!.loggedIn ? "" : "disabled"}`
+                ${this._loggedInState()}`
             }
             activeClassName = "active"
             to = {`/${to}`}
