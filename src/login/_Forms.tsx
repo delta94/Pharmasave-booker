@@ -123,7 +123,7 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
             <div className="form-group">
                 {makePasswordField(this, "login")}
             </div>
-            <a data-toggle="modal" data-target="#reset-modal">
+            <a data-toggle="modal" data-target="#reset-modal" href="/">
                 Forgot your password?
             </a>
             {makeButton("Login")}
