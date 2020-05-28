@@ -18,11 +18,11 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-/* eslint-disable one-var */
-
+/* eslint-disable one-var, semi */
 import "firebase/auth";
 import "firebase/firestore";
 import firebase from "firebase/app";
+/* eslint-enable semi */
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
@@ -43,5 +43,5 @@ export const auth = firebase.auth(),
     firestore = firebase.firestore(),
     
     signInWithGoogle = () => {
-        auth.signInWithPopup(googleProvider);
+        auth.signInWithPopup(googleProvider)
     }

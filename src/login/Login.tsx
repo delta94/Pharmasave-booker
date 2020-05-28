@@ -22,14 +22,14 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-// import {auth} from "../firebase";
+/* eslint-disable @typescript-eslint/semi */
 import {Login, Reg} from "./_Forms";
-import {makeModal} from "./_Reset_modal";
-
 import React from "react";
+import {makeModal} from "./_Reset_modal";
+/* eslint-enable @typescript-eslint/semi */
 
-class Auth extends React.Component<{}, {[key: string]: string}> {
+
+export default class Auth extends React.Component<{}, {[key: string]: string}> {
 
     public constructor (props: {}) {
         super(props)
@@ -40,58 +40,52 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
         }
     }
 
-    private regRef = React.createRef<any>()
+    private _regRef = React.createRef<Reg>()
 
-    private loginRef = React.createRef<any>()
+    private _loginRef = React.createRef<Login>()
 
-    private switchLogin = (): JSX.Element => {
-        return (
-            <div id="switch-login" style={{display: this.state.loginButton}}>
-                <p>Already have an account?</p>
-                <button
-                    className = "btn btn-primary"
-                    onClick = {() => {
-                        this.regRef.current.setState({display: "none"})
-                        this.loginRef.current.setState({display: "block"})
-                        this.setState({
-                            loginButton: "none",
-                            regButton: "block",
-                            current: "Login"
-                        })
-                    }}
-                >Login</button>
-            </div>
-        );
-    }
+    private _switchLogin = (): JSX.Element => (
+        <div id="switch-login" style={{display: this.state.loginButton}}>
+            <p>Already have an account?</p>
+            <button
+                className = "btn btn-primary"
+                onClick = {(): void => {
+                    this._regRef!.current!.setState({display: "none"})
+                    this._loginRef!.current!.setState({display: "block"})
+                    this.setState({
+                        loginButton: "none",
+                        regButton: "block",
+                        current: "Login"
+                    })
+                }}
+            >Login</button>
+        </div>
+    )
 
-    private switchReg = (): JSX.Element => {
-        return (
-            <div id="switch-reg" style={{display: this.state.regButton}}>
-                <p>Don&apos;t have an account?</p>
-                <button
-                    className = "btn btn-primary"
-                    onClick = {() => {
-                        this.regRef.current.setState({display: "block"})
-                        this.loginRef.current.setState({display: "none"})
-                        this.setState({
-                            loginButton: "block",
-                            regButton: "none",
-                            current: "Register"
-                        })
-                    }}
-                >Register</button>
-            </div>
-        );
-    }
+    private _switchReg = (): JSX.Element => (
+        <div id="switch-reg" style={{display: this.state.regButton}}>
+            <p>Don&apos;t have an account?</p>
+            <button
+                className = "btn btn-primary"
+                onClick = {(): void => {
+                    this._regRef!.current!.setState({display: "block"})
+                    this._loginRef!.current!.setState({display: "none"})
+                    this.setState({
+                        loginButton: "block",
+                        regButton: "none",
+                        current: "Register"
+                    })
+                }}
+            >Register</button>
+        </div>
+    )
 
-    private switchButtons = (): JSX.Element => {
-        return (
-            <div id="switch-btns">
-                {this.switchLogin()}
-                {this.switchReg()}
-            </div>
-        );
-    }
+    private _switchButtons = (): JSX.Element => (
+        <div id="switch-btns">
+            {this._switchLogin()}
+            {this._switchReg()}
+        </div>
+    )
 
     //  /**
     //  * Authentication checking
@@ -105,38 +99,34 @@ class Auth extends React.Component<{}, {[key: string]: string}> {
     //     })
     // }
 
-    public render = (): JSX.Element => {
-        return (
-            <div className="auth-container container">
-                {this.switchButtons()}
-                {makeModal(
-                    <h5>Reset your Password</h5>,
-                    <label>
-                        Email
-                        <input
-                            type = "email"
-                            name = "email"
-                            className = "form-control"
-                            id = "reset-email"
-                            aria-describedby = "emailHelp"
-                            placeholder = "Enter email"
-                        />
-                    </label>,
-                )}
-                <div className="back-container"></div>
-                <div
-                    className = {
-                        `form-container ${this.state.current}-container`
-                    }
-                >
-                    <h1 className="container">{this.state.current}</h1>
-                    <Login ref={this.loginRef}/>
-                    <Reg ref={this.regRef}/>
-                </div>
+    public render = (): JSX.Element => (
+        <div className="auth-container container">
+            {this._switchButtons()}
+            {makeModal(
+                <h5>Reset your Password</h5>,
+                <label>
+                    Email
+                    <input
+                        type = "email"
+                        name = "email"
+                        className = "form-control"
+                        id = "reset-email"
+                        aria-describedby = "emailHelp"
+                        placeholder = "Enter email"
+                    />
+                </label>,
+            )}
+            <div className="back-container"></div>
+            <div
+                className = {
+                    `form-container ${this.state.current}-container`
+                }
+            >
+                <h1 className="container">{this.state.current}</h1>
+                <Login ref={this._loginRef}/>
+                <Reg ref={this._regRef}/>
             </div>
-        );
-    }
+        </div>
+    )
 
 }
-
-export default Auth;

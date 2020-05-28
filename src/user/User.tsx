@@ -19,16 +19,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable @typescript-eslint/semi */
 import React from "react";
+/* eslint-enable @typescript-eslint/semi */
 
-class User extends React.Component {
 
-    public render = (): JSX.Element => {
-        return (
-            <h1>User info</h1>
-        );
-    }
+export default class User extends React.Component {
+
+    public render = (): JSX.Element => (
+        <h1>User info</h1>
+    )
     
 }
-
-export default User;

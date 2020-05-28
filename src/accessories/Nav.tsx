@@ -23,15 +23,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {AuthContext} from "../Auth"
-import {auth} from "../firebase";
+/* eslint-disable @typescript-eslint/semi */
 import {Link, NavLink} from "react-router-dom";
+import {AuthContext} from "../Auth";
 import React from "react";
+import {auth} from "../firebase";
+/* eslint-enable @typescript-eslint/semi */
+
 
 /**
  * The navbar component
  */
-class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
+export default class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
 
     public constructor (props: {}) {
         super(props)
@@ -40,33 +43,39 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
         }
     }
 
-    private logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+    private _logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
-    private loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+    private _loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
-    private userNav: React.RefObject<HTMLAnchorElement>[] =
+    private _userNav: React.RefObject<HTMLAnchorElement>[] =
         [React.createRef(), React.createRef()]
     
     public static contextType = AuthContext
     
-    private userBtns = (
+    /**
+     * Creates a buttons for exclusively users
+     * @param {string} to - link location
+     * @param {number} refIndex - _userNav reference
+     * @param {string} name - name of button
+     * @returns {JSX.Element} user button
+     */
+    private _userBtns = (
         to: string, refIndex: number, name: string
-    ): JSX.Element => {
-        return (
-            <NavLink
-                className = {
-                    `nav-item nav-link 
-                    ${this.state ? this.state.loggedIn ? "" : "disabled" : ""}`
-                }
-                activeClassName = "active"
-                to = {`/${to}`}
-                ref = {this.userNav[refIndex]}
-            >{name}
-            </NavLink>
-        );
-    }
+    ): JSX.Element => (
+        <NavLink
+            className = {
+                `nav-item nav-link 
+                ${this.state!.loggedIn ? "" : "disabled"}`
+            }
+            activeClassName = "active"
+            to = {`/${to}`}
+            ref = {this._userNav[refIndex]}
+        >
+            {name}
+        </NavLink>
+    )
 
-    private navbarComponents = {
+    private _navbarComponents = {
         home: (
             <NavLink
                 exact
@@ -80,7 +89,7 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
                 className = "nav-item nav-link"
                 activeClassName = "active"
                 to = "/Login"
-                ref = {this.loginBtn}
+                ref = {this._loginBtn}
             >Log in
             </NavLink>
         ),
@@ -88,49 +97,51 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
             <Link
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
-                onClick = {() => {
+                onClick = {(): void => {
                     auth.signOut()
                 }}
                 to = "/"
-                ref = {this.logoutBtn}
+                ref = {this._logoutBtn}
             >
                 Logout
             </Link>
         ),
     }
 
-    private navbarNav = (
+    private _navbarNav = (
         <div className="navbar-nav">
-            {this.navbarComponents.home}
-            {this.userBtns("Calendar", 0, "Schedule a Pickup")}
-            {this.userBtns("User", 1, "My Schedule")}
-            {this.navbarComponents.auth}
-            {this.navbarComponents.logout}
+            {this._navbarComponents.home}
+            {this._userBtns("Calendar", 0, "Schedule a Pickup")}
+            {this._userBtns("User", 1, "My Schedule")}
+            {this._navbarComponents.auth}
+            {this._navbarComponents.logout}
         </div>
-    );
+    )
 
     /**
      * Configure navbar with auth
-     * @param {boolean} auth - if a user is signed in
+     * @param {boolean} isAuthenticated - if a user is signed in
      * @returns {void} void
      */
-    private navConfig = (auth: boolean): void => {
-        if (this.logoutBtn.current) {
-            this.logoutBtn.current.style.display =
-                auth ? "block" : "none"
+    private _navConfig = (isAuthenticated: boolean): void => {
+        if (this._logoutBtn.current) {
+            this._logoutBtn.current.style.display =
+                isAuthenticated ? "block" : "none"
         }
-        if (this.loginBtn.current) {
-            this.loginBtn.current.style.display =
-                auth ? "none" : "block"
+        if (this._loginBtn.current) {
+            this._loginBtn.current.style.display =
+                isAuthenticated ? "none" : "block"
         }
-        for (const unav of this.userNav) {
+        for (const unav of this._userNav) {
             if (unav.current) {
-                auth ?
-                    unav.current.classList.remove("disabled") :
+                if (isAuthenticated) {
+                    unav.current.classList.remove("disabled")
+                } else {
                     unav.current.classList.add("disabled")
+                }
             }
         }
-        this.setState({loggedIn: auth})
+        this.setState({loggedIn: isAuthenticated})
     }
 
     /**
@@ -139,50 +150,44 @@ class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
      */
     public componentDidMount = (): void => {
         auth.onAuthStateChanged((user) => {
-            this.navConfig(Boolean(user))
+            this._navConfig(Boolean(user))
         })
     }
 
-    private navbarClassNames =
+    private _navbarClassNames =
         "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
 
     /**
      * The navbar component
      * @returns {JSX.Element} navbar element
      */
-    private nav = (): JSX.Element => {
-        return (
-            <nav className = {this.navbarClassNames}>
-                <Link className="navbar-brand" to="/">
-                    <img src="pictures/pharmasave-logo.png" alt="logo"/>
-                </Link>
-                <button
-                    className = "navbar-toggler"
-                    type = "button"
-                    data-toggle = "collapse"
-                    data-target = "#navbarNav"
-                    aria-controls = "navbarNav"
-                    aria-expanded = "false"
-                    aria-label = "Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <div className="navbar-nav">
-                        {this.navbarNav}
-                    </div>
+    private _nav = (): JSX.Element => (
+        <nav className = {this._navbarClassNames}>
+            <Link className="navbar-brand" to="/">
+                <img src="pictures/pharmasave-logo.png" alt="logo"/>
+            </Link>
+            <button
+                className = "navbar-toggler"
+                type = "button"
+                data-toggle = "collapse"
+                data-target = "#_navbarNav"
+                aria-controls = "_navbarNav"
+                aria-expanded = "false"
+                aria-label = "Toggle navigation"
+            >
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="_navbarNav">
+                <div className="navbar-nav">
+                    {this._navbarNav}
                 </div>
-            </nav>
-        );
-    }
+            </div>
+        </nav>
+    )
 
     /**
      * @returns {JSX.Element} navbar element
      */
-    public render = (): JSX.Element => {
-        return this.nav()
-    }
+    public render = (): JSX.Element => this._nav()
 
 }
-
-export default Nav;

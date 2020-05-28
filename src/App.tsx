@@ -22,6 +22,7 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+/* eslint-disable @typescript-eslint/semi */
 import {
     Route,
     BrowserRouter as Router,
@@ -36,36 +37,27 @@ import Nav from "./accessories/Nav";
 import PrivacyPolicy from "./legal/Privacy-policy"
 import React from "react";
 import User from "./user/User";
+/* eslint-enable @typescript-eslint/semi */
 
 
-class App extends React.Component<{}, {[key: string]: string}> {
-
-    public constructor (props: {}) {
-        super(props)
-    }
-
-    private user = null
+export default class App extends React.Component<{}, {[key: string]: string}> {
     
-    public render = (): JSX.Element => {
-        return (
-                <Router>
-                    <Nav/>
-                    <Switch>
-                        <Route path="/" exact component={Home}/>
-                        <Route path="/Calendar" component={Calendar}/>
-                        <Route path="/User" component={User}/>
-                        <Route path="/Login" component={Auth}/>
-                        <Route path="/Legal" component={Legal}/>
-                        <Route
-                            path = "/Privacy-policy"
-                            component = {PrivacyPolicy}
-                        />
-                    </Switch>
-                    <Footer/>
-                </Router>
-        );
-    }
+    public render = (): JSX.Element => (
+        <Router>
+            <Nav/>
+            <Switch>
+                <Route path="/" exact component={Home}/>
+                <Route path="/Calendar" component={Calendar}/>
+                <Route path="/User" component={User}/>
+                <Route path="/Login" component={Auth}/>
+                <Route path="/Legal" component={Legal}/>
+                <Route
+                    path = "/Privacy-policy"
+                    component = {PrivacyPolicy}
+                />
+            </Switch>
+            <Footer/>
+        </Router>
+    )
 
 }
-
-export default App;

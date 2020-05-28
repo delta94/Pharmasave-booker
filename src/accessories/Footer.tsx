@@ -23,16 +23,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable @typescript-eslint/semi */
 import {Link} from "react-router-dom";
-
 import React from "react";
+/* eslint-disable @typescript-eslint/semi */
+
 
 /**
  * Footer component
  */
-class Footer extends React.Component {
+export default class Footer extends React.Component {
     
-    private footerParts = {
+    private _footerParts = {
         nav: (
             <div className="col-lg-3 col-md-3 col-sm-12">
                 <h5 className="text-uppercase">Navagation</h5>
@@ -136,30 +138,24 @@ class Footer extends React.Component {
     /**
      * @returns {JSX.Element} footer component
      */
-    private footer = (): JSX.Element => {
-        return (
-            <footer className="page-footer font-small blue pt-4">
-                <div className="container-fluid text-center text-md-left">
-                    <div className="row">
-                        {this.footerParts.logo}
-                        <hr className="clearfix w-100 d-md-none pb-3" />
-                        {this.footerParts.nav}
-                        {this.footerParts.contact}
-                        {this.footerParts.credits}
-                    </div>
+    private _footer = (): JSX.Element => (
+        <footer className="page-footer font-small blue pt-4">
+            <div className="container-fluid text-center text-md-left">
+                <div className="row">
+                    {this._footerParts.logo}
+                    <hr className="clearfix w-100 d-md-none pb-3" />
+                    {this._footerParts.nav}
+                    {this._footerParts.contact}
+                    {this._footerParts.credits}
                 </div>
-                {this.footerParts.copyright}
-            </footer>
-        );
-    }
+            </div>
+            {this._footerParts.copyright}
+        </footer>
+    )
 
     /**
      * @returns {JSX.Element} footer component
      */
-    public render = (): JSX.Element => {
-        return this.footer()
-    }
+    public render = (): JSX.Element => this._footer()
 
 }
-
-export default Footer;

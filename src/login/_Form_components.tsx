@@ -25,10 +25,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {signInWithGoogle} from "../firebase";
+/* eslint-disable @typescript-eslint/semi */
 import {Login, Reg} from "./_Forms";
 import {Link} from "react-router-dom";
 import React from "react";
+import {signInWithGoogle} from "../firebase";
+/* eslint-enable @typescript-eslint/semi */
+
 
 /**
  * Google sign in button
@@ -41,7 +44,7 @@ class GoogleSignInButton extends React.Component {
      * @param {React.MouseEvent<HTMLImageElement, MouseEvent>} event - event
      * @returns {void} voic
      */
-    private buttonState = (
+    private _buttonState = (
         state: string,
         event: React.MouseEvent<HTMLImageElement, MouseEvent>,
     ): void => {
@@ -55,23 +58,21 @@ class GoogleSignInButton extends React.Component {
      * Renders Google sign in button
      * @returns {JSX.Element} Google sign in button
      */
-    public render = (): JSX.Element => {
-        return (
-            <div className="google-sign-in">
-                <img
-                    alt = "google-sign-in"
-                    src = "../pictures/btn_google_signin_dark_normal_web.png"
-                    onMouseEnter = {(event) => {
-                        this.buttonState("focus", event)
-                    }}
-                    onMouseLeave = {(event) => {
-                        this.buttonState("normal", event)
-                    }}
-                    onClick = {signInWithGoogle}
-                />
-            </div>
-        );
-    }
+    public render = (): JSX.Element => (
+        <div className="google-sign-in">
+            <img
+                alt = "google-sign-in"
+                src = "../pictures/btn_google_signin_dark_normal_web.png"
+                onMouseEnter = {(event): void => {
+                    this._buttonState("focus", event)
+                }}
+                onMouseLeave = {(event): void => {
+                    this._buttonState("normal", event)
+                }}
+                onClick = {signInWithGoogle}
+            />
+        </div>
+    )
 
 }
 
@@ -81,20 +82,18 @@ class GoogleSignInButton extends React.Component {
  * @param {"Register" | "Login"} type - "login" or "register"
  * @returns {JSX.Element} regristration or login button
  */
-export const makeButton = (type: "Register" | "Login"): JSX.Element => {
-    return (
-        <div className="row">
-            <div className="col-6">
-                <button type="submit" className="btn btn-secondary">
-                    {type}
-                </button>
-            </div>
-            <div className="col-6">
-                <GoogleSignInButton/>
-            </div>
+export const makeButton = (type: "Register" | "Login"): JSX.Element => (
+    <div className="row">
+        <div className="col-6">
+            <button type="submit" className="btn btn-secondary">
+                {type}
+            </button>
         </div>
-    );
-}
+        <div className="col-6">
+            <GoogleSignInButton/>
+        </div>
+    </div>
+)
 
 
 /**
@@ -106,35 +105,34 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => {
 export const makeEmailField = (
     self: Login | Reg,
     type: "reg" | "login"
-): JSX.Element => {
-    return (
-        <label>
-            Email
-            <input
-                type = "email"
-                name = "email"
-                className = "form-control"
-                id = {`${type}-email`}
-                aria-describedby = "emailHelp"
-                placeholder = "Enter email"
-                onChange = {(event) => {
-                    self.onChange(event)
-                }}
-                value = {
-                    typeof(self.state.email) === "string" ?
-                    self.state.email : ""
-                }
-            />
+): JSX.Element => (
+    <label>
+        Email
+        <input
+            type = "email"
+            name = "email"
+            className = "form-control"
+            id = {`${type}-email`}
+            aria-describedby = "emailHelp"
+            placeholder = "Enter email"
+            onChange = {(event): void => {
+                self.onChange(event)
+            }}
+            value = {
+                typeof(self.state.email) === "string"
+                    ? self.state.email
+                    : ""
+            }
+        />
 
-            <small
-                id = "emailHelp"
-                className = "form-text text-muted"
-            >
-                    We&apos;ll never share your email with anyone else.
-            </small>
-        </label>
-    );
-}
+        <small
+            id = "emailHelp"
+            className = "form-text text-muted"
+        >
+                We&apos;ll never share your email with anyone else.
+        </small>
+    </label>
+)
 
 /**
  * Creates a form field for authentication.
@@ -145,92 +143,92 @@ export const makeEmailField = (
 export const makePasswordField = (
     self: Login | Reg,
     type: "reg" | "login"
-): JSX.Element => {
-    return (
-        <label>
-            Password
-            <input
-                type = "password"
-                name = "password"
-                className = "form-control"
-                id = {`${type}-password`}
-                placeholder = "Password"
-                onChange = {(event) => {
-                    self.onChange(event)
-                }}
-                value = {
-                    typeof(self.state.password) === "string" ?
-                    self.state.password : ""
-                }
-            />
-        </label>
-    );
-}
+): JSX.Element => (
+    <label>
+        Password
+        <input
+            type = "password"
+            name = "password"
+            className = "form-control"
+            id = {`${type}-password`}
+            placeholder = "Password"
+            onChange = {(event): void => {
+                self.onChange(event)
+            }}
+            value = {
+                typeof(self.state.password) === "string"
+                    ? self.state.password
+                    : ""
+            }
+        />
+    </label>
+)
 
 /**
  * Makes a name field
  * @param {Reg} self bind to this
  * @returns {JSX.Element} name field
  */
-export const makeNameField = (self: Reg): JSX.Element => {
-    return (
-        <label>
-            Full, legal name
-            <input
-                type = "text"
-                name = "displayName"
-                className = "form-control"
-                id = "reg-name"
-                aria-describedby = "emailHelp"
-                placeholder = "Full, legal name"
-                onChange = {(event) => {
-                    self.onChange(event)
-                }}
-                value = {
-                    typeof(self.state.displayName) === "string" ?
-                    self.state.displayName : ""
-                }
-            />
-        </label>
-    );
-}
+export const makeNameField = (self: Reg): JSX.Element => (
+    <label>
+        Full, legal name
+        <input
+            type = "text"
+            name = "displayName"
+            className = "form-control"
+            id = "reg-name"
+            aria-describedby = "emailHelp"
+            placeholder = "Full, legal name"
+            onChange = {(event): void => {
+                self.onChange(event)
+            }}
+            value = {
+                typeof(self.state.displayName) === "string"
+                    ? self.state.displayName
+                    : ""
+            }
+        />
+    </label>
+)
 
 /**
  * Create confirm password field
  * @param {Reg} self - bind to this
  * @returns {JSX.Element} confirm password field
  */
-export const makePasswordField2 = (self: Reg): JSX.Element => {
-    return (
-        <label>
-            Confirm your Password
-            <input
-                type = "password"
-                name = "password2"
-                className = "form-control"
-                id = "reg-password-2"
-                placeholder = "Retype password"
-                onChange = {(event) => {
-                    self.onChange(event)
-                }}
-                value = {
-                    typeof(self.state.password2) === "string" ?
-                    self.state.password2 : ""
-                }
-            />
-        </label>
-    );
-}
+export const makePasswordField2 = (self: Reg): JSX.Element => (
+    <label>
+        Confirm your Password
+        <input
+            type = "password"
+            name = "password2"
+            className = "form-control"
+            id = "reg-password-2"
+            placeholder = "Retype password"
+            onChange = {(event): void => {
+                self.onChange(event)
+            }}
+            value = {
+                typeof(self.state.password2) === "string"
+                    ? self.state.password2
+                    : ""
+            }
+        />
+    </label>
+)
+
 
 /**
  * Creates checks for privacy policy and 
- * @param checkTypes array with terms and conditions and privacy policy
- * @param self bind to this
+ * @param {Array.<Array.<string>>} checkTypes array with terms and conditions and privacy policy
+ * @param {Reg} self bind to this
+ * @returns {Array.<JSX.Element>} array of agreement checks
  */
 const makeAgreementChecks = (
     checkTypes: string[][], self: Reg
 ): JSX.Element[] => {
     const output = []
+
     for (const type of checkTypes) {
         output.push(
             <label id={type[0]}>I have read, and agree to the
@@ -240,13 +238,14 @@ const makeAgreementChecks = (
                     className = "form-check-input"
                     id = {`${type[0]}-check`}
                     name = {`agreement${type[2]}`}
-                    onChange = {(event) => {
+                    onChange = {(event): void => {
                         self.onChange(event)
                     }} 
                 ></input>
             </label>
         )
     }
+
     return output
 }
 
@@ -257,22 +256,22 @@ const makeAgreementChecks = (
  */
 export const makeAgreementField = (self: Reg): JSX.Element => {
     const checkTypes = [
-        ["tandc", "Legal", "1", " Terms and Conditions "],
-        ["ppolicy", "Privacy-policy", "2", " Privacy Policy "],
-    ],
-    agreementField = makeAgreementChecks(checkTypes, self),
-    agreementHeader = (
-        <p>By signing up, you agree to our
-            <Link to="/Legal">Terms and Conditions </Link>
-            and
-            <Link to="/Privacy-policy"> Privacy Policy </Link>
-        </p>
-    );
+            ["tandc", "Legal", "1", " Terms and Conditions "],
+            ["ppolicy", "Privacy-policy", "2", " Privacy Policy "],
+        ],
+        agreementField = makeAgreementChecks(checkTypes, self),
+        agreementHeader = (
+            <p>By signing up, you agree to our
+                <Link to="/Legal">Terms and Conditions </Link>
+                and
+                <Link to="/Privacy-policy"> Privacy Policy </Link>
+            </p>
+        )
 
     
     return (
         <div className="form-group">
             {agreementHeader}{agreementField[0]}{agreementField[1]}
         </div>
-    );
+    )
 }

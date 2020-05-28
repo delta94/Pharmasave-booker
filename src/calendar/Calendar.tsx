@@ -23,24 +23,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/* eslint-disable @typescript-eslint/semi */
 import React from "react";
+/* eslint-enable @typescript-eslint/semi */
 
 
-class Calendar extends React.Component
+export default class Calendar extends React.Component
     <{}, {[key: string]: string[] | string}> {
 
     public constructor (props: {}) {
         super(props)
         this.state = {
-            days: this.days.long,
-            current: `day-square-${new Date().getDate().toString()}`,
+            days: this._days.long,
+            current: `day-square-${new Date().
+                getDate().
+                toString()
+            }`,
         }
     }
 
-    private days = {
+    private _days = {
         short: ["S", "M", "T", "W", "T", "F", "S"],
         med: ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"],
-        /*eslint-disable-next-line*/
+        // eslint-disable-next-line
         long: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     }
 
@@ -48,13 +53,16 @@ class Calendar extends React.Component
      * Window resize handler.
      * @returns {void} void
      */
-    private onWindowResize = (): void => {
-        if (window.innerWidth < 450) {
-            this.setState({days: this.days.short})
-        } else if (window.innerWidth < 800) {
-            this.setState({days: this.days.med})
+    private _onWindowResize = (): void => {
+        const modileWidth = 450,
+            tabletWidth = 800
+
+        if (window.innerWidth < modileWidth) {
+            this.setState({days: this._days.short})
+        } else if (window.innerWidth < tabletWidth) {
+            this.setState({days: this._days.med})
         } else {
-            this.setState({days: this.days.long})
+            this.setState({days: this._days.long})
         }
     }
 
@@ -62,11 +70,76 @@ class Calendar extends React.Component
      * Get the start and end date of the month.
      * @returns {Date[]} [start of month, end of month]
      */
-    private monthStartEnd = (): Date[] => {
-        const date = new Date(), y = date.getFullYear(), m = date.getMonth(),
-            firstDay = new Date(y, m, 1),
-            lastDay = new Date(y, m + 1, 0)
+    private _monthStartEnd = (): Date[] => {
+        const date = new Date(),
+            year = date.getFullYear(),
+            month = date.getMonth(),
+            firstDay = new Date(year, month, 1),
+            lastDay = new Date(year, month + 1, 0)
+
         return [firstDay, lastDay]
+    }
+
+    /**
+     * Pushes a full week
+     * @param {Array.<JSX.Element>} week - week to push to
+     * @param {number} day - day to push to
+     * @param {number} cur - current day
+     * @returns {void} void
+     */
+    private _pushToGoodWeek = (week: JSX.Element[], day: number, cur: number): void => {
+        week.push(
+            <td
+                className = {
+                    /* eslint-disable-next-line */
+                    `day-square ${this.state.current === `day-square-${day.toString()}` ? "selected" : ""}`
+                }
+                key = {`calendar-${day.toString()}`}
+                id = {`day-square-${day.toString()}`}
+                onClick = {(): void => {
+                    this.setState({current: `day-square-${cur.toString()}`})
+                }}
+            ><div><span>{day}</span></div></td>
+        )
+    }
+
+    /**
+     * Pushes array of weeks to weeks
+     * @param {Array.<Array.<JSX.Element>>} weeks array of weeks to push to (reference to)
+     * @param {number} day initial day
+     * @param {number} end end day
+     * @param {number} offsetDay offset day counting calendary grids instead of days
+     * @param {number} startDate starting day
+     * @returns {void} void
+     */
+    private _pushWeeks (
+        weeks: JSX.Element[][],
+        day: number,
+        end: number,
+        offsetDay: number,
+        startDate: number
+    ): void {
+        while (day <= end) {
+            const week: JSX.Element[] = []
+
+            for (let _ = 0; _ < 7; _++) { // 7 days/week
+                if (day > end) { // Don't overshoot month
+                    break
+                } else if (offsetDay - startDate < 1) { // Don't undershoot either
+                    week.push(
+                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
+                    )
+                    offsetDay++
+                } else { // Ah yes, goldilocks
+                    const cur = day
+
+                    this._pushToGoodWeek(week, day, cur)
+                    offsetDay++
+                    day++
+                }
+            }
+            weeks.push(week)
+        }
     }
 
     /**
@@ -74,53 +147,27 @@ class Calendar extends React.Component
      * @returns {JSX.Element} => <tbody>Calendar</tbody>
      */
     public renderCalendar = (): JSX.Element => {
-        const maxAheadTime = 7,
-            end = this.monthStartEnd()[1].getDate(),
-            currentDate = new Date(),
-            startDate = this.monthStartEnd()[0].getDay(),
-            weeks: JSX.Element[][] = []
+        const end = this._monthStartEnd()[1].getDate(),
+            // currentDate = new Date(),
+            startDate = this._monthStartEnd()[0].getDay(),
+            // maxAheadTime = 7,
+            weeks: JSX.Element[][] = [],
+            day = 1,
+            offsetDay = 1
+        let key = 0
         
-        let day = 1,
-            offsetDay = 1,
-            key = 0
-        
-        while (day <= end ) {
-            let week: JSX.Element[] = []
-            for (let i = 0; i < 7; i++) {
-                if (day > end) {
-                    break
-                } else if (offsetDay - startDate < 1) {
-                    week.push(
-                        <td key={`calendar-offsetday-${offsetDay.toString()}`}/>
-                    )
-                    offsetDay++
-                } else {
-                    let cur = day
-                    week.push(
-                        <td
-                            className = {
-                                /*eslint-disable-next-line*/
-                                `day-square ${this.state.current === `day-square-${day.toString()}` ? "selected" : ""}`
-                            }
-                            key = {`calendar-${day.toString()}`}
-                            id = {`day-square-${day.toString()}`}
-                            onClick = {() => {
-                                this.setState({current: `day-square-${cur.toString()}`})
-                            }}
-                        ><div><span>{day}</span></div></td>
-                    )
-                    offsetDay++
-                    day++
-                }
-            }
-            weeks.push(week)
-        }
+        this._pushWeeks(weeks, day, end, offsetDay, startDate)
 
         return (
             <tbody>
                 {weeks.map((week) => {
                     key++
-                    return React.createElement("tr", {key: `row-${key}`}, week.map((i) => i))
+
+                    return React.createElement(
+                        "tr",
+                        {key: `row-${key}`},
+                        week.map((dayOfWeek) => dayOfWeek),
+                    )
                 })}
             </tbody>
         )
@@ -131,42 +178,38 @@ class Calendar extends React.Component
      * @returns {void} void
      */
     public componentDidMount = (): void => {
-        window.addEventListener('resize', this.onWindowResize)
+        window.addEventListener("resize", this._onWindowResize)
     }
 
-    public render = (): JSX.Element => {
-        return (
-            <table className="table table-bordered" id="calendar">
-                <thead className="thead-light">
-                    <tr key="table-header">
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[0]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[1]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[2]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[3]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[4]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[5]}
-                        </th>
-                        <th className="calendar-header" scope="col">
-                            {this.state.days[6]}
-                        </th>
-                    </tr>
-                </thead>
-                <this.renderCalendar/>
-            </table>
-        );
-    }
+    public render = (): JSX.Element => (
+        <table className="table table-bordered" id="calendar">
+            <thead className="thead-light">
+                <tr key="table-header">
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[0]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[1]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[2]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[3]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[4]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[5]}
+                    </th>
+                    <th className="calendar-header" scope="col">
+                        {this.state.days[6]}
+                    </th>
+                </tr>
+            </thead>
+            <this.renderCalendar/>
+        </table>
+    )
     
 }
-
-export default Calendar;
