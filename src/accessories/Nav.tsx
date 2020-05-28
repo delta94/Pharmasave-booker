@@ -23,24 +23,59 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {auth} from "../firebase";
+/* eslint-disable @typescript-eslint/semi */
 import {Link, NavLink} from "react-router-dom";
+import {AuthContext} from "../Auth";
 import React from "react";
+import {auth} from "../firebase";
+/* eslint-enable @typescript-eslint/semi */
+
 
 /**
  * The navbar component
  */
-class Nav extends React.Component<{}, {[key: string]: string}> {
+export default class Nav extends React.Component<{}, {[key: string]: string | boolean}> {
 
     public constructor (props: {}) {
         super(props)
+        this.state = {
+            loggedIn: false
+        }
     }
 
-    private logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+    private _logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
-    private loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
+    private _loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
-    private navbarComponents = {
+    private _userNav: React.RefObject<HTMLAnchorElement>[] =
+        [React.createRef(), React.createRef()]
+    
+    public static contextType = AuthContext
+    
+    /**
+     * Creates a buttons for exclusively users
+     * @param {string} to - link location
+     * @param {number} refIndex - _userNav reference
+     * @param {string} name - name of button
+     * @returns {JSX.Element} user button
+     */
+    private _userBtns = (
+        to: string, refIndex: number, name: string
+    ): JSX.Element => (
+        <NavLink
+            className = {
+                `nav-item nav-link 
+                ${this.state!.loggedIn ? "" : "disabled"}`
+            }
+            activeClassName = "active"
+            to = {`/${to}`}
+            ref = {this._userNav[refIndex]}
+        >
+            {name}
+        </NavLink>
+    )
+
+    private _navbarComponents = {
         home: (
             <NavLink
                 exact
@@ -49,26 +84,12 @@ class Nav extends React.Component<{}, {[key: string]: string}> {
                 to = "/">Home <span className="sr-only">(current)</span>
             </NavLink>
         ),
-        calendar: (
-            <NavLink
-                className = "nav-item nav-link disabled"
-                activeClassName = "active"
-                to = "/Calendar">Schedule a Pickup
-            </NavLink>
-        ),
-        user: (
-            <NavLink
-                className = "nav-item nav-link disabled"
-                activeClassName = "active"
-                to="/User">My Schedule
-            </NavLink>
-        ),
         auth: (
             <NavLink
                 className = "nav-item nav-link"
                 activeClassName = "active"
                 to = "/Login"
-                ref = {this.loginBtn}
+                ref = {this._loginBtn}
             >Log in
             </NavLink>
         ),
@@ -76,91 +97,97 @@ class Nav extends React.Component<{}, {[key: string]: string}> {
             <Link
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
-                onClick = {() => {
+                onClick = {(): void => {
                     auth.signOut()
                 }}
                 to = "/"
-                ref = {this.logoutBtn}
+                ref = {this._logoutBtn}
             >
                 Logout
             </Link>
         ),
     }
 
-    private navbarNav = (
+    private _navbarNav = (
         <div className="navbar-nav">
-            {this.navbarComponents.home}
-            {this.navbarComponents.calendar}
-            {this.navbarComponents.user}
-            {this.navbarComponents.auth}
-            {this.navbarComponents.logout}
+            {this._navbarComponents.home}
+            {this._userBtns("Calendar", 0, "Schedule a Pickup")}
+            {this._userBtns("User", 1, "My Schedule")}
+            {this._navbarComponents.auth}
+            {this._navbarComponents.logout}
         </div>
-    );
+    )
+
+    /**
+     * Configure navbar with auth
+     * @param {boolean} isAuthenticated - if a user is signed in
+     * @returns {void} void
+     */
+    private _navConfig = (isAuthenticated: boolean): void => {
+        if (this._logoutBtn.current) {
+            this._logoutBtn.current.style.display =
+                isAuthenticated ? "block" : "none"
+        }
+        if (this._loginBtn.current) {
+            this._loginBtn.current.style.display =
+                isAuthenticated ? "none" : "block"
+        }
+        for (const unav of this._userNav) {
+            if (unav.current) {
+                if (isAuthenticated) {
+                    unav.current.classList.remove("disabled")
+                } else {
+                    unav.current.classList.add("disabled")
+                }
+            }
+        }
+        this.setState({loggedIn: isAuthenticated})
+    }
 
     /**
      * Authentication checking
      * @returns {void} void
      */
-    componentDidMount = (): void => {
+    public componentDidMount = (): void => {
         auth.onAuthStateChanged((user) => {
-            if (Boolean(user)) {
-                if (this.logoutBtn.current) {
-                    this.logoutBtn.current.style.display = "block"
-                }
-                if (this.loginBtn.current) {
-                    this.loginBtn.current.style.display = "none"
-                }
-            } else {
-                if (this.logoutBtn.current) {
-                    this.logoutBtn.current.style.display = "none"
-                }
-                if (this.loginBtn.current) {
-                    this.loginBtn.current.style.display = "block"
-                }
-            }
+            this._navConfig(Boolean(user))
         })
     }
 
-    private navbarClassNames =
+    private _navbarClassNames =
         "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
 
     /**
      * The navbar component
      * @returns {JSX.Element} navbar element
      */
-    private nav = (): JSX.Element => {
-        return (
-            <nav className = {this.navbarClassNames}>
-                <Link className="navbar-brand" to="/">
-                    <img src="pictures/pharmasave-logo.png" alt="logo"/>
-                </Link>
-                <button
-                    className = "navbar-toggler"
-                    type = "button"
-                    data-toggle = "collapse"
-                    data-target = "#navbarNav"
-                    aria-controls = "navbarNav"
-                    aria-expanded = "false"
-                    aria-label = "Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <div className="navbar-nav">
-                        {this.navbarNav}
-                    </div>
+    private _nav = (): JSX.Element => (
+        <nav className = {this._navbarClassNames}>
+            <Link className="navbar-brand" to="/">
+                <img src="pictures/pharmasave-logo.png" alt="logo"/>
+            </Link>
+            <button
+                className = "navbar-toggler"
+                type = "button"
+                data-toggle = "collapse"
+                data-target = "#_navbarNav"
+                aria-controls = "_navbarNav"
+                aria-expanded = "false"
+                aria-label = "Toggle navigation"
+            >
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="_navbarNav">
+                <div className="navbar-nav">
+                    {this._navbarNav}
                 </div>
-            </nav>
-        );
-    }
+            </div>
+        </nav>
+    )
 
     /**
      * @returns {JSX.Element} navbar element
      */
-    public render = (): JSX.Element => {
-        return this.nav()
-    }
+    public render = (): JSX.Element => this._nav()
 
 }
-
-export default Nav;

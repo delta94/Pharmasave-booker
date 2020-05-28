@@ -18,12 +18,16 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
+/* eslint-disable semi */
 import * as serviceWorker from "./serviceWorker";
-import App from "./App.tsx";
-import AuthProvider from "./Auth.js";
+import App from "./App";
+import AuthProvider from "./Auth";
+import LogRocket from "logrocket";
 import React from "react";
 import ReactDOM from "react-dom";
+/* eslint-enable semi */
+
+LogRocket.init("8ywdga/pharmasave-booker")
 
 ReactDOM.render(
     <React.StrictMode>
@@ -32,11 +36,11 @@ ReactDOM.render(
         </AuthProvider>
     </React.StrictMode>,
     document.getElementById("root"),
-);
+)
 
 /**
  * If you want your app to work offline and load faster, you can change
  * unregister() to register() below. Note this comes with some pitfalls.
  * Learn more about service workers: https://bit.ly/CRA-PWA
  */
-serviceWorker.unregister();
+serviceWorker.unregister()

@@ -67,33 +67,34 @@ footer {
     h3,
     a {
       opacity: 0;
-      animation: fade-in 2.5s ease-out forwards;
+      animation: fade-in 1s ease-out forwards;
     }
 
     h1 {
       font-size: 10vw;
       color: variables.$primary;
-      animation-delay: 1.5s;
+      animation-delay: 0s;
       margin: 0;
     }
 
     h2 {
       font-size: 6vw;
-      animation-delay: 2.25s;
+      animation-delay: 0.4s;
       margin-bottom: 1vw;
       margin-left: 0.5vw;
     }
 
     h3 {
       font-size: 1.5vw;
-      animation-delay: 2.75s;
+      animation-delay: 0.75s;
       margin-left: 1vw;
     }
 
     a {
       font-size: 1.5vw;
-      animation-delay: 2.75s;
+      animation-delay: 0.75s;
       margin-left: 1vw;
+      max-width: 20vw;
 
       span {
         display: inline-flex;
@@ -157,6 +158,8 @@ footer {
   }
 
   .form-group {
+    margin-bottom: 1vw;
+
     p {
       color: variables.$paper !important;
     }
@@ -253,5 +256,58 @@ footer {
   label {
     width: 80%;
     margin-left: 10%;
+  }
+}
+
+#calendar {
+  .calendar-header {
+    width: percentage(1/(100/7));
+  }
+  
+  .day-square {
+    height: 10vw;
+    cursor: pointer;
+
+    &:hover:not(.selected) {
+      animation: calendar-mouseover .25s ease;
+      background-color: mix(white, variables.$primary, 75%);
+
+      div {
+        animation: calendar-date-mouseover .25s ease;
+        background-color: mix(white, variables.$primary, 40%);
+        color: variables.$paper;
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 50%;
+        text-align: center;
+        
+        span {
+          margin: auto;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .day-square.selected {
+    cursor: default;
+    background-color: mix(white, variables.$primary, 50%);
+
+    div {
+      animation: calendar-select .25s ease;
+      background-color: variables.$primary;
+      color: variables.$paper;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      text-align: center;
+      
+      span {
+        margin: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
   }
 }

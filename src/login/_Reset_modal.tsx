@@ -22,18 +22,18 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-import {auth} from "../firebase";
+/* eslint-disable @typescript-eslint/semi */
 import React from "react";
+import {auth} from "../firebase";
+/* eslint-enable @typescript-eslint/semi */
 
-
+/* eslint-disable valid-jsdoc */
 /**
  * Create modal header
  * @param {JSX.Element} title - Modal title
  * @returns {JSX.Element} modal header
  */
-const modalHeader = (title: JSX.Element): JSX.Element => {
-    return (
+const modalHeader = (title: JSX.Element): JSX.Element => (
         <div className="modal-header">
             {title}
             <button
@@ -45,33 +45,29 @@ const modalHeader = (title: JSX.Element): JSX.Element => {
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    );
-}
+    ),
+    modalFooter = (
+        <div className="modal-footer">
+            <button
+                type = "submit"
+                className = "btn btn-secondary"
+            >
+                Send Reset Email
+            </button>
+        </div>
+    ),
+    sendResetEmail = (event: React.FormEvent<HTMLFormElement>): void => {
+        event.preventDefault()
+        const email = (event.target as HTMLInputElement).querySelector("input")!.value
 
-
-const modalFooter = (
-    <div className="modal-footer">
-        <button
-            type = "submit"
-            className = "btn btn-secondary"
-            // data-dismiss = "modal"
-        >
-            Send Reset Email
-        </button>
-    </div>
-)
-
-
-const sendResetEmail = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    const email = (event.target as HTMLInputElement).querySelector("input")!.value
-    auth.sendPasswordResetEmail(email).then(() => {
-        alert("An email has been sent")
-    }).catch((err: {}) => {
-        alert(`Error resetting password`)
-    })
-}
-
+        auth.sendPasswordResetEmail(email).then(() => {
+            alert("An email has been sent")
+        })
+            .catch((err: Error) => {
+                alert(`Error resetting password ${err.message}`)
+            })
+    }
+/* eslint-enable valid-jsdoc */
 
 /**
  * Create password reset modal
@@ -80,25 +76,23 @@ const sendResetEmail = (event: React.FormEvent<HTMLFormElement>): void => {
  * @returns {JSX.Element} modal
  */
 export const makeModal = (
-    title: JSX.Element = <h5></h5>,
+    title: JSX.Element = <h5>Modal</h5>,
     body: JSX.Element = <div className="modal-body"></div>,
-) => {
-    return (
-        <div
-            className = "modal fade"
-            id = "reset-modal"
-            tabIndex = {-1}
-            role = "dialog"
-        >
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    {modalHeader(title)}
-                    <form onSubmit = {sendResetEmail} id="reset-form">
-                        {body}
-                        {modalFooter}
-                    </form>
-                </div>
+): JSX.Element => (
+    <div
+        className = "modal fade"
+        id = "reset-modal"
+        tabIndex = {-1}
+        role = "dialog"
+    >
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+                {modalHeader(title)}
+                <form onSubmit = {sendResetEmail} id="reset-form">
+                    {body}
+                    {modalFooter}
+                </form>
             </div>
         </div>
-    );
-}
+    </div>
+)

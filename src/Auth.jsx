@@ -18,7 +18,10 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+/* eslint-disable semi */
 import React from "react";
+import {auth} from "./firebase";
+/* eslint-enable semi */
 
 export const AuthContext = React.createContext({user: null})
 
@@ -31,12 +34,16 @@ export default class AuthProvider extends React.Component {
         }
     }
 
-    render = () => {
-        return (
-            <AuthContext.Provider value={this.state.user}>
-                {this.props.children}
-            </AuthContext.Provider>
-        );
+    componentDidMount = () => {
+        auth.onAuthStateChanged((user) => {
+            this.setState({user})
+        })
     }
+
+    render = () => (
+        <AuthContext.Provider value={this.state.user}>
+            {this.props.children ? this.props.children : <div></div>}
+        </AuthContext.Provider>
+    )
 
 }

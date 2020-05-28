@@ -1,0 +1,17 @@
+name: eslint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm i
+    - run: npm run-script git-lint
+    
