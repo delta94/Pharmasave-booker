@@ -18,3 +18,9 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+/* eslint-disable @typescript-eslint/semi */
+import * as functions from "firebase-functions";
+/* eslint-enable @typescript-eslint/semi */
+
+
+exports.func = functions.https.onCall(() => {})
