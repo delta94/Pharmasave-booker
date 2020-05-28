@@ -126,7 +126,7 @@
         "max-lines-per-function": "error",
         "max-nested-callbacks": "error",
         "max-params": ["error", {"max": 6}],
-        "max-statements": "error",
+        "max-statements": ["error", {"max": 15}],
         "max-statements-per-line": "error",
         "multiline-comment-style": "error",
         "multiline-ternary": ["error", "always-multiline"],
@@ -135,7 +135,7 @@
         "newline-after-var": "error",
         "newline-before-return": "error",
         "newline-per-chained-call": "error",
-        "no-alert": "error",
+        "no-alert": "off",
         "no-array-constructor": "error",
         "no-await-in-loop": "error",
         "no-bitwise": "error",
@@ -190,9 +190,9 @@
         "no-new-require": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
-        "no-param-reassign": "error",
+        "no-param-reassign": "warn",
         "no-path-concat": "error",
-        "no-plusplus": "error",
+        "no-plusplus": "off",
         "no-process-env": "error",
         "no-process-exit": "error",
         "no-proto": "error",
@@ -342,7 +342,8 @@
                     "format": ["camelCase"]
                 },{
                     "selector": "variableLike",
-                    "format": ["camelCase"]
+                    "format": ["camelCase"],
+                    "leadingUnderscore": "allow"
                 }, {
                     "selector": "memberLike",
                     "modifiers": ["private"],
