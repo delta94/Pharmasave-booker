@@ -13,5 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: npm i
-    - run: yarn build src
+    - run: npm i firebase-functions
+    - run: yarn build
     
