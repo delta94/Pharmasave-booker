@@ -24,7 +24,6 @@
  */
 
 /* eslint-disable @typescript-eslint/semi */
-// import Agenda from "_Agenda";
 import CustomDate from "../CustomDate"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
@@ -96,8 +95,10 @@ export default class Calendar extends React.Component
         cur: number,
     ): void => {
         
+        /* eslint-disable newline-per-chained-call, max-len */
         const curDay =
             `${(new Date().getFullYear()).toString()}/${(new Date().getMonth()).toString()}`
+        /* eslint-enable newline-per-chained-call, max-len */
 
         week.push(
             <td
