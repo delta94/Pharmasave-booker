@@ -35,9 +35,9 @@ export default class Calendar extends React.Component
         super(props)
         this.state = {
             days: this._days.long,
-            current: `day-square-${new Date().
-                getDate().
-                toString()
+            current: `day-square-${new Date()
+                .getDate()
+                .toString()
             }`,
         }
     }

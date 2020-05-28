@@ -62,8 +62,8 @@ const modalHeader = (title: JSX.Element): JSX.Element => (
 
         auth.sendPasswordResetEmail(email).then(() => {
             alert("An email has been sent")
-        }).
-            catch((err: Error) => {
+        })
+            .catch((err: Error) => {
                 alert(`Error resetting password ${err.message}`)
             })
     }
@@ -76,7 +76,7 @@ const modalHeader = (title: JSX.Element): JSX.Element => (
  * @returns {JSX.Element} modal
  */
 export const makeModal = (
-    title: JSX.Element = <h5></h5>,
+    title: JSX.Element = <h5>Modal</h5>,
     body: JSX.Element = <div className="modal-body"></div>,
 ): JSX.Element => (
     <div

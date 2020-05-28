@@ -58,9 +58,9 @@ const resizeDivider = () => {
             window.innerWidth * (imageAspectRatio) - navbar.offsetHeight
         ).toString()} px`
 
-        if (document.getElementById("navbarNav").
-            classList.
-            contains("collapsing")
+        if (document.getElementById("navbarNav")
+            .classList
+            .contains("collapsing")
         ) {
             setTimeout(resizeDivider, 1)
         }
