@@ -8,22 +8,23 @@
  * 
  * https://luke-zhang-04.github.io/
  * https://github.com/ethanlim04
- * This program is free software: you can redistribute it and/or modif
- * it under the terms of the GNU General Public License as published b
- * the Free Software Foundation, either version 3 of the License, o
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be usefu
+ * This program is distributed in the hope that it will be useful
  * but WITHOUT ANY WARRANTY; without even the implied warranty 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See t
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public Licen
- * 
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public Licence
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* eslint-disable @typescript-eslint/semi */
+import CustomDate from "../CustomDate"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
@@ -39,6 +40,7 @@ export default class Calendar extends React.Component
                 .getDate()
                 .toString()
             }`,
+            selected: new CustomDate().formatDate(),
         }
     }
 
@@ -87,7 +89,17 @@ export default class Calendar extends React.Component
      * @param {number} cur - current day
      * @returns {void} void
      */
-    private _pushToGoodWeek = (week: JSX.Element[], day: number, cur: number): void => {
+    private _pushToGoodWeek = (
+        week: JSX.Element[],
+        day: number,
+        cur: number,
+    ): void => {
+        
+        /* eslint-disable newline-per-chained-call, max-len */
+        const curDay =
+            `${(new Date().getFullYear()).toString()}/${(new Date().getMonth()).toString()}`
+        /* eslint-enable newline-per-chained-call, max-len */
+
         week.push(
             <td
                 className = {
@@ -97,7 +109,10 @@ export default class Calendar extends React.Component
                 key = {`calendar-${day.toString()}`}
                 id = {`day-square-${day.toString()}`}
                 onClick = {(): void => {
-                    this.setState({current: `day-square-${cur.toString()}`})
+                    this.setState({
+                        current: `day-square-${cur.toString()}`,
+                        selected: `${curDay}/${cur.toString()}`
+                    })
                 }}
             ><div><span>{day}</span></div></td>
         )
