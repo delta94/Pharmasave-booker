@@ -23,4 +23,4 @@ import * as functions from "firebase-functions";
 /* eslint-enable @typescript-eslint/semi */
 
 
-exports.func = functions.https.onCall(() => {})
+exports.func = functions.https.onCall(() => 0)
