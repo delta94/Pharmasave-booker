@@ -410,7 +410,8 @@
             "rules": {
                 "max-len": "off",
                 "react/prop-types": [2, { "ignore": ["children"] }],
-                "react/sort-comp": "error"
+                "react/sort-comp": "error",
+                "@typescript-eslint/member-ordering": "off"
             }
         },
         {
