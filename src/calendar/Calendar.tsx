@@ -103,6 +103,19 @@ export default class Calendar extends React.Component
     }
 
     /**
+     * Procedure to complete on square click
+     * @param {number} cur - current day
+     * @param {stirng} curDay - formatted year and month
+     */
+    private _onSquareClick = (cur: number, curDay: string): void => {
+        this.setState({
+            current: `day-square-${cur.toString()}`,
+            selected: `${curDay}/${cur.toString()}`
+        })
+        this._agendaRef.current?.changeDay(`${curDay}/${cur.toString()}`)
+    }
+
+    /**
      * Pushes a full week
      * @param {Array.<JSX.Element>} week - week to push to
      * @param {number} day - day to push to
@@ -128,13 +141,7 @@ export default class Calendar extends React.Component
                 }
                 key = {`calendar-${day.toString()}`}
                 id = {`day-square-${day.toString()}`}
-                onClick = {(): void => {
-                    this.setState({
-                        current: `day-square-${cur.toString()}`,
-                        selected: `${curDay}/${cur.toString()}`
-                    })
-                    this._agendaRef.current?.changeDay(`${curDay}/${cur.toString()}`)
-                }}
+                onClick = {(): void => this._onSquareClick(cur, curDay)}
             ><div><span>{day}</span></div></td>
         )
     }
@@ -217,57 +224,31 @@ export default class Calendar extends React.Component
      * @returns {Array.<JSX.Element>} table heads
      */
     private _renderTableHead = (): JSX.Element[] => [
+        /* eslint-disable max-len */
         // Can't use a loop here because it messes up key every time this.state mutates
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[0]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[0]}`}>
             {this.state.days[0]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[1]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[1]}`}>
             {this.state.days[1]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[2]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[2]}`}>
             {this.state.days[2]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[3]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[3]}`}>
             {this.state.days[3]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[4]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[4]}`}>
             {this.state.days[4]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[5]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[5]}`}>
             {this.state.days[5]}
         </th>,
-        <th
-            className = "calendar-header"
-            scope = "col"
-            key = {`th-${this.state.keys[6]}`}
-        >
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[6]}`}>
             {this.state.days[6]}
         </th>,
     ]
+     /* eslint-enable max-len */
 
     private _cal = (): JSX.Element => (
         <div>

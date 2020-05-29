@@ -42,34 +42,7 @@ export default class CustomDate extends Date {
             day = newDate.getDate().toString(),
             year = newDate.getFullYear().toString()
     
-        return CustomDate._calcDate(year, month, day, seperator)
-    }
-
-    /**
-     * Formats date
-     * @param {string} year - year
-     * @param {string} month - month
-     * @param {string} day - day
-     * @param {string} seperator - char to seperate date with
-     * @returns {string} formatted date
-     */
-    private static _calcDate = (
-        year: string,
-        month: string,
-        day: string,
-        seperator: string,
-    ): string => {
-        let newMonth = month,
-            newDay = day
-
-        if (newMonth.length < 2) {
-            newMonth = `0${month}`
-        }
-        if (newDay.length < 2) {
-            newDay = `0${day}`
-        }
-    
-        return [year, newMonth, newDay].join(seperator)
+        return [year, month, day].join(seperator)
     }
 
     /**
@@ -82,7 +55,7 @@ export default class CustomDate extends Date {
             month = this.getMonth().toString(),
             day = this.getDate().toString()
     
-        return CustomDate._calcDate(year, month, day, seperator)
+        return [year, month, day].join(seperator)
     }
 
 }
