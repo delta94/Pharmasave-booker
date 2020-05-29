@@ -27,6 +27,25 @@
 export default class CustomDate extends Date {
 
     /**
+     * Format date in the form yyyy mm dd
+     * @param {Date | CustomDate} date - date to format
+     * @param {string} seperator - char to seperate date with
+     * @returns {string} formatted date
+     */
+    public static formatDate = (
+        date: Date | CustomDate,
+        seperator: string = "/"
+    ): string => {
+        
+        const newDate = new Date(date),
+            month = (newDate.getMonth() + 1).toString(),
+            day = newDate.getDate().toString(),
+            year = newDate.getFullYear().toString()
+    
+        return CustomDate._calcDate(year, month, day, seperator)
+    }
+
+    /**
      * Formats date
      * @param {string} year - year
      * @param {string} month - month
@@ -51,25 +70,6 @@ export default class CustomDate extends Date {
         }
     
         return [year, newMonth, newDay].join(seperator)
-    }
-
-    /**
-     * Format date in the form yyyy mm dd
-     * @param {Date | CustomDate} date - date to format
-     * @param {string} seperator - char to seperate date with
-     * @returns {string} formatted date
-     */
-    public static formatDate = (
-        date: Date | CustomDate,
-        seperator: string = "/"
-    ): string => {
-        
-        const newDate = new Date(date),
-            month = (newDate.getMonth() + 1).toString(),
-            day = newDate.getDate().toString(),
-            year = newDate.getFullYear().toString()
-    
-        return CustomDate._calcDate(year, month, day, seperator)
     }
 
     /**

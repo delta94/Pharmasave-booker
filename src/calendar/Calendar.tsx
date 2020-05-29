@@ -44,6 +44,14 @@ export default class Calendar extends React.Component
         }
     }
 
+    /**
+     * Attatch window resize handler.
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        window.addEventListener("resize", this._onWindowResize)
+    }
+
     private _days = {
         short: ["S", "M", "T", "W", "T", "F", "S"],
         med: ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"],
@@ -189,14 +197,6 @@ export default class Calendar extends React.Component
                 })}
             </tbody>
         )
-    }
-
-    /**
-     * Attatch window resize handler.
-     * @returns {void} void
-     */
-    public componentDidMount = (): void => {
-        window.addEventListener("resize", this._onWindowResize)
     }
 
     public render = (): JSX.Element => (

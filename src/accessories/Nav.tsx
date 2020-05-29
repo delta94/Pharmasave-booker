@@ -43,6 +43,17 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         }
     }
 
+    /**
+     * Authentication checking
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        auth.onAuthStateChanged((user) => {
+            this._navConfig(Boolean(user))
+        })
+    }
+
+
     private _logoutBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
 
     private _loginBtn: React.RefObject<HTMLAnchorElement> = React.createRef()
@@ -155,16 +166,6 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
             }
         }
         this.setState({loggedIn: isAuthenticated})
-    }
-
-    /**
-     * Authentication checking
-     * @returns {void} void
-     */
-    public componentDidMount = (): void => {
-        auth.onAuthStateChanged((user) => {
-            this._navConfig(Boolean(user))
-        })
     }
 
     private _navbarClassNames =
