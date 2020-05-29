@@ -172,7 +172,7 @@ export default class Calendar extends React.Component
      * Create the calendar
      * @returns {JSX.Element} => <tbody>Calendar</tbody>
      */
-    public renderCalendar = (): JSX.Element => {
+    private _renderCalendar = (): JSX.Element => {
         const end = this._monthStartEnd()[1].getDate(),
             // Future: currentDate = new Date(),
             startDate = this._monthStartEnd()[0].getDay(),
@@ -199,34 +199,28 @@ export default class Calendar extends React.Component
         )
     }
 
+    private _renderTableHead = (): JSX.Element[] => {
+        const rows: JSX.Element[] = []
+
+        for (const day of this.state.days) {
+            rows.push(
+                <th className="calendar-header" scope="col">
+                    {day}
+                </th>
+            )
+        }
+
+        return rows
+    }
+
     public render = (): JSX.Element => (
         <table className="table table-bordered" id="calendar">
             <thead className="thead-light">
                 <tr key="table-header">
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[0]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[1]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[2]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[3]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[4]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[5]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[6]}
-                    </th>
+                    {this._renderTableHead().map((row) => row)}
                 </tr>
             </thead>
-            <this.renderCalendar/>
+            <this._renderCalendar/>
         </table>
     )
     
