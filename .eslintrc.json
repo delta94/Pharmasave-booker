@@ -36,8 +36,9 @@
         "@typescript-eslint/keyword-spacing": "off",
         "@typescript-eslint/lines-between-class-members": "off",
         "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/member-ordering": "off",
         "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/no-dupe-class-members": ["error"],
+        "@typescript-eslint/no-dupe-class-members": "off",
         "@typescript-eslint/no-extra-non-null-assertion": "off",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
         "@typescript-eslint/no-extra-semi": "off",
@@ -337,6 +338,7 @@
                         "requireLast": false
                     }
                 }],
+                "@typescript-eslint/member-ordering": "error",
                 "@typescript-eslint/naming-convention": ["error", {
                     "selector": "default",
                     "format": ["camelCase"]
@@ -407,7 +409,8 @@
             "files": ["*.tsx", "*.jsx"],
             "rules": {
                 "max-len": "off",
-                "react/prop-types": [2, { "ignore": ["children"] }]
+                "react/prop-types": [2, { "ignore": ["children"] }],
+                "react/sort-comp": "error"
             }
         },
         {
