@@ -80,7 +80,17 @@ export default class CustomDate extends Date {
     public formatDate = (seperator: string = "/"): string => {
         const year = this.getFullYear().toString(),
             month = this.getMonth().toString(),
-            day = this.getDate.toString()
+            day = this.getDate().toString()
+
+            let newMonth = month,
+            newDay = day
+
+        if (newMonth.length < 2) {
+            newMonth = `0${month}`
+        }
+        if (newDay.length < 2) {
+            newDay = `0${day}`
+        }
     
         return CustomDate._calcDate(year, month, day, seperator)
     }
