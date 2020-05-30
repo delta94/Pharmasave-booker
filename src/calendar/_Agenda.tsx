@@ -52,8 +52,10 @@ export default class Agenda extends React.Component
             if (days[2] && days[2].length < 2) {
                 days[2] = `0${days[2]}`
             }
+
             return days.join("/")
         }
+
         return ""
     }
 
@@ -64,12 +66,13 @@ export default class Agenda extends React.Component
      */
     public changeDay = (day: string): void => {
         const test = this.setState({selected: day})
+
         Promise.resolve(test).then(() => {
             console.log("AGENDA", this.state?.selected)
         })
     }
 
-    public render = () => (
+    public render = (): JSX.Element => (
         <div className="container" id="agenda">
             <h1>{this._selectedDay()}</h1>
         </div>

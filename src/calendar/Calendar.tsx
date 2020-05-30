@@ -52,6 +52,7 @@ export default class Calendar extends React.Component
      */
     public componentDidMount = (): void => {
         window.addEventListener("resize", this._onWindowResize)
+        // eslint-disable-next-line
         this._agendaRef.current?.changeDay(this.state?.selected as string)
         this._onWindowResize()
     }
@@ -80,11 +81,20 @@ export default class Calendar extends React.Component
             tabletWidth = 800
 
         if (window.innerWidth < modileWidth) {
-            this.setState({days: this._days.short, keys: this._keys.short})
+            this.setState({
+                days: this._days.short,
+                keys: this._keys.short,
+            })
         } else if (window.innerWidth < tabletWidth) {
-            this.setState({days: this._days.med, keys: this._keys.med})
+            this.setState({
+                days: this._days.med,
+                keys: this._keys.med,
+            })
         } else {
-            this.setState({days: this._days.long, keys: this._keys.long})
+            this.setState({
+                days: this._days.long,
+                keys: this._keys.long,
+            })
         }
     }
 
@@ -105,13 +115,15 @@ export default class Calendar extends React.Component
     /**
      * Procedure to complete on square click
      * @param {number} cur - current day
-     * @param {stirng} curDay - formatted year and month
+     * @param {string} curDay - formatted year and month
+     * @returns {void} void
      */
     private _onSquareClick = (cur: number, curDay: string): void => {
         this.setState({
             current: `day-square-${cur.toString()}`,
             selected: `${curDay}/${cur.toString()}`
         })
+        // eslint-disable-next-line
         this._agendaRef.current?.changeDay(`${curDay}/${cur.toString()}`)
     }
 
@@ -248,7 +260,7 @@ export default class Calendar extends React.Component
             {this.state.days[6]}
         </th>,
     ]
-     /* eslint-enable max-len */
+    /* eslint-enable max-len */
 
     private _cal = (): JSX.Element => (
         <div>
@@ -267,9 +279,9 @@ export default class Calendar extends React.Component
     public render = (): JSX.Element => {
         if (this.state) {
             return <this._cal/>
-        } else {
-            return <div>Loading...</div>;
         }
+        
+        return <div>Loading...</div>
     }
     
 }
