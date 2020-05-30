@@ -24,17 +24,19 @@
  */
 
 /* eslint-disable @typescript-eslint/semi */
+import {hours} from "../globals"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
 
 export default class Agenda extends React.Component
-    <{}, {[key: string]: string}> {
+    <{}, {[key: string]: string | number}> {
 
     public constructor (props: {}) {
         super(props)
         this.state = {
-            selected: ""
+            selected: "",
+            dayOfWeek: 0,
         }
     }
 
@@ -43,7 +45,7 @@ export default class Agenda extends React.Component
      * @returns {string} selected day
      */
     private _selectedDay = (): string => {
-        const days = this.state?.selected.split("/")
+        const days = (this.state?.selected as string).split("/")
 
         if (days.length > 0) {
             if (days[1] && days[1].length < 2) {
@@ -65,16 +67,19 @@ export default class Agenda extends React.Component
      * @returns {void} void
      */
     public changeDay = (day: string): void => {
-        const test = this.setState({selected: day})
+        const dateData = day.split("/").map((data) => Number(data)),
+            date = new Date(dateData[0], dateData[1], dateData[2])
 
-        Promise.resolve(test).then(() => {
-            console.log("AGENDA", this.state?.selected)
+        this.setState({
+            selected: `${dateData[0]}/${Number(dateData[1])+1}/${dateData[2]}`,
+            dayOfWeek: date.getDay(),
         })
     }
 
     public render = (): JSX.Element => (
-        <div className="container" id="agenda">
-            <h1>{this._selectedDay()}</h1>
+        <div id="agenda">
+            <p className="text-center">{this._selectedDay()}</p>
+            <hr className="clearfix w-100 d-md-none pb-3"/>
         </div>
     )
 

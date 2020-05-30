@@ -313,6 +313,7 @@ footer {
 }
 
 #agenda {
-  border-radius: 5rem;
-  border: variables.$accent2;
+  border-radius: 1rem;
+  border: 0.1rem solid variables.$accent1;
+  padding: 2vw;
 }
