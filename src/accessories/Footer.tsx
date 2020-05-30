@@ -111,9 +111,9 @@ export default class Footer extends React.Component {
         copyright: (
             <div className="footer-copyright text-center py-3">
                 © 2020 Copyright:{" "}
-                <Link to="https://github.com/Luke-zhang-04">Luke Zhang</Link>,
+                <a href="https://luke-zhang-04.github.io/">Luke Zhang</a>,
                 {" "}
-                <Link to="https://github.com/ethanlim04">Ethan Lim</Link>,{" "}
+                <a href="https://github.com/ethanlim04">Ethan Lim</a>,{" "}
                 and Pharmasave Carriage Crossing Pharamcy
                 <ul className="list-unstyled">
                     <li>
