@@ -24,19 +24,22 @@
  */
 
 /* eslint-disable @typescript-eslint/semi */
+import CustomDate from "../CustomDate"
 import {hours} from "../globals"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
 
 export default class Agenda extends React.Component
-    <{}, {[key: string]: string | number}> {
+    <{}, {[key: string]: string | number | Date}> {
 
     public constructor (props: {}) {
         super(props)
         this.state = {
             selected: "",
             dayOfWeek: 0,
+            month: 0,
+            date: new Date(),
         }
     }
 
@@ -73,12 +76,17 @@ export default class Agenda extends React.Component
         this.setState({
             selected: `${dateData[0]}/${Number(dateData[1])+1}/${dateData[2]}`,
             dayOfWeek: date.getDay(),
+            month: date.getMonth(),
+            date,
         })
     }
 
     public render = (): JSX.Element => (
         <div id="agenda">
-            <p className="text-center">{this._selectedDay()}</p>
+            <p className="text-center">
+                {/* eslint-disable-next-line */}
+                {`${CustomDate.getWordDay(this.state.dayOfWeek as number)} ${CustomDate.getWordMonth(this.state.month as number)} ${(this.state.date as Date).getDate()}, ${(this.state.date as Date).getFullYear()}`}
+            </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
         </div>
     )

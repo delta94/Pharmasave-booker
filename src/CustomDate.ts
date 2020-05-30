@@ -26,6 +26,31 @@
 
 export default class CustomDate extends Date {
 
+    private static _daysReference: {[key: number]: string} = {
+        0: "Sunday",
+        1: "Monday",
+        2: "Tuesday",
+        3: "Wednesday",
+        4: "Thursday",
+        5: "Friday",
+        6: "Saturday",
+    }
+
+    private static _monthsReference: {[key: number]: string} = {
+        0: "January",
+        1: "Feburary",
+        2: "March",
+        3: "April",
+        4: "May",
+        5: "June",
+        6: "July",
+        7: "August",
+        8: "September",
+        9: "October",
+        10: "November",
+        11: "December",
+    }
+
     /**
      * Format date in the form yyyy mm dd
      * @param {Date | CustomDate} date - date to format
@@ -46,6 +71,28 @@ export default class CustomDate extends Date {
     }
 
     /**
+     * Converts numerical day of week into string form (e.g "Monday")
+     * @param {number} numerical - numerical day of week, 0 indexed (0-6)
+     * @returns {string} stringed day of week
+     */
+    public static getWordDay = (
+        numerical: number
+    ): string => {
+        return CustomDate._daysReference[numerical]
+    }
+
+    /**
+     * Converts numerical month into string form (e.g "January")
+     * @param {number} numerical - numerical day of week, 0 indexed (0-11)
+     * @returns {string} stringed worded month
+     */
+    public static getWordMonth = (
+        numerical: number
+    ): string => {
+        return CustomDate._monthsReference[numerical]
+    }
+
+    /**
      * Format date in the form yyyy mm dd
      * @param {string} seperator - char to seperate date with
      * @returns {string} formatted date
@@ -56,6 +103,24 @@ export default class CustomDate extends Date {
             day = this.getDate().toString()
     
         return [year, month, day].join(seperator)
+    }
+
+    /**
+     * Converts numerical day of week into string form (e.g "Monday")
+     * @param {number} numerical - numerical day of week, 0 indexed (0-6)
+     * @returns {string} stringed day of week
+     */
+    public getWordDay = (): string => {
+        return CustomDate._daysReference[this.getDay()]
+    }
+
+    /**
+     * Converts numerical month into string form (e.g "January")
+     * @param {number} numerical - numerical day of week, 0 indexed (0-11)
+     * @returns {string} stringed worded month
+     */
+    public getWordMonth = (): string => {
+        return CustomDate._monthsReference[this.getMonth()]
     }
 
 }
