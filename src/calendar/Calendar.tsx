@@ -24,7 +24,8 @@
  */
 
 /* eslint-disable @typescript-eslint/semi */
-import CustomDate from "../CustomDate"
+import Agenda from "./_Agenda";
+import CustomDate from "../CustomDate";
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
@@ -41,7 +42,19 @@ export default class Calendar extends React.Component
                 .toString()
             }`,
             selected: new CustomDate().formatDate(),
+            keys: this._keys.long,
         }
+    }
+
+    /**
+     * Attatch window resize handler.
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        window.addEventListener("resize", this._onWindowResize)
+        // eslint-disable-next-line
+        this._agendaRef.current?.changeDay(this.state?.selected as string)
+        this._onWindowResize()
     }
 
     private _days = {
@@ -50,6 +63,14 @@ export default class Calendar extends React.Component
         // eslint-disable-next-line
         long: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     }
+
+    private _keys = {
+        short: ["Su", "M", "Tu", "W", "Th", "F", "Sa"], // Unique keys
+        med: this._days.med,
+        long: this._days.long,
+    }
+
+    private _agendaRef = React.createRef<Agenda>()
 
     /**
      * Window resize handler.
@@ -60,11 +81,20 @@ export default class Calendar extends React.Component
             tabletWidth = 800
 
         if (window.innerWidth < modileWidth) {
-            this.setState({days: this._days.short})
+            this.setState({
+                days: this._days.short,
+                keys: this._keys.short,
+            })
         } else if (window.innerWidth < tabletWidth) {
-            this.setState({days: this._days.med})
+            this.setState({
+                days: this._days.med,
+                keys: this._keys.med,
+            })
         } else {
-            this.setState({days: this._days.long})
+            this.setState({
+                days: this._days.long,
+                keys: this._keys.long,
+            })
         }
     }
 
@@ -80,6 +110,21 @@ export default class Calendar extends React.Component
             lastDay = new Date(year, month + 1, 0)
 
         return [firstDay, lastDay]
+    }
+
+    /**
+     * Procedure to complete on square click
+     * @param {number} cur - current day
+     * @param {string} curDay - formatted year and month
+     * @returns {void} void
+     */
+    private _onSquareClick = (cur: number, curDay: string): void => {
+        this.setState({
+            current: `day-square-${cur.toString()}`,
+            selected: `${curDay}/${cur.toString()}`
+        })
+        // eslint-disable-next-line
+        this._agendaRef.current?.changeDay(`${curDay}/${cur.toString()}`)
     }
 
     /**
@@ -108,12 +153,7 @@ export default class Calendar extends React.Component
                 }
                 key = {`calendar-${day.toString()}`}
                 id = {`day-square-${day.toString()}`}
-                onClick = {(): void => {
-                    this.setState({
-                        current: `day-square-${cur.toString()}`,
-                        selected: `${curDay}/${cur.toString()}`
-                    })
-                }}
+                onClick = {(): void => this._onSquareClick(cur, curDay)}
             ><div><span>{day}</span></div></td>
         )
     }
@@ -164,7 +204,7 @@ export default class Calendar extends React.Component
      * Create the calendar
      * @returns {JSX.Element} => <tbody>Calendar</tbody>
      */
-    public renderCalendar = (): JSX.Element => {
+    private _renderCalendar = (): JSX.Element => {
         const end = this._monthStartEnd()[1].getDate(),
             // Future: currentDate = new Date(),
             startDate = this._monthStartEnd()[0].getDay(),
@@ -192,42 +232,56 @@ export default class Calendar extends React.Component
     }
 
     /**
-     * Attatch window resize handler.
-     * @returns {void} void
+     * Renders table heads
+     * @returns {Array.<JSX.Element>} table heads
      */
-    public componentDidMount = (): void => {
-        window.addEventListener("resize", this._onWindowResize)
-    }
+    private _renderTableHead = (): JSX.Element[] => [
+        /* eslint-disable max-len */
+        // Can't use a loop here because it messes up key every time this.state mutates
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[0]}`}>
+            {this.state.days[0]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[1]}`}>
+            {this.state.days[1]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[2]}`}>
+            {this.state.days[2]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[3]}`}>
+            {this.state.days[3]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[4]}`}>
+            {this.state.days[4]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[5]}`}>
+            {this.state.days[5]}
+        </th>,
+        <th className="calendar-header" scope="col" key={`th-${this.state.keys[6]}`}>
+            {this.state.days[6]}
+        </th>,
+    ]
+    /* eslint-enable max-len */
 
-    public render = (): JSX.Element => (
-        <table className="table table-bordered" id="calendar">
-            <thead className="thead-light">
-                <tr key="table-header">
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[0]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[1]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[2]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[3]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[4]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[5]}
-                    </th>
-                    <th className="calendar-header" scope="col">
-                        {this.state.days[6]}
-                    </th>
-                </tr>
-            </thead>
-            <this.renderCalendar/>
-        </table>
+    private _cal = (): JSX.Element => (
+        <div>
+            <table className="table table-bordered" id="calendar">
+                <thead className="thead-light">
+                    <tr key="table-header">
+                        {this._renderTableHead().map((row) => row)}
+                    </tr>
+                </thead>
+                <this._renderCalendar/>
+            </table>
+            <Agenda ref={this._agendaRef}/>
+        </div>
     )
+
+    public render = (): JSX.Element => {
+        if (this.state) {
+            return <this._cal/>
+        }
+        
+        return <div>Loading...</div>
+    }
     
 }

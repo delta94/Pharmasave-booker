@@ -261,7 +261,7 @@ footer {
 
 #calendar {
   .calendar-header {
-    width: percentage(1/(100/7));
+    width: (100vw/7);
   }
   
   .day-square {
@@ -310,4 +310,10 @@ footer {
       }
     }
   }
+}
+
+#agenda {
+  border-radius: 1rem;
+  border: 0.1rem solid variables.$accent1;
+  padding: 2vw;
 }

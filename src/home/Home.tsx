@@ -43,6 +43,25 @@ export default class Home extends React.Component<{}, {[key: string]: boolean}> 
         }
     }
 
+    /**
+     * Updates on window resize
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        this._updateDimensions()
+        window.addEventListener("resize", this._updateDimensions.bind(this))
+        auth.onAuthStateChanged((user) => {
+            this.setState({loggedIn: Boolean(user)})
+        })
+    }
+
+    /**
+     * @returns {void} void
+     */
+    public componentWillUnmount = (): void => {
+        window.removeEventListener("resize", this._updateDimensions.bind(this))
+    }
+
     private _splash = {
         splash: (
             <div className="splash">
@@ -103,25 +122,6 @@ export default class Home extends React.Component<{}, {[key: string]: boolean}> 
             </Link>
         </div>
     )
-
-    /**
-     * Updates on window resize
-     * @returns {void} void
-     */
-    public componentDidMount = (): void => {
-        this._updateDimensions()
-        window.addEventListener("resize", this._updateDimensions.bind(this))
-        auth.onAuthStateChanged((user) => {
-            this.setState({loggedIn: Boolean(user)})
-        })
-    }
-
-    /**
-     * @returns {void} void
-     */
-    public componentWillUnmount = (): void => {
-        window.removeEventListener("resize", this._updateDimensions.bind(this))
-    }
 
     /**
      * Renders homepage
