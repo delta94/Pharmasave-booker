@@ -19,8 +19,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi */
+import * as admin from 'firebase-admin';
 import * as functions from "firebase-functions";
 /* eslint-enable @typescript-eslint/semi */
+
+// Test run newBooking({"day": "2020/06/1", "time": "12:00"}, {})
+
+process.env.GCLOUD_PROJECT = 'carriage-crossing-pharmacy'
+  
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: "https://carriage-crossing-pharmacy.firebaseio.com",
+})
+
+const database = admin.firestore()
 
 interface Booking {
     [index: string]: any,
@@ -29,15 +41,31 @@ interface Booking {
     time: string,
 }
 
-
 /**
  * Set a new booking
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
  */
-export const newBooking = functions.https.onCall((data: Booking, context): string => {
+export const newBooking = functions.https.onCall(async (
+    data: Booking,
+    context,
+): Promise<number | Error> => {
     if (!context.auth) {
-        return "not logged in"
+        return Error("Unauthenticated error. Please make sure you're logged in.")
     }
-    return "success"
+
+    const [year, month, day] = data.day.split("/"),
+        fullDay = day.length < 2 ? `0${day}` : day,
+        dbRef = database.collection("agenda").doc(year).collection(month).doc(fullDay),
+        time = data.time,
+        newBooking: {[key: string]: boolean} = {}
+    
+    newBooking[time] = true
+    
+    return await dbRef.set(newBooking)
+        .then(() => 0)
+        .catch((error: Error) => {
+            console.log(error, error.message)
+            return Error(error.message)
+        })
 })
