@@ -77,9 +77,7 @@ export default class CustomDate extends Date {
      */
     public static getWordDay = (
         numerical: number
-    ): string => {
-        return CustomDate._daysReference[numerical]
-    }
+    ): string => CustomDate._daysReference[numerical]
 
     /**
      * Converts numerical month into string form (e.g "January")
@@ -88,9 +86,7 @@ export default class CustomDate extends Date {
      */
     public static getWordMonth = (
         numerical: number
-    ): string => {
-        return CustomDate._monthsReference[numerical]
-    }
+    ): string => CustomDate._monthsReference[numerical]
 
     /**
      * Format date in the form yyyy mm dd
@@ -110,17 +106,15 @@ export default class CustomDate extends Date {
      * @param {number} numerical - numerical day of week, 0 indexed (0-6)
      * @returns {string} stringed day of week
      */
-    public getWordDay = (): string => {
-        return CustomDate._daysReference[this.getDay()]
-    }
+    public getWordDay = (): string => CustomDate._daysReference[this.getDay()]
 
     /**
      * Converts numerical month into string form (e.g "January")
      * @param {number} numerical - numerical day of week, 0 indexed (0-11)
      * @returns {string} stringed worded month
      */
-    public getWordMonth = (): string => {
-        return CustomDate._monthsReference[this.getMonth()]
-    }
+    public getWordMonth = (): string => (
+        CustomDate._monthsReference[this.getMonth()]
+    )
 
 }

@@ -31,10 +31,14 @@ export const hours: {[key: number]: null | number[]} = { // Business hours
     4: [9, 20],
     5: [9, 18],
     6: [9, 15],
-}
+},
+    calendar: {[key: string]: number} = {
+        increment: 30 // Increment in minutes for the agenda table
+    }
 
 const globals = {
     hours,
+    calendar,
 }
 
 Object.freeze(globals)
