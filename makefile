@@ -9,3 +9,6 @@ tsc:
 
 emulate:
 	npm run-script functions
+
+link-creds:
+	export GOOGLE_APPLICATION_CREDENTIALS="admin_sdk.json"
