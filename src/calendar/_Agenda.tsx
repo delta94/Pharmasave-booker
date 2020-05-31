@@ -49,24 +49,24 @@ export default class Agenda extends React.Component
     }
 
     /**
-     * Formats selected day
-     * @returns {string} selected day
+     * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
      */
-    private _selectedDay = (): string => {
-        const days = (this.state?.selected as string).split("/")
+    private _formatMinutes = (minutes: number | undefined): string => {
 
-        if (days.length > 0) {
-            if (days[1] && days[1].length < 2) {
-                days[1] = `0${days[1]}`
-            }
-            if (days[2] && days[2].length < 2) {
-                days[2] = `0${days[2]}`
-            }
+        if (minutes) {
+            let newMinutes = minutes?.toString()
 
-            return days.join("/")
+            if (newMinutes.length > 2) {
+                newMinutes = newMinutes.substr(0, newMinutes.length - 1)
+                return this._formatMinutes(Number(newMinutes))
+            } else {
+                return newMinutes
+            }
+        } else {
+            return "00"
         }
 
-        return ""
+        return "00"
     }
 
     /**
@@ -76,8 +76,7 @@ export default class Agenda extends React.Component
      */
     private _convertTime = (time: number): string => {
         const stringTime = time.toString(),
-            [hours, minutes] = stringTime.split("."),
-            displayMins = Math.floor((Number(minutes) * minutesPerHour))
+            [hours, minutes] = stringTime.split(".")
 
         let output = "",
             indicators: string
@@ -93,9 +92,9 @@ export default class Agenda extends React.Component
         }
         
         output += `${hours}:` // Hours
-        output += displayMins // Minutes
-            ? displayMins.toString().substr(0, displayMins.toString().length - 1)
-            : "00"
+        output += this._formatMinutes(
+            Math.floor((Number(minutes) * minutesPerHour))
+        )
         output += ` ${indicators}` // Am/Pm
         
         return output
@@ -161,10 +160,10 @@ export default class Agenda extends React.Component
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Time</th>
-                        <th scope="col">Curbside Pickup</th>
-                        <th scope="col">Services</th>
-                        <th scope="col">In-store</th>
+                        <th className="agenda-header" scope="col">Time</th>
+                        <th className="agenda-header" scope="col">Curbside Pickup</th>
+                        <th className="agenda-header" scope="col">Services</th>
+                        <th className="agenda-header" scope="col">In-store</th>
                     </tr>
                 </thead>
                 <tbody>
