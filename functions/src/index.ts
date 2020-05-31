@@ -22,5 +22,22 @@
 import * as functions from "firebase-functions";
 /* eslint-enable @typescript-eslint/semi */
 
+interface Booking {
+    [index: string]: any,
+    type: "pickup" | "service" | "in-store",
+    day: string,
+    time: string,
+}
 
-exports.func = functions.https.onCall(() => 0)
+
+/**
+ * Set a new booking
+ * @param {Booking} data - booking data
+ * @param {functions.https.CallableContext} context - auth context
+ */
+export const newBooking = functions.https.onCall((data: Booking, context): string => {
+    if (!context.auth) {
+        return "not logged in"
+    }
+    return "success"
+})

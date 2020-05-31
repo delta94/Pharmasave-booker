@@ -21,6 +21,7 @@
 /* eslint-disable one-var, semi */
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/functions";
 import firebase from "firebase/app";
 /* eslint-enable semi */
 
@@ -41,6 +42,7 @@ firebase.initializeApp(firebaseConfig)
 
 export const auth = firebase.auth(),
     firestore = firebase.firestore(),
+    functions = firebase.functions(),
     
     signInWithGoogle = () => {
         auth.signInWithPopup(googleProvider)
