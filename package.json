@@ -26,11 +26,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "tsc": "cd functions\ntsc\ncd ..",
     "test": "cd functions\nnpm test\ncd ..",
     "eject": "react-scripts eject",
     "comp-sass": "sass scss/main.scss public/css/style.css",
     "lint": "npx eslint \"*/**/*.{js,jsx,ts,tsx}\"",
-    "git-lint": "npx eslint \"*/**/*.{js,jsx,ts,tsx}\" --rule \"{@typescript-eslint/no-unsafe-assignment: off, @typescript-eslint/no-unsafe-member-access: off, @typescript-eslint/no-unsafe-call: off, @typescript-eslint/no-unsafe-return: off}\""
+    "git-lint": "npx eslint \"*/**/*.{js,jsx,ts,tsx}\" --rule \"{@typescript-eslint/no-unsafe-assignment: off, @typescript-eslint/no-unsafe-member-access: off, @typescript-eslint/no-unsafe-call: off, @typescript-eslint/no-unsafe-return: off}\"",
+    "functions": "npm run-script tsc\nfirebase functions:shell"
   },
   "eslintConfig": {
     "extends": "react-app"
