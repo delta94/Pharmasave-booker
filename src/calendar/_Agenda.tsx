@@ -148,8 +148,13 @@ export default class Agenda extends React.Component
 
         for (const iter of iterations) {
             tableVals.push(
-                <tr>
-                    <th scope="row" key={`agenda-${dayOfWeek}-${iter}`}>{iter}</th>
+                <tr key={`agenda-${dayOfWeek}-${iter}-row`}>
+                    <th
+                        scope = "row"
+                        key = {`agenda-${dayOfWeek}-${iter}-head`}
+                    >
+                        {iter}
+                    </th>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -160,11 +165,11 @@ export default class Agenda extends React.Component
         const table =
             <table className="table">
                 <thead>
-                    <tr>
-                        <th scope="col">Time</th>
-                        <th scope="col">Curbside Pickup</th>
-                        <th scope="col">Services</th>
-                        <th scope="col">In-store</th>
+                    <tr key="agenda-head">
+                        <th key="agenda-time" scope="col">Time</th>
+                        <th key="agenda-pickup" scope="col">Curbside Pickup</th>
+                        <th key="agenda-services" scope="col">Services</th>
+                        <th key="agenda-col" scope="col">In-store</th>
                     </tr>
                 </thead>
                 <tbody>
