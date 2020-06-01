@@ -19,33 +19,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi */
-import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import writeNewBooking from "./newBooking"
+import {Booking} from "./index";
 /* eslint-enable @typescript-eslint/semi */
-
-// Test run newBooking({"day": "2020/06/1", "time": "12:00"}, {})
-  
-admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    databaseURL: "https://carriage-crossing-pharmacy.firebaseio.com",
-})
-
-const database = admin.firestore()
-
-export interface Booking {
-    [index: string]: any,
-    type: "pickup" | "service" | "in-store",
-    day: string,
-    time: string,
-}
 
 /**
  * Set a new booking
+ * @param {FirebaseFirestore.Firestore} database - database to write to
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
  */
-export const newBooking = functions.https.onCall(async (
+const writeNewBooking = async (
+    database: FirebaseFirestore.Firestore,
     data: Booking,
-    context,
-): Promise<number | Error> => await writeNewBooking(database, data, context))
+    context: functions.https.CallableContext,
+): Promise<number | Error> => {
+    if (!context.auth) {
+        return Error("Unauthenticated error. Please make sure you're logged in.")
+    }
+
+    const [year, month, day] = data.day.split("/"), // Year month and day to set to
+        fullDay = day.length < 2 ? `0${day}` : day,
+        dbRef = database // Database reference
+            .collection("agenda")
+            .doc(year)
+            .collection(month)
+            .doc(fullDay),
+        {time} = data // Time to set to
+    
+    return await dbRef.set({[time]: context.auth.uid})
+        .then(() => 0)
+        .catch((error: Error) => {
+            console.log(error, error.message)
+            
+            return Error(error.message)
+        })
+}
+
+export default writeNewBooking
