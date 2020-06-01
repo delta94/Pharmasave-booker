@@ -14,4 +14,5 @@ link-creds:
 	export GOOGLE_APPLICATION_CREDENTIALS="admin_sdk.json"
 
 deploy:
+	make tsc
 	firebase deploy --only functions
