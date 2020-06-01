@@ -12,3 +12,6 @@ emulate:
 
 link-creds:
 	export GOOGLE_APPLICATION_CREDENTIALS="admin_sdk.json"
+
+deploy:
+	firebase deploy --only functions
