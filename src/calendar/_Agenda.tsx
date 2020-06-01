@@ -26,11 +26,13 @@
 /* eslint-disable @typescript-eslint/semi */
 import CustomDate from "../CustomDate";
 import React from "react";
+import {functions} from "../firebase";
 import globals from "../globals";
 /* eslint-enable @typescript-eslint/semi */
 
 /* eslint-disable no-magic-numbers */
-const [minutesPerHour, halfWayPoint] = [60, 12]
+const [minutesPerHour, halfWayPoint] = [60, 12],
+    newEntry = functions.httpsCallable("newBooking")
 /* eslint-enable no-magic-numbers */
 
 
@@ -49,24 +51,25 @@ export default class Agenda extends React.Component
     }
 
     /**
-     * Formats selected day
-     * @returns {string} selected day
+     * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
+     * @param {number | undefined} minutes - minutes to format; undefined for "00"
+     * @returns {string} formatted minutes
      */
-    private _selectedDay = (): string => {
-        const days = (this.state?.selected as string).split("/")
+    private _formatMinutes = (minutes: number | undefined): string => {
 
-        if (days.length > 0) {
-            if (days[1] && days[1].length < 2) {
-                days[1] = `0${days[1]}`
-            }
-            if (days[2] && days[2].length < 2) {
-                days[2] = `0${days[2]}`
+        if (minutes) {
+            let newMinutes = minutes?.toString()
+
+            if (newMinutes.length > 2) {
+                newMinutes = newMinutes.substr(0, newMinutes.length - 1)
+
+                return this._formatMinutes(Number(newMinutes))
             }
 
-            return days.join("/")
+            return newMinutes
         }
 
-        return ""
+        return "00"
     }
 
     /**
@@ -76,8 +79,7 @@ export default class Agenda extends React.Component
      */
     private _convertTime = (time: number): string => {
         const stringTime = time.toString(),
-            [hours, minutes] = stringTime.split("."),
-            displayMins = Math.floor((Number(minutes) * minutesPerHour))
+            [hours, minutes] = stringTime.split(".")
 
         let output = "",
             indicators: string
@@ -93,9 +95,9 @@ export default class Agenda extends React.Component
         }
         
         output += `${hours}:` // Hours
-        output += displayMins // Minutes
-            ? displayMins.toString().substr(0, displayMins.toString().length - 1)
-            : "00"
+        output += this._formatMinutes(
+            Math.floor((Number(minutes) * minutesPerHour))
+        )
         output += ` ${indicators}` // Am/Pm
         
         return output
@@ -166,10 +168,10 @@ export default class Agenda extends React.Component
             <table className="table">
                 <thead>
                     <tr key="agenda-head">
-                        <th key="agenda-time" scope="col">Time</th>
-                        <th key="agenda-pickup" scope="col">Curbside Pickup</th>
-                        <th key="agenda-services" scope="col">Services</th>
-                        <th key="agenda-col" scope="col">In-store</th>
+                        <th className="agenda-header" key="agenda-time" scope="col">Time</th>
+                        <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
+                        <th className="agenda-header" key="agenda-services" scope="col">Services</th>
+                        <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -189,6 +191,17 @@ export default class Agenda extends React.Component
             </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
             {this.state?.table}
+            <button onClick={(): void => {
+                newEntry({
+                    day: "2020/06/1",
+                    time: "12:00",
+                }).then((res) => {
+                    console.log(res)
+                })
+                    .catch((err: Error) => {
+                        console.log(err.message)
+                    })
+            }}>Testing for production</button>
         </div>
     )
 

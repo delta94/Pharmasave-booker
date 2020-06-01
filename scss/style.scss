@@ -316,4 +316,8 @@ footer {
   border-radius: 1rem;
   border: 0.1rem solid variables.$accent1;
   padding: 2vw;
+
+  .agenda-header {
+    width: 25%;
+  }
 }
