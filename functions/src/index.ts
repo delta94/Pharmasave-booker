@@ -21,6 +21,7 @@
 /* eslint-disable @typescript-eslint/semi */
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import {Booking} from "./interfaces";
 import writeNewBooking from "./newBooking"
 /* eslint-enable @typescript-eslint/semi */
 
@@ -32,13 +33,6 @@ admin.initializeApp({
 })
 
 const database = admin.firestore()
-
-export interface Booking {
-    [index: string]: any,
-    type: "pickup" | "service" | "in-store",
-    day: string,
-    time: string,
-}
 
 /**
  * Set a new booking

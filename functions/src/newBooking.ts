@@ -20,7 +20,7 @@
  */
 /* eslint-disable @typescript-eslint/semi */
 import * as functions from "firebase-functions";
-import {Booking} from "./index";
+import {Booking} from "./interfaces";
 /* eslint-enable @typescript-eslint/semi */
 
 /**
