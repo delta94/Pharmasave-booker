@@ -61,7 +61,7 @@ export const newBooking = functions.https.onCall(async (
             .doc(fullDay),
         {time} = data
     
-    return await dbRef.set({[time]: true})
+    return await dbRef.set({[time]: context.auth.uid})
         .then(() => 0)
         .catch((error: Error) => {
             console.log(error, error.message)
