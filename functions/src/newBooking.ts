@@ -21,6 +21,7 @@
 /* eslint-disable @typescript-eslint/semi */
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
+import verifyContext from "./verification";
 /* eslint-enable @typescript-eslint/semi */
 
 /**
@@ -34,8 +35,8 @@ const writeNewBooking = async (
     data: Booking,
     context: functions.https.CallableContext,
 ): Promise<number | Error> => {
-    if (!context.auth) {
-        return Error("Unauthenticated error. Please make sure you're logged in.")
+    if (await !verifyContext(context)) {
+        return 1
     }
 
     const [year, month, day] = data.day.split("/"), // Year month and day to set to
@@ -47,7 +48,8 @@ const writeNewBooking = async (
             .doc(fullDay),
         {time} = data // Time to set to
     
-    return await dbRef.set({[time]: context.auth.uid})
+    // Set database refernece to uid
+    return await dbRef.set({[time]: context.auth?.uid})
         .then(() => 0)
         .catch((error: Error) => {
             console.log(error, error.message)
