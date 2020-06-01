@@ -35,7 +35,7 @@ const writeNewBooking = async (
     data: Booking,
     context: functions.https.CallableContext,
 ): Promise<number | Error> => {
-    if (await !verifyContext(context)) {
+    if (await !verifyContext(context)) { // Check to make sure function call is by a real user
         return 1
     }
 

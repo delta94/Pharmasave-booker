@@ -25,8 +25,8 @@ import * as admin from "firebase-admin";
 
 /**
  * Verify context and token to make sure it isn't malicious
- * @param context verifies context 
- * @returns {boolean} if validated
+ * @param {functions.https.CallableContext} context context to be verified 
+ * @returns {Promise<boolean>} if validated
  */
 const verifyContext = async (context: functions.https.CallableContext): Promise<boolean> => {
     let failed = false
