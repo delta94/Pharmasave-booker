@@ -57,12 +57,9 @@ export const newBooking = functions.https.onCall(async (
     const [year, month, day] = data.day.split("/"),
         fullDay = day.length < 2 ? `0${day}` : day,
         dbRef = database.collection("agenda").doc(year).collection(month).doc(fullDay),
-        time = data.time,
-        newBooking: {[key: string]: boolean} = {}
+        time = data.time
     
-    newBooking[time] = true
-    
-    return await dbRef.set(newBooking)
+    return await dbRef.set({[time]: true})
         .then(() => 0)
         .catch((error: Error) => {
             console.log(error, error.message)

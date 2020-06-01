@@ -26,11 +26,13 @@
 /* eslint-disable @typescript-eslint/semi */
 import CustomDate from "../CustomDate";
 import React from "react";
+import {functions} from "../firebase";
 import globals from "../globals";
 /* eslint-enable @typescript-eslint/semi */
 
 /* eslint-disable no-magic-numbers */
-const [minutesPerHour, halfWayPoint] = [60, 12]
+const [minutesPerHour, halfWayPoint] = [60, 12],
+    newEntry = functions.httpsCallable("newBooking")
 /* eslint-enable no-magic-numbers */
 
 
@@ -62,8 +64,6 @@ export default class Agenda extends React.Component
             } else {
                 return newMinutes
             }
-        } else {
-            return "00"
         }
 
         return "00"
@@ -188,6 +188,13 @@ export default class Agenda extends React.Component
             </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
             {this.state?.table}
+            <button onClick={() => {
+                    newEntry({"day": "2020/06/1", "time": "12:00"}).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.log(err.message)
+                    })
+                }}>Testing for production</button>
         </div>
     )
 
