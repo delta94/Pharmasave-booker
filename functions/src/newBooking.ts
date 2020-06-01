@@ -24,11 +24,14 @@ import {Booking} from "./interfaces";
 import verifyContext from "./verification";
 /* eslint-enable @typescript-eslint/semi */
 
+type docData = {[key: string]: string | undefined | null}
+
 /**
  * Set a new booking
  * @param {FirebaseFirestore.Firestore} database - database to write to
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
+ * @returns {Promise<number, Error>} exit code or error message
  */
 const writeNewBooking = async (
     database: FirebaseFirestore.Firestore,
@@ -44,17 +47,36 @@ const writeNewBooking = async (
         dbRef = database // Database reference
             .collection("agenda")
             .doc(year)
-            .collection(month)
-            .doc(fullDay),
-        {time} = data // Time to set to
+            .collection(month),
+        {time} = data, // Time to set to
+
+        readData = await dbRef.get()
+            .then((snapshot): docData | void => {
+                let _readData
+                snapshot.forEach((doc) => {
+                    if (doc.id === day) {
+                        _readData = doc.data()
+                    }
+                })
+                return _readData
+            })
+            .catch((err: Error) => {
+                return err
+            })
+    
+    if (readData instanceof Error) {
+        return 2
+    } else if (readData && readData[time]) {
+        return 3
+    }
     
     // Set database refernece to uid
-    return await dbRef.set({[time]: context.auth?.uid})
+    return await dbRef.doc(fullDay).set({[time]: context.auth?.uid})
         .then(() => 0)
-        .catch((error: Error) => {
-            console.log(error, error.message)
+        .catch((err: Error) => {
+            console.log(err, err.message)
             
-            return Error(error.message)
+            return Error(err.message)
         })
 }
 

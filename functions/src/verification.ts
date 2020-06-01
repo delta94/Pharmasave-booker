@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi */
-import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
 /* eslint-enable @typescript-eslint/semi */
 
 /**
@@ -28,8 +28,10 @@ import * as admin from "firebase-admin";
  * @param {functions.https.CallableContext} context context to be verified 
  * @returns {Promise<boolean>} if validated
  */
-const verifyContext = async (context: functions.https.CallableContext): Promise<boolean> => {
-    let failed = false
+const verifyContext = async (
+    context: functions.https.CallableContext
+): Promise<boolean> => {
+    let didfail = false
 
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
         return false
@@ -37,15 +39,15 @@ const verifyContext = async (context: functions.https.CallableContext): Promise<
 
     await admin.auth().verifyIdToken(context.auth.uid, true) // Check if token is signed
         .then(() => {
-            failed = false
-        }).catch(() => {
-            failed = true
+            didfail = false
+        })
+        .catch(() => {
+            didfail = true
         })
     
-    if (failed) {
+    if (didfail) {
         return false
     }
-
 
     return true // Passed all checks
 }
