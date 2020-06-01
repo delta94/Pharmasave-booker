@@ -35,17 +35,21 @@ const verifyContext = async (
 
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
         return false
+        console.log("NULL")
     }
 
     await admin.auth().verifyIdToken(context.auth.uid, true) // Check if token is signed
-        .then(() => {
+        .then((bruh) => {
+            console.log(bruh)
             didfail = false
         })
         .catch(() => {
+            console.log("WTF")
             didfail = true
         })
     
     if (didfail) {
+        console.log("FAILED")
         return false
     }
 

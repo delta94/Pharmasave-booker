@@ -38,7 +38,7 @@ const writeNewBooking = async (
     data: Booking,
     context: functions.https.CallableContext,
 ): Promise<number | Error> => {
-    if (await !verifyContext(context)) { // Check to make sure function call is by a real user
+    if (!await verifyContext(context)) { // Check to make sure function call is by a real user
         return 1
     }
 
@@ -54,13 +54,14 @@ const writeNewBooking = async (
             .then((snapshot): docData | void => {
                 let _readData
                 snapshot.forEach((doc) => {
-                    if (doc.id === day) {
+                    if (doc.id === fullDay) {
                         _readData = doc.data()
                     }
                 })
                 return _readData
             })
             .catch((err: Error) => {
+                console.log(err.message)
                 return err
             })
     
