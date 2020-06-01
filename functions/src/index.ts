@@ -52,14 +52,14 @@ export const newBooking = functions.https.onCall(async (
         return Error("Unauthenticated error. Please make sure you're logged in.")
     }
 
-    const [year, month, day] = data.day.split("/"),
+    const [year, month, day] = data.day.split("/"), // Year month and day to set to
         fullDay = day.length < 2 ? `0${day}` : day,
-        dbRef = database
+        dbRef = database // Database reference
             .collection("agenda")
             .doc(year)
             .collection(month)
             .doc(fullDay),
-        {time} = data
+        {time} = data // Time to set to
     
     return await dbRef.set({[time]: context.auth.uid})
         .then(() => 0)
