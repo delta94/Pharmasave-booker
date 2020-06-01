@@ -18,13 +18,12 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/semi, no-magic-numbers */
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
-import verifyContext from "./verification";
 /* eslint-enable @typescript-eslint/semi */
 
-type docData = {[key: string]: string | undefined | null}
+type DocData = {[key: string]: string | undefined | null}
 
 /**
  * Set a new booking
@@ -51,19 +50,18 @@ const writeNewBooking = async (
         {time} = data, // Time to set to
 
         readData = await dbRef.get()
-            .then((snapshot): docData | void => {
+            .then((snapshot): DocData | void => {
                 let _readData
+
                 snapshot.forEach((doc) => {
                     if (doc.id === fullDay) {
                         _readData = doc.data()
                     }
                 })
+
                 return _readData
             })
-            .catch((err: Error) => {
-                console.log(err.message)
-                return err
-            })
+            .catch((err: Error) => err)
     
     if (readData instanceof Error) {
         return 2
