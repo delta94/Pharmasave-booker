@@ -1,7 +1,7 @@
-sass-compile:
+sass:
 	sass scss/bootstrap.scss public/css/styles.css
 
-sass-compress:
+sass-min:
 	sass scss/bootstrap.scss public/css/styles.css --style compressed
 
 tsc:
