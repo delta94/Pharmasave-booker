@@ -52,6 +52,8 @@ export default class Agenda extends React.Component
 
     /**
      * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
+     * @param {number | undefined} minutes - minutes to format; undefined for "00"
+     * @returns {string} formatted minutes
      */
     private _formatMinutes = (minutes: number | undefined): string => {
 
@@ -60,10 +62,11 @@ export default class Agenda extends React.Component
 
             if (newMinutes.length > 2) {
                 newMinutes = newMinutes.substr(0, newMinutes.length - 1)
+
                 return this._formatMinutes(Number(newMinutes))
-            } else {
-                return newMinutes
             }
+
+            return newMinutes
         }
 
         return "00"
@@ -166,7 +169,7 @@ export default class Agenda extends React.Component
                 <thead>
                     <tr key="agenda-head">
                         <th className="agenda-header" key="agenda-time" scope="col">Time</th>
-                        <th className="agenda-header"  key="agenda-pickup" scope="col">Curbside Pickup</th>
+                        <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
                         <th className="agenda-header" key="agenda-services" scope="col">Services</th>
                         <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
                     </tr>
@@ -188,13 +191,17 @@ export default class Agenda extends React.Component
             </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
             {this.state?.table}
-            <button onClick={() => {
-                    newEntry({"day": "2020/06/1", "time": "12:00"}).then((res) => {
-                        console.log(res)
-                    }).catch((err) => {
+            <button onClick={(): void => {
+                newEntry({
+                    day: "2020/06/1",
+                    time: "12:00",
+                }).then((res) => {
+                    console.log(res)
+                })
+                    .catch((err: Error) => {
                         console.log(err.message)
                     })
-                }}>Testing for production</button>
+            }}>Testing for production</button>
         </div>
     )
 

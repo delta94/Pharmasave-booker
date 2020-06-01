@@ -19,13 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi */
-import * as admin from 'firebase-admin';
+import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 /* eslint-enable @typescript-eslint/semi */
 
 // Test run newBooking({"day": "2020/06/1", "time": "12:00"}, {})
-
-process.env.GCLOUD_PROJECT = 'carriage-crossing-pharmacy'
   
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),
@@ -56,13 +54,18 @@ export const newBooking = functions.https.onCall(async (
 
     const [year, month, day] = data.day.split("/"),
         fullDay = day.length < 2 ? `0${day}` : day,
-        dbRef = database.collection("agenda").doc(year).collection(month).doc(fullDay),
-        time = data.time
+        dbRef = database
+            .collection("agenda")
+            .doc(year)
+            .collection(month)
+            .doc(fullDay),
+        {time} = data
     
     return await dbRef.set({[time]: true})
         .then(() => 0)
         .catch((error: Error) => {
             console.log(error, error.message)
+            
             return Error(error.message)
         })
 })
