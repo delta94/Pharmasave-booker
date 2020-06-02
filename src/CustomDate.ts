@@ -23,7 +23,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 export default class CustomDate extends Date {
 
     private static _daysReference: {[key: number]: string} = {
@@ -50,6 +49,8 @@ export default class CustomDate extends Date {
         10: "November",
         11: "December",
     }
+
+    private static _halfwayPoint = 12
 
     /**
      * Format date in the form yyyy mm dd
@@ -113,6 +114,29 @@ export default class CustomDate extends Date {
     }
 
     /**
+     * Converts 12 hours time to 24 hour time
+     * @param {string} time - time to convert
+     * @returns {string} converted time
+     */
+    public static to24Hour = (time: string): string => {
+        const isafternoon = time.includes("Pm")
+
+        let newTime = time.replace(/Noon/gu, "")
+            .replace(/Pm/gu, "")
+            .replace(/Am/gu, "")
+            .replace(/ /gu, "")
+
+        if (isafternoon && newTime.split(":")[0] !== "12") {
+            newTime = 
+                `${Number(newTime.split(":")[0])+12}:${newTime.split(":")[1]}`
+        }
+
+        console.log(newTime)
+
+        return newTime
+    }
+
+    /**
      * Format date in the form yyyy mm dd
      * @param {string} seperator - char to seperate date with
      * @returns {string} formatted date
@@ -149,21 +173,8 @@ export default class CustomDate extends Date {
     public addZeros = (seperator = "/"): string => {
         // eslint-ignore-next-line
         const date = `${this.getFullYear()}${seperator}${this.getMonth()}${seperator}${this.getDate()}`
-        let newDate = `${date.split(seperator)[0]}${seperator}`
-
-        if (date.split(seperator)[1].length < 2) {
-            newDate += `0${date.split(seperator)[1]}${seperator}`
-        } else {
-            newDate += `${date.split(seperator)[1]}${seperator}`
-        }
-
-        if (date.split(seperator)[2].length < 2) {
-            newDate += `0${date.split(seperator)[2]}`
-        } else {
-            newDate += date.split(seperator)[2]
-        }
-
-        return newDate
+        
+        return CustomDate.addZeros(date, seperator)
     }
 
 }

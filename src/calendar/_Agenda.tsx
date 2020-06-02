@@ -205,7 +205,7 @@ export default class Agenda extends React.Component
                         className="pickup-col agenda-col"
                         id="bruh"
                         onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(day, iter)
+                            await this._makeNewEntry(day, CustomDate.to24Hour(iter))
                         }}
                     ></td>
                     <td></td>
