@@ -24,9 +24,31 @@ import {Booking} from "./interfaces";
 import globals from "./globals"
 /* eslint-enable @typescript-eslint/semi */
 
-globals.hours
-
 type DocData = {[key: string]: string | undefined | null}
+
+/**
+ * Reads database for specific day
+ * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference of specific month
+ * @param {string} fullDay - full day (with leading zero if applicable)
+ */
+const readDayData = async (
+    dbRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
+    fullDay: string,
+): Promise<void | DocData | Error> => {
+    return await dbRef.get() // Read from database
+        .then((snapshot): DocData | void => {
+            let _readData
+
+            snapshot.forEach((doc) => { // Read selected day
+                if (doc.id === fullDay) {
+                    _readData = doc.data()
+                }
+            })
+
+            return _readData
+        })
+        .catch((err: Error) => err)
+}
 
 /**
  * Set a new booking
@@ -40,10 +62,6 @@ const writeNewBooking = async (
     data: Booking,
     context: functions.https.CallableContext,
 ): Promise<number | Error> => {
-    if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return 1
-    }
-
     const [year, month, day] = data.day.split("/"), // Year month and day to set to
         fullDay = day.length < 2 ? `0${day}` : day,
         dbRef = database // Database reference
@@ -51,24 +69,13 @@ const writeNewBooking = async (
             .doc(year)
             .collection(month),
         {time} = data, // Time to set to
-
-        readData = await dbRef.get()
-            .then((snapshot): DocData | void => {
-                let _readData
-
-                snapshot.forEach((doc) => {
-                    if (doc.id === fullDay) {
-                        _readData = doc.data()
-                    }
-                })
-
-                return _readData
-            })
-            .catch((err: Error) => err)
+        readData = await readDayData(dbRef, fullDay)
     
-    if (readData instanceof Error) {
+    if (!context.auth || !context.auth.uid) { // Check if auth even exists
+        return 1
+    } else if (readData instanceof Error) {
         return 2
-    } else if (readData && readData[time]) {
+    } else if (readData && readData[time]) { // If booking already exists
         return 3
     }
     
