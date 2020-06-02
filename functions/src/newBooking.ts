@@ -62,7 +62,7 @@ const writeNewBooking = async (
     database: FirebaseFirestore.Firestore,
     data: Booking,
     context: functions.https.CallableContext,
-): Promise<number | (Error | number)[]> => {
+): Promise<number | (string | number)[]> => {
     const [year, month, day] = data.day.split("/"), // Year month and day to set to
         fullDay = day.length < 2 ? `0${day}` : day,
         fullMonth = month.length < 2
@@ -78,32 +78,32 @@ const writeNewBooking = async (
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return [1, Error("Not authenticated")]
+        return [1, "Not authenticated"]
     } else if (!globals.hours[date.getDate()]) { // If the store is open
-        return [3, Error("Booking is on a store closure")]
+        return [3, "Booking is on a store closure"]
     } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
-        return [3.1, Error("Booking is too early")]
+        return [3.1, "Booking is too early"]
     } else if (
         Number(hours) > globals.hours[date.getDate()]![1] ||
         Number(hours) === globals.hours[date.getDate()]![1] &&
         Number(minutes) === 30
     ) {
-        return [3.2, Error("Booking is too late")]
+        return [3.2, "Booking is too late"]
     }
     
     const readData = await readDayData(dbRef, fullDay) // Make read after validation (save money)
     
     // More error checks
     if (readData instanceof Error) { // Return 2 if error
-        return [4, Error("Unknown error; Problem reading from database")]
+        return [4, "Unknown error; Problem reading from database"]
     } else if (readData && readData[time]) { // If booking already exists
-        return [5, Error("Time slot already taken")]
+        return [5, "Time slot already taken"]
     }
 
     // Set database refernece to uid
     return await dbRef.doc(fullDay).set({[time]: context.auth?.uid})
         .then(() => 0)
-        .catch((err: Error) => [4, err])
+        .catch((err: Error) => [4, err.message])
 }
 
 export default writeNewBooking
