@@ -25,7 +25,7 @@
 
 /* eslint-disable @typescript-eslint/semi */
 import CustomDate from "../CustomDate";
-import React from "react";
+import React, { useImperativeHandle } from "react";
 import {functions} from "../firebase";
 import globals from "./../globals";
 /* eslint-enable @typescript-eslint/semi */
@@ -78,17 +78,18 @@ export default class Agenda extends React.Component
      * @returns {string} stringified 12 hour time
      */
     private _convertTime = (time: number): string => {
-        const stringTime = time.toString()
+        const stringTime = time.toString(),
+            minutes = stringTime.split(".")[1]
 
         let output = "",
             indicators: string,
-            [hours, minutes] = stringTime.split(".")
+            hours = stringTime.split(".")[0]
         
         if (
             (Number(hours) > halfWayPoint) ||
             (Number(hours) === halfWayPoint && minutes === "5")) { // If afternoon
             indicators = "Pm"
-            hours = (Number(hours) - 12).toString() // Convert to 12 hour time
+            hours = (Number(hours) - halfWayPoint).toString() // Convert to 12 hour time
             hours = (hours === "0" ? "12" : hours)
         } else if (Number(hours) === halfWayPoint && !minutes) { // If noon
             indicators = "Noon"
@@ -131,8 +132,13 @@ export default class Agenda extends React.Component
         return increments
     }
 
-    private _makeNewEntry = (day: string, time: string) => {
-        newEntry({
+    /**
+     * Make a new entry to the db
+     * @param {string} day - day to add entry to
+     * @param {string} timme
+     */
+    private _makeNewEntry = async (day: string, time: string): Promise<number> => {
+        return await newEntry({
             day,
             time,
         }).then((res) => {
@@ -143,6 +149,8 @@ export default class Agenda extends React.Component
             } else {
                 alert(`Error, unknown cause`)
             }
+
+            return 0
         })
     }
 
@@ -177,8 +185,8 @@ export default class Agenda extends React.Component
                     <td
                         className="pickup-col agenda-col"
                         id="bruh"
-                        onClick={() => {
-                            this._makeNewEntry(day, iter)
+                        onClick={async () => {
+                            await this._makeNewEntry(day, iter)
                         }}
                     ></td>
                     <td></td>
