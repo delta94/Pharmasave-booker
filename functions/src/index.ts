@@ -42,4 +42,6 @@ const database = admin.firestore()
 export const newBooking = functions.https.onCall(async (
     data: Booking,
     context,
-): Promise<number | (number | Error)[]> => await writeNewBooking(database, data, context))
+): Promise<number | (number | Error)[]> => (
+    await writeNewBooking(database, data, context))
+)

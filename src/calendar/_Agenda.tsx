@@ -193,14 +193,15 @@ export default class Agenda extends React.Component
             {this.state?.table}
             <button onClick={(): void => {
                 newEntry({
-                    day: "2020/06/1",
+                    day: "2020/06/2",
                     time: "12:00",
                 }).then((res) => {
-                    console.log(res)
+                    if (res instanceof Error) {
+                        console.log(res.data)
+                    } else {
+                        console.log(res.data)
+                    }
                 })
-                    .catch((err: Error) => {
-                        console.log(err.message)
-                    })
             }}>Testing for production</button>
         </div>
     )
