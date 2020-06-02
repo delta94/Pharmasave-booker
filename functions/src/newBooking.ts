@@ -18,7 +18,7 @@
  * 
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-/* eslint-disable @typescript-eslint/semi, no-magic-numbers */
+/* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
 import globals from "./globals"
@@ -30,12 +30,13 @@ type DocData = {[key: string]: string | undefined | null}
  * Reads database for specific day
  * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference of specific month
  * @param {string} fullDay - full day (with leading zero if applicable)
+ * @returns {Promise<void | DocData | Error>} - void if first booking for day, DocData if bookings exist, and Error if read fails
  */
 const readDayData = async (
     dbRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
     fullDay: string,
-): Promise<void | DocData | Error> => {
-    return await dbRef.get() // Read from database
+): Promise<void | DocData | Error> => (
+    await dbRef.get() // Read from database
         .then((snapshot): DocData | void => {
             let _readData
 
@@ -48,7 +49,7 @@ const readDayData = async (
             return _readData
         })
         .catch((err: Error) => err)
-}
+)
 
 /**
  * Set a new booking
