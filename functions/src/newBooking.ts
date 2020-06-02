@@ -69,24 +69,37 @@ const writeNewBooking = async (
             .doc(year)
             .collection(month),
         {time} = data, // Time to set to
-        readData = await readDayData(dbRef, fullDay)
+        [minutes, hours] = time.split(":"),
+        date = new Date(Number(year), Number(month), Number(day))
     
+    // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return 1
-    } else if (readData instanceof Error) {
-        return 2
-    } else if (readData && readData[time]) { // If booking already exists
-        return 3
+        return Error("Not authenticated")
+    } else if (!globals.hours[date.getDate()]) { // If the store is open
+        return Error("Booking is on a store closure")
+    } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
+        return Error("Booking is too early")
+    } else if (
+        Number(hours) > globals.hours[date.getDate()]![0] ||
+        Number(hours) === globals.hours[date.getDate()]![0] &&
+        Number(minutes) === 30
+    ) {
+        return Error("Booking is too late")
     }
     
+    const readData = await readDayData(dbRef, fullDay) // Make read after validation (save money)
+    
+    // More error checks
+    if (readData instanceof Error) { // Return 2 if error
+        return Error("Unknown error; Problem reading from database")
+    } else if (readData && readData[time]) { // If booking already exists
+        return Error("Time slot already taken")
+    }
+
     // Set database refernece to uid
     return await dbRef.doc(fullDay).set({[time]: context.auth?.uid})
         .then(() => 0)
-        .catch((err: Error) => {
-            console.log(err, err.message)
-            
-            return Error(err.message)
-        })
+        .catch((err: Error) => err)
 }
 
 export default writeNewBooking
