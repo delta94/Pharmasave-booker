@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "tsc": "cd functions\ntsc\ncd ..",
+    "tsc": "cd functions\nnpx tsc\ncd ..",
     "test": "cd functions\nnpm test\ncd ..",
     "eject": "react-scripts eject",
     "comp-sass": "sass scss/main.scss public/css/style.css",

@@ -27,7 +27,7 @@
 import CustomDate from "../CustomDate";
 import React from "react";
 import {functions} from "../firebase";
-import globals from "../globals";
+import globals from "./../globals";
 /* eslint-enable @typescript-eslint/semi */
 
 /* eslint-disable no-magic-numbers */
@@ -78,19 +78,24 @@ export default class Agenda extends React.Component
      * @returns {string} stringified 12 hour time
      */
     private _convertTime = (time: number): string => {
+        /* eslint-disable prefer-destructuring */
         const stringTime = time.toString(),
-            [hours, minutes] = stringTime.split(".")
+            minutes = stringTime.split(".")[1]
 
         let output = "",
-            indicators: string
+            indicators: string,
+            hours = stringTime.split(".")[0]
+        /* eslint-enable prefer-destructuring */
         
         if (
             (Number(hours) > halfWayPoint) ||
-            (Number(hours) === halfWayPoint && minutes === "5")) {
+            (Number(hours) === halfWayPoint && minutes === "5")) { // If afternoon
             indicators = "Pm"
-        } else if (Number(hours) === halfWayPoint && !minutes) {
+            hours = (Number(hours) - halfWayPoint).toString() // Convert to 12 hour time
+            hours = (hours === "0" ? "12" : hours)
+        } else if (Number(hours) === halfWayPoint && !minutes) { // If noon
             indicators = "Noon"
-        } else {
+        } else { // If morning
             indicators = "Am"
         }
         
@@ -130,6 +135,44 @@ export default class Agenda extends React.Component
     }
 
     /**
+     * Make a new entry to the db
+     * @param {string} day - day to add entry to
+     * @param {string} time - time to add entry to
+     * @returns {Promise<number>} return 0 on success
+     */
+    private _makeNewEntry = async (day: string, time: string): Promise<number> => (
+        await newEntry({
+            day,
+            time,
+        }).then((res) => {
+            if (res.data instanceof Array) {
+                alert(`Error exit code ${res.data[0]}, ${(res.data[1] as Error).message}`)
+            } else if (res.data === 0) {
+                alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
+            } else {
+                alert(`Error, unknown cause`)
+            }
+
+            return 0
+        })
+    )
+
+    /**
+     * Returns a table head for agenda
+     * @returns {JSX.Element} thead element
+     */
+    private _thead = (): JSX.Element => (
+        <thead>
+            <tr key="agenda-head">
+                <th className="agenda-header" key="agenda-time" scope="col">Time</th>
+                <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
+                <th className="agenda-header" key="agenda-services" scope="col">Services</th>
+                <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
+            </tr>
+        </thead>
+    )
+
+    /**
      * Changes selected day of agenda
      * @param {string} day - day to change to
      * @returns {void} void
@@ -157,29 +200,29 @@ export default class Agenda extends React.Component
                     >
                         {iter}
                     </th>
-                    <td></td>
+                    <td
+                        className="pickup-col agenda-col"
+                        id="bruh"
+                        onClick={async (): Promise<void> => {
+                            await this._makeNewEntry(day, iter)
+                        }}
+                    ></td>
                     <td></td>
                     <td></td>
                 </tr>
             )
         }
 
-        const table =
-            <table className="table">
-                <thead>
-                    <tr key="agenda-head">
-                        <th className="agenda-header" key="agenda-time" scope="col">Time</th>
-                        <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
-                        <th className="agenda-header" key="agenda-services" scope="col">Services</th>
-                        <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableVals.map((val) => val)}
-                </tbody>
-            </table>
-
-        this.setState({table})
+        this.setState({
+            table: (
+                <table className="table">
+                    <this._thead/>
+                    <tbody>
+                        {tableVals.map((val) => val)}
+                    </tbody>
+                </table>
+            )
+        })
 
     }
 
@@ -191,17 +234,6 @@ export default class Agenda extends React.Component
             </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
             {this.state?.table}
-            <button onClick={(): void => {
-                newEntry({
-                    day: "2020/06/1",
-                    time: "12:00",
-                }).then((res) => {
-                    console.log(res)
-                })
-                    .catch((err: Error) => {
-                        console.log(err.message)
-                    })
-            }}>Testing for production</button>
         </div>
     )
 
