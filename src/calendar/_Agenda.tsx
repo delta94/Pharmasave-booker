@@ -25,7 +25,7 @@
 
 /* eslint-disable @typescript-eslint/semi */
 import CustomDate from "../CustomDate";
-import React, { useImperativeHandle } from "react";
+import React from "react";
 import {functions} from "../firebase";
 import globals from "./../globals";
 /* eslint-enable @typescript-eslint/semi */
@@ -78,12 +78,14 @@ export default class Agenda extends React.Component
      * @returns {string} stringified 12 hour time
      */
     private _convertTime = (time: number): string => {
+        /* eslint-disable prefer-destructuring */
         const stringTime = time.toString(),
             minutes = stringTime.split(".")[1]
 
         let output = "",
             indicators: string,
             hours = stringTime.split(".")[0]
+        /* eslint-enable prefer-destructuring */
         
         if (
             (Number(hours) > halfWayPoint) ||
@@ -135,15 +137,16 @@ export default class Agenda extends React.Component
     /**
      * Make a new entry to the db
      * @param {string} day - day to add entry to
-     * @param {string} timme
+     * @param {string} time - time to add entry to
+     * @returns {Promise<number>} return 0 on success
      */
-    private _makeNewEntry = async (day: string, time: string): Promise<number> => {
-        return await newEntry({
+    private _makeNewEntry = async (day: string, time: string): Promise<number> => (
+        await newEntry({
             day,
             time,
         }).then((res) => {
             if (res.data instanceof Array) {
-                alert(`Error exit code ${res.data[0]}, ${res.data[1].message}`)
+                alert(`Error exit code ${res.data[0]}, ${(res.data[1] as Error).message}`)
             } else if (res.data === 0) {
                 alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
             } else {
@@ -152,7 +155,22 @@ export default class Agenda extends React.Component
 
             return 0
         })
-    }
+    )
+
+    /**
+     * Returns a table head for agenda
+     * @returns {JSX.Element} thead element
+     */
+    private _thead = (): JSX.Element => (
+        <thead>
+            <tr key="agenda-head">
+                <th className="agenda-header" key="agenda-time" scope="col">Time</th>
+                <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
+                <th className="agenda-header" key="agenda-services" scope="col">Services</th>
+                <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
+            </tr>
+        </thead>
+    )
 
     /**
      * Changes selected day of agenda
@@ -185,7 +203,7 @@ export default class Agenda extends React.Component
                     <td
                         className="pickup-col agenda-col"
                         id="bruh"
-                        onClick={async () => {
+                        onClick={async (): Promise<void> => {
                             await this._makeNewEntry(day, iter)
                         }}
                     ></td>
@@ -195,22 +213,16 @@ export default class Agenda extends React.Component
             )
         }
 
-        const table =
-            <table className="table">
-                <thead>
-                    <tr key="agenda-head">
-                        <th className="agenda-header" key="agenda-time" scope="col">Time</th>
-                        <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
-                        <th className="agenda-header" key="agenda-services" scope="col">Services</th>
-                        <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableVals.map((val) => val)}
-                </tbody>
-            </table>
-
-        this.setState({table})
+        this.setState({
+            table: (
+                <table className="table">
+                    <this._thead/>
+                    <tbody>
+                        {tableVals.map((val) => val)}
+                    </tbody>
+                </table>
+            )
+        })
 
     }
 
