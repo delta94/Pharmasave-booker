@@ -101,7 +101,8 @@ const writeNewBooking = async (
     }
 
     // Set database refernece to uid
-    return await dbRef.doc(fullDay).set({[time]: context.auth?.uid})
+    return await dbRef.doc(fullDay)
+        .set({[time]: context.auth?.uid}, {merge: true})
         .then(() => 0)
         .catch((err: Error) => [4, err.message])
 }
