@@ -146,7 +146,8 @@ export default class Agenda extends React.Component
             time,
         }).then((res) => {
             if (res.data instanceof Array) {
-                alert(`Error exit code ${res.data[0]}, ${(res.data[1] as Error).message}`)
+                alert(`Error code ${res.data[0]}, ${res.data[1]}`)
+                console.log(res)
             } else if (res.data === 0) {
                 alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
             } else {
