@@ -75,11 +75,11 @@ const writeNewBooking = async (
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        // return [1, Error("Not authenticated")]
-    } if (!globals.hours[date.getDate()]) { // If the store is open
+        return [1, Error("Not authenticated")]
+    } else if (!globals.hours[date.getDate()]) { // If the store is open
         return [3, Error("Booking is on a store closure")]
     } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
-        return [3.1, Error("Booking is too early"), Number(hours), globals.hours[date.getDate()]![0]]
+        return [3.1, Error("Booking is too early")]
     } else if (
         Number(hours) > globals.hours[date.getDate()]![1] ||
         Number(hours) === globals.hours[date.getDate()]![1] &&
