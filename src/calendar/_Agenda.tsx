@@ -131,6 +131,21 @@ export default class Agenda extends React.Component
         return increments
     }
 
+    private _makeNewEntry = (day: string, time: string) => {
+        newEntry({
+            day,
+            time,
+        }).then((res) => {
+            if (res.data instanceof Array) {
+                alert(`Error exit code ${res.data[0]}, ${res.data[1].message}`)
+            } else if (res.data === 0) {
+                alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
+            } else {
+                alert(`Error, unknown cause`)
+            }
+        })
+    }
+
     /**
      * Changes selected day of agenda
      * @param {string} day - day to change to
@@ -159,7 +174,13 @@ export default class Agenda extends React.Component
                     >
                         {iter}
                     </th>
-                    <td></td>
+                    <td
+                        className="pickup-col agenda-col"
+                        id="bruh"
+                        onClick={() => {
+                            this._makeNewEntry(day, iter)
+                        }}
+                    ></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -193,18 +214,6 @@ export default class Agenda extends React.Component
             </p>
             <hr className="clearfix w-100 d-md-none pb-3"/>
             {this.state?.table}
-            <button onClick={(): void => {
-                newEntry({
-                    day: "2020/06/2",
-                    time: "12:00",
-                }).then((res) => {
-                    if (res instanceof Error) {
-                        console.log(res.data)
-                    } else {
-                        console.log(res.data)
-                    }
-                })
-            }}>Testing for production</button>
         </div>
     )
 

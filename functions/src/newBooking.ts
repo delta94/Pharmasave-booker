@@ -65,13 +65,16 @@ const writeNewBooking = async (
 ): Promise<number | (Error | number)[]> => {
     const [year, month, day] = data.day.split("/"), // Year month and day to set to
         fullDay = day.length < 2 ? `0${day}` : day,
+        fullMonth = month.length < 2
+            ? `0${Number(month) + 1}`
+            : (Number(month) + 1).toString(),
         dbRef = database // Database reference
             .collection("agenda")
             .doc(year)
-            .collection(month),
+            .collection(fullMonth),
         {time} = data, // Time to set to
         [hours, minutes] = time.split(":"),
-        date = new Date(Number(year), Number(month), Number(day))
+        date = new Date(Number(year), Number(fullMonth), Number(day))
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists

@@ -59,7 +59,7 @@ export default class CustomDate extends Date {
      */
     public static formatDate = (
         date: Date | CustomDate,
-        seperator: string = "/"
+        seperator = "/"
     ): string => {
         
         const newDate = new Date(date),
@@ -89,6 +89,30 @@ export default class CustomDate extends Date {
     ): string => CustomDate._monthsReference[numerical]
 
     /**
+     * Add's 0s to the dates
+     * @param {string} date - date to format
+     * @param {string} seperator - char the date is seperatred by
+     * @returns {string} - date with zeros
+     */
+    public static addZeros = (date: string, seperator = "/"): string => {
+        let newDate = `${date.split(seperator)[0]}${seperator}`
+
+        if (date.split(seperator)[1].length < 2) {
+            newDate += `0${date.split(seperator)[1]}${seperator}`
+        } else {
+            newDate += `${date.split(seperator)[1]}${seperator}`
+        }
+
+        if (date.split(seperator)[2].length < 2) {
+            newDate += `0${date.split(seperator)[2]}`
+        } else {
+            newDate += date.split(seperator)[2]
+        }
+
+        return newDate
+    }
+
+    /**
      * Format date in the form yyyy mm dd
      * @param {string} seperator - char to seperate date with
      * @returns {string} formatted date
@@ -116,5 +140,30 @@ export default class CustomDate extends Date {
     public getWordMonth = (): string => (
         CustomDate._monthsReference[this.getMonth()]
     )
+
+    /**
+     * Add's 0s to the dates
+     * @param {string} seperator - char the date is seperatred by
+     * @returns {string} - date with zeros
+     */
+    public addZeros = (seperator = "/"): string => {
+        // eslint-ignore-next-line
+        const date = `${this.getFullYear()}${seperator}${this.getMonth()}${seperator}${this.getDate()}`
+        let newDate = `${date.split(seperator)[0]}${seperator}`
+
+        if (date.split(seperator)[1].length < 2) {
+            newDate += `0${date.split(seperator)[1]}${seperator}`
+        } else {
+            newDate += `${date.split(seperator)[1]}${seperator}`
+        }
+
+        if (date.split(seperator)[2].length < 2) {
+            newDate += `0${date.split(seperator)[2]}`
+        } else {
+            newDate += date.split(seperator)[2]
+        }
+
+        return newDate
+    }
 
 }
