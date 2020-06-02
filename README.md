@@ -5,15 +5,15 @@
 ***
 
 <p align="center">
-    <a href="https://www.javascript.com/"><img alt="Forthebadge made with JS" src="https://img.shields.io/badge/made%20with-JS%20and%20TS-EED948?style=for-the-badge&logo=javascript"/></a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img alt="Forthebadge made with JS" src="https://img.shields.io/badge/made%20with-JS%20and%20TS-EED948?style=for-the-badge&logo=javascript"/></a>
     <a href="https://reactjs.org/"><img alt="Forthebadge made with React" src="https://img.shields.io/badge/made%20with-React-61DBFA?style=for-the-badge&logo=react"/></a>
-    <a href="firebase.google.com/"><img alt="Forthebadge made with Firebase" src="https://img.shields.io/badge/Uses-Firebase-F9CB48?style=for-the-badge&logo=firebase"/></a>
+    <a href="https://firebase.google.com/"><img alt="Forthebadge made with Firebase" src="https://img.shields.io/badge/Uses-Firebase-F9CB48?style=for-the-badge&logo=firebase"/></a>
 </p>
 
 <p align="center">
     <a href="https://github.com/luke-zhang-04/Pharmasave-booker/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/luke-zhang-04/pharmasave-booker.svg?style=flat&logo=gnu"/></a>
     <a href="https://img.shields.io/github/v/release/luke-zhang-04/Pharmasave-booker?include_prereleases"><img alt="GitHub release" src="https://img.shields.io/github/release/luke-zhang-04/pharmasave-booker.svg"/></a>
-    <a href="carriage-crossing-pharmacy.web.app"><img alt="Website up or down" src="https://img.shields.io/website-up-down-green-red/http/carriage-crossing-pharmacy.web.app.svg?style=flat&logo=firebase"/></a>
+    <a href="http://carriage-crossing-pharmacy.web.app"><img alt="Website up or down" src="https://img.shields.io/website-up-down-green-red/http/carriage-crossing-pharmacy.web.app.svg?style=flat&logo=firebase"/></a>
     <a href="https://github.com/Luke-zhang-04/Pharmasave-booker/actions?query=workflow%3Afirebase-deploy"><img alt="Workflow Status" src="https://img.shields.io/github/workflow/status/luke-zhang-04/pharmasave-booker/firebase-deploy?label=Firebase-deploy&style=flat&logo=firebase"/></a>
     <a href="https://github.com/Luke-zhang-04/Pharmasave-booker/actions?query=workflow%3Abuild"><img alt="Workflow Status" src="https://img.shields.io/github/workflow/status/Luke-zhang-04/pharmasave-booker/build?label=build&logo=react"/></a>
     <a href="https://github.com/Luke-zhang-04/Pharmasave-booker/actions?query=workflow%3Aeslint"><img alt="Workflow Status" src="https://img.shields.io/github/workflow/status/Luke-zhang-04/pharmasave-booker/eslint?label=Eslint&logo=eslint&logoColor=pink"/></a>
