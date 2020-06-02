@@ -78,19 +78,21 @@ export default class Agenda extends React.Component
      * @returns {string} stringified 12 hour time
      */
     private _convertTime = (time: number): string => {
-        const stringTime = time.toString(),
-            [hours, minutes] = stringTime.split(".")
+        const stringTime = time.toString()
 
         let output = "",
-            indicators: string
+            indicators: string,
+            [hours, minutes] = stringTime.split(".")
         
         if (
             (Number(hours) > halfWayPoint) ||
-            (Number(hours) === halfWayPoint && minutes === "5")) {
+            (Number(hours) === halfWayPoint && minutes === "5")) { // If afternoon
             indicators = "Pm"
-        } else if (Number(hours) === halfWayPoint && !minutes) {
+            hours = (Number(hours) - 12).toString() // Convert to 12 hour time
+            hours = (hours === "0" ? "12" : hours)
+        } else if (Number(hours) === halfWayPoint && !minutes) { // If noon
             indicators = "Noon"
-        } else {
+        } else { // If morning
             indicators = "Am"
         }
         
