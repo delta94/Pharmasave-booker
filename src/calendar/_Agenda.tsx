@@ -27,7 +27,7 @@
 import CustomDate from "../CustomDate";
 import React from "react";
 import {functions} from "../firebase";
-import globals from "../../globals";
+import globals from "./../globals";
 /* eslint-enable @typescript-eslint/semi */
 
 /* eslint-disable no-magic-numbers */

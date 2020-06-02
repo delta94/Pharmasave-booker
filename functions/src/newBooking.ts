@@ -21,7 +21,7 @@
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers */
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
-import globals from "../../globals"
+import globals from "./globals"
 /* eslint-enable @typescript-eslint/semi */
 
 globals.hours
