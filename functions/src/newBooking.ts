@@ -56,13 +56,13 @@ const readDayData = async (
  * @param {FirebaseFirestore.Firestore} database - database to write to
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
- * @returns {Promise<number, Error>} exit code or error message
+ * @returns {Promise<number | (Error | number)[]>} exit code or error message
  */
 const writeNewBooking = async (
     database: FirebaseFirestore.Firestore,
     data: Booking,
     context: functions.https.CallableContext,
-): Promise<number | Error> => {
+): Promise<number | (Error | number)[]> => {
     const [year, month, day] = data.day.split("/"), // Year month and day to set to
         fullDay = day.length < 2 ? `0${day}` : day,
         dbRef = database // Database reference
@@ -70,37 +70,37 @@ const writeNewBooking = async (
             .doc(year)
             .collection(month),
         {time} = data, // Time to set to
-        [minutes, hours] = time.split(":"),
+        [hours, minutes] = time.split(":"),
         date = new Date(Number(year), Number(month), Number(day))
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return Error("Not authenticated")
-    } else if (!globals.hours[date.getDate()]) { // If the store is open
-        return Error("Booking is on a store closure")
+        // return [1, Error("Not authenticated")]
+    } if (!globals.hours[date.getDate()]) { // If the store is open
+        return [3, Error("Booking is on a store closure")]
     } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
-        return Error("Booking is too early")
+        return [3.1, Error("Booking is too early"), Number(hours), globals.hours[date.getDate()]![0]]
     } else if (
-        Number(hours) > globals.hours[date.getDate()]![0] ||
-        Number(hours) === globals.hours[date.getDate()]![0] &&
+        Number(hours) > globals.hours[date.getDate()]![1] ||
+        Number(hours) === globals.hours[date.getDate()]![1] &&
         Number(minutes) === 30
     ) {
-        return Error("Booking is too late")
+        return [3.2, Error("Booking is too late")]
     }
     
     const readData = await readDayData(dbRef, fullDay) // Make read after validation (save money)
     
     // More error checks
     if (readData instanceof Error) { // Return 2 if error
-        return Error("Unknown error; Problem reading from database")
+        return [4, Error("Unknown error; Problem reading from database")]
     } else if (readData && readData[time]) { // If booking already exists
-        return Error("Time slot already taken")
+        return [5, Error("Time slot already taken")]
     }
 
     // Set database refernece to uid
     return await dbRef.doc(fullDay).set({[time]: context.auth?.uid})
         .then(() => 0)
-        .catch((err: Error) => err)
+        .catch((err: Error) => [4, err])
 }
 
 export default writeNewBooking
