@@ -78,7 +78,7 @@ const writeNewBooking = async (
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return [1,"Not authenticated"]
+        return [1, "Not authenticated"]
     } else if (!globals.hours[date.getDate()]) { // If the store is open
         return [3, "Booking is on a store closure"]
     } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
