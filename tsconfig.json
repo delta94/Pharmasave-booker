@@ -21,7 +21,6 @@
     },
     "include": [
         "src",
-        "public",
-        "globals.ts",
+        "public"
     ]
 }  
