@@ -14,3 +14,6 @@ emulate:
 deploy:
 	make tsc
 	firebase deploy --only functions
+
+lint:
+	npm run-script lint
