@@ -6,6 +6,7 @@
   .day-square.selected {
     cursor: default;
     background-color: mix(white, variables.$primary, 50%);
+    animation: calendar-select-square 0.25s ease;
 
     div {
       animation: calendar-select 0.25s ease;

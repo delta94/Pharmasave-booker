@@ -47,12 +47,16 @@
   @include makeKeyframes($none, $primary);
 }
 
+@include keyframes(calendar-select-square) {
+  @include makeKeyframes(mix(white, variables.$primary, 75%), mix(white, variables.$primary, 50%))
+}
+
 @include keyframes(calendar-date-mouseover) {
   from {
     background-color: $none;
     color: $secondary;
   }
-  
+
   to {
     background-color: mix(white, variables.$primary, 40%);
     color: $paper;
