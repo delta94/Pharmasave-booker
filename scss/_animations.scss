@@ -41,7 +41,7 @@
 }
 
 @include keyframes(calendar-select) {
-  @include makeKeyframes($none, $primary)
+  @include makeKeyframes($none, $primary);
 }
 
 @include keyframes(calendar-date-mouseover) {

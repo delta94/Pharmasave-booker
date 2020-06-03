@@ -51,12 +51,12 @@
 
   .Register-container {
     height: 55vw;
-    animation: auth-expand .25s ease-out;
+    animation: auth-expand 0.25s ease-out;
   }
 
   .Login-container {
     height: 40vw;
-    animation: auth-shrink .25s ease-out;
+    animation: auth-shrink 0.25s ease-out;
   }
 
   .form-container {
@@ -82,14 +82,12 @@
 
       input {
         border-radius: 0;
-      }
-
-      input {
         width: 20vw;
       }
 
       .google-sign-in {
         cursor: pointer;
+        
         img {
           width: 12.5vw;
           height: auto;

@@ -2,39 +2,13 @@
   .calendar-header {
     width: (100vw/7);
   }
-  
-  .day-square {
-    height: 10vw;
-    cursor: pointer;
-
-    &:hover:not(.selected) {
-      animation: calendar-mouseover .25s ease;
-      background-color: mix(white, variables.$primary, 75%);
-
-      div {
-        animation: calendar-date-mouseover .25s ease;
-        background-color: mix(white, variables.$primary, 40%);
-        color: variables.$paper;
-        width: 1.9rem;
-        height: 1.9rem;
-        border-radius: 50%;
-        text-align: center;
-        
-        span {
-          margin: auto;
-          display: inline-block;
-          vertical-align: middle;
-        }
-      }
-    }
-  }
 
   .day-square.selected {
     cursor: default;
     background-color: mix(white, variables.$primary, 50%);
 
     div {
-      animation: calendar-select .25s ease;
+      animation: calendar-select 0.25s ease;
       background-color: variables.$primary;
       color: variables.$paper;
       width: 1.9rem;
@@ -46,6 +20,32 @@
         margin: auto;
         display: inline-block;
         vertical-align: middle;
+      }
+    }
+  }
+
+  .day-square {
+    height: 10vw;
+    cursor: pointer;
+
+    &:hover:not(.selected) {
+      animation: calendar-mouseover 0.25s ease;
+      background-color: mix(white, variables.$primary, 75%);
+
+      span {
+        margin: auto;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      div {
+        animation: calendar-date-mouseover 0.25s ease;
+        background-color: mix(white, variables.$primary, 40%);
+        color: variables.$paper;
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 50%;
+        text-align: center;
       }
     }
   }
