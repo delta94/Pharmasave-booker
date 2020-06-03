@@ -34,21 +34,21 @@ type UserData = {[key: string]: boolean} | undefined | (number | string)[]
  * @returns {string} - date with zeros
  */
 const addZeros = (date: string, seperator = "/"): string => {
-   let newDate = `${date.split(seperator)[0]}${seperator}`
+    let newDate = `${date.split(seperator)[0]}${seperator}`
 
-   if (date.split(seperator)[1].length < 2) {
-       newDate += `0${date.split(seperator)[1]}${seperator}`
-   } else {
-       newDate += `${date.split(seperator)[1]}${seperator}`
-   }
+    if (date.split(seperator)[1].length < 2) {
+        newDate += `0${date.split(seperator)[1]}${seperator}`
+    } else {
+        newDate += `${date.split(seperator)[1]}${seperator}`
+    }
 
-   if (date.split(seperator)[2].length < 2) {
-       newDate += `0${date.split(seperator)[2]}`
-   } else {
-       newDate += date.split(seperator)[2]
-   }
+    if (date.split(seperator)[2].length < 2) {
+        newDate += `0${date.split(seperator)[2]}`
+    } else {
+        newDate += date.split(seperator)[2]
+    }
 
-   return newDate
+    return newDate
 }
 
 /**
@@ -135,6 +135,7 @@ const setData = async (
         .catch((err: Error) => [4, err.message])
 )
 
+/* eslint-disable max-lines-per-function */
 /**
  * Set a new booking
  * @param {FirebaseFirestore.Firestore} database - database to write to
@@ -194,5 +195,6 @@ const writeNewBooking = async (
         context.auth.uid,
     )
 }
+/* eslint-enable max-lines-per-function */
 
 export default writeNewBooking
