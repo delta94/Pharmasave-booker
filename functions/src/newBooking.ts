@@ -28,6 +28,30 @@ type DocData = {[key: string]: string | undefined | null}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 
 /**
+ * Add's 0s to the dates
+ * @param {string} date - date to format
+ * @param {string} seperator - char the date is seperatred by
+ * @returns {string} - date with zeros
+ */
+const addZeros = (date: string, seperator = "/"): string => {
+   let newDate = `${date.split(seperator)[0]}${seperator}`
+
+   if (date.split(seperator)[1].length < 2) {
+       newDate += `0${date.split(seperator)[1]}${seperator}`
+   } else {
+       newDate += `${date.split(seperator)[1]}${seperator}`
+   }
+
+   if (date.split(seperator)[2].length < 2) {
+       newDate += `0${date.split(seperator)[2]}`
+   } else {
+       newDate += date.split(seperator)[2]
+   }
+
+   return newDate
+}
+
+/**
  * Reads database for specific day
  * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference of specific month
  * @param {string} fullDay - full day (with leading zero if applicable)
@@ -75,7 +99,7 @@ const setUserData = async (
 
     const bookings = userData ? userData : {} // User data
     
-    bookings[date] = true
+    bookings[addZeros(date)] = true
 
     return await database.collection("users").doc(uid) // Set user data
         .set({
