@@ -1,27 +1,27 @@
 /*!
-    * Bootstrap v4.4.1 (https://getbootstrap.com/)
-    * Copyright 2011-2019 The Bootstrap Authors
-    * Copyright 2011-2019 Twitter, Inc.
-    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-    *
-    * Carriage Crossing Pharmacy Booker
-    * Copyright (C) 2020 Luke Zhang, Ethan Lim
-    *
-    * https://luke-zhang-04.github.io/
-    * https://github.com/ethanlim04
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  * Bootstrap v4.4.1 (https://getbootstrap.com/)
+  * Copyright 2011-2019 The Bootstrap Authors
+  * Copyright 2011-2019 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  *
+  * Carriage Crossing Pharmacy Booker
+  * Copyright (C) 2020 Luke Zhang, Ethan Lim
+  *
+  * https://luke-zhang-04.github.io/
+  * https://github.com/ethanlim04
+  *
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 //Theme colours and stuff
 @import "variables";
@@ -50,4 +50,4 @@
 @import "../node_modules/bootstrap/scss/transitions";
 
 // Custom
-@import "./style.scss";
+@import "style";

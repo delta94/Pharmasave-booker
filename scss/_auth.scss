@@ -1,0 +1,113 @@
+.auth-container {
+  p,
+  a,
+  label,
+  input,
+  button {
+    font-size: 1vw;
+  }
+
+  p,
+  a {
+    margin-bottom: 1vw;
+  }
+
+  .form-group {
+    margin-bottom: 1vw;
+
+    p {
+      color: variables.$paper !important;
+    }
+
+    a {
+      color: variables.$secondary !important;
+    }
+
+    .form-check-input {
+      width: 5vw;
+    }
+  }
+
+  .back-container {
+    z-index: -1;
+    background-color: variables.$secondary;
+    width: 70vw;
+    height: 30vw;
+    position: absolute;
+    top: 7.5vw;
+    left: 5vw;
+  }
+
+  #switch-btns {
+    position: absolute;
+    right: 30vw;
+    top: 25vw;
+    color: variables.$paper;
+  }
+
+  button {
+    @include mixins.btn-auth;
+  }
+
+  .Register-container {
+    height: 55vw;
+    animation: auth-expand 0.25s ease-out;
+  }
+
+  .Login-container {
+    height: 40vw;
+    animation: auth-shrink 0.25s ease-out;
+  }
+
+  .form-container {
+    z-index: 5;
+    background-color: variables.$primary;
+    width: 35vw;
+    margin-bottom: 50px;
+    box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.4), 0 1vw 3vw 0 rgba(0, 0, 0, 0.2);
+
+    .container {
+      padding: 3vw 2vw;
+      font-size: 5vw;
+      color: variables.$paper;
+    }
+
+    form {
+      margin-left: 2vw;
+
+      label,
+      .form-text {
+        color: variables.$paper !important;
+      }
+
+      input {
+        border-radius: 0;
+        width: 20vw;
+      }
+
+      .google-sign-in {
+        cursor: pointer;
+        
+        img {
+          width: 12.5vw;
+          height: auto;
+        }
+      }
+
+      a {
+        color: $white;
+      }
+
+      a:hover {
+        color: variables.$paper;
+      }
+    }
+  }
+}
+
+#reset-form {
+  label {
+    width: 80%;
+    margin-left: 10%;
+  }
+}

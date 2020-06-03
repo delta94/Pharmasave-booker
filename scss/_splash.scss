@@ -1,0 +1,57 @@
+.splash-container {
+  .splash {
+    img {
+      height: auto;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .splash-text {
+    position: absolute;
+    top: 15vw;
+    left: 2.5vw;
+
+    h1,
+    h2,
+    h3,
+    a {
+      opacity: 0;
+      animation: fade-in 1s ease-out forwards;
+    }
+
+    h1 {
+      font-size: 10vw;
+      color: variables.$primary;
+      animation-delay: 0s;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 6vw;
+      animation-delay: 0.4s;
+      margin-bottom: 1vw;
+      margin-left: 0.5vw;
+    }
+
+    h3 {
+      font-size: 1.5vw;
+      animation-delay: 0.75s;
+      margin-left: 1vw;
+    }
+
+    a {
+      font-size: 1.5vw;
+      animation-delay: 0.75s;
+      margin-left: 1vw;
+      max-width: 20vw;
+
+      span {
+        display: inline-flex;
+        vertical-align: middle;
+        font-size: 2vw;
+      }
+    }
+  }
+}
