@@ -166,9 +166,9 @@ export default class Agenda extends React.Component
         <thead>
             <tr key="agenda-head">
                 <th className="agenda-header" key="agenda-time" scope="col">Time</th>
-                <th className="agenda-header" key="agenda-pickup" scope="col">Curbside Pickup</th>
-                <th className="agenda-header" key="agenda-services" scope="col">Services</th>
-                <th className="agenda-header" key="agenda-col" scope="col">In-store</th>
+                <th className="agenda-header text-center" key="agenda-pickup" scope="col">Curbside Pickup</th>
+                <th className="agenda-header text-center" key="agenda-services" scope="col">Services</th>
+                <th className="agenda-header text-center" key="agenda-col" scope="col">In-store</th>
             </tr>
         </thead>
     )
