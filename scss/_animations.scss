@@ -13,6 +13,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -22,6 +23,7 @@
   from {
     height: 40vw;
   }
+
   to {
     height: 55vw;
   }
@@ -31,6 +33,7 @@
   from {
     height: 55vw;
   }
+
   to {
     height: 40vw;
   }
@@ -49,6 +52,7 @@
     background-color: $none;
     color: $secondary;
   }
+  
   to {
     background-color: mix(white, variables.$primary, 40%);
     color: $paper;
