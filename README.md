@@ -5,7 +5,7 @@
 ***
 
 <p align="center">
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img alt="Forthebadge made with JS" src="https://img.shields.io/badge/made%20with-JS%20and%20TS-EED948?style=for-the-badge&logo=javascript"/></a>
+    <a href="https://www.typescriptlang.org/"><img alt="Forthebadge made with TS" src="https://img.shields.io/badge/made%20with-Typescript-2377C7?style=for-the-badge&logo=typescript"/></a>
     <a href="https://reactjs.org/"><img alt="Forthebadge made with React" src="https://img.shields.io/badge/made%20with-React-61DBFA?style=for-the-badge&logo=react"/></a>
     <a href="https://firebase.google.com/"><img alt="Forthebadge made with Firebase" src="https://img.shields.io/badge/Uses-Firebase-F9CB48?style=for-the-badge&logo=firebase"/></a>
 </p>
