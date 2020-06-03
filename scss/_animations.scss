@@ -48,7 +48,7 @@
 }
 
 @include keyframes(calendar-select-square) {
-  @include makeKeyframes(mix(white, variables.$primary, 75%), mix(white, variables.$primary, 50%))
+  @include makeKeyframes(mix(white, variables.$primary, 75%), mix(white, variables.$primary, 50%));
 }
 
 @include keyframes(calendar-date-mouseover) {
