@@ -1,0 +1,37 @@
+.navbar {
+  padding: 0;
+  font-size: 1.125vw;
+
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+
+    img {
+      max-width: 20vw;
+    }
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  .navbar {
+    .collapse,
+    .show,
+    .collapsing {
+      padding: 1vw;
+    }
+  }
+}
+
+.override-bg-default {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.override-bg-light {
+  animation: to-white 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  background-color: #eff1f3;
+}
+
+.override-bg-none {
+  animation: to-none 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+  background-color: rgba(0, 0, 0, 0);
+}

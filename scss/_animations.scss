@@ -1,24 +1,15 @@
+@import "mixins";
 @import "variables";
 
-@keyframes to-white {
-  from {
-    background-color: rgba(0, 0, 0, 0);
-  }
-  to {
-    background-color: $paper;
-  }
+@include keyframes(to-white) {
+  @include makeKeyframes(rgba(0, 0, 0, 0), $paper);
 }
 
-@keyframes to-none {
-  from {
-    background-color: $paper;
-  }
-  to {
-    background-color: rgba(0, 0, 0, 0);
-  }
+@include keyframes(to-none) {
+  @include makeKeyframes($paper, rgba(0, 0, 0, 0));
 }
 
-@keyframes fade-in {
+@include keyframes(fade-in) {
   from {
     opacity: 0;
   }
@@ -27,7 +18,7 @@
   }
 }
 
-@keyframes auth-expand {
+@include keyframes(auth-expand) {
   from {
     height: 40vw;
   }
@@ -36,7 +27,7 @@
   }
 }
 
-@keyframes auth-shrink {
+@include keyframes(auth-shrink) {
   from {
     height: 55vw;
   }
@@ -45,25 +36,15 @@
   }
 }
 
-@keyframes calendar-mouseover {
-  from {
-    background-color: white;
-  }
-  to {
-    background-color: mix(white, variables.$primary, 75%);
-  }
+@include keyframes(calendar-mouseover) {
+  @include makeKeyframes(white, mix(white, $primary, 75%));
 }
 
-@keyframes calendar-select {
-  from {
-    background-color: $none;
-  }
-  to {
-    background-color: variables.$primary;
-  }
+@include keyframes(calendar-select) {
+  @include makeKeyframes($none, $primary)
 }
 
-@keyframes calendar-date-mouseover {
+@include keyframes(calendar-date-mouseover) {
   from {
     background-color: $none;
     color: $secondary;

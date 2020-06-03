@@ -2,3 +2,27 @@
   border-radius: 0;
   width: 10vw;
 }
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin makeKeyframes($from, $to) {
+  from {
+    background-color: $from;
+  }
+  to {
+    background-color: $to;
+  }
+}
