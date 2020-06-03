@@ -5,7 +5,7 @@
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
-    @content; 
+    @content;
   }
 
   @-moz-keyframes #{$name} {
@@ -15,16 +15,17 @@
   @-ms-keyframes #{$name} {
     @content;
   }
-  
+
   @keyframes #{$name} {
     @content;
-  } 
+  }
 }
 
 @mixin makeKeyframes($from, $to) {
   from {
     background-color: $from;
   }
+  
   to {
     background-color: $to;
   }
