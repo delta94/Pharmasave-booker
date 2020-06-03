@@ -25,6 +25,7 @@ import globals from "./globals"
 /* eslint-enable @typescript-eslint/semi */
 
 type DocData = {[key: string]: string | undefined | null}
+type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 
 /**
  * Reads database for specific day
@@ -52,11 +53,70 @@ const readDayData = async (
 )
 
 /**
+ * Writes to user doc to keep track of user bookings
+ * @param {FirebaseFirestore.Firestore} database - database to write to
+ * @param {string} uid - user identifier
+ * @param {string} date - date of booking
+ * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
+ */
+const setUserData = async (
+    database: FirebaseFirestore.Firestore,
+    uid: string,
+    date: string,
+): Promise<number | (string | number)[]> => {
+    const userData: UserData = await database.collection("users").doc(uid) // Get user data
+        .get()
+        .then((doc) => doc.data()?.bookings as {[key: string]: boolean})
+        .catch((err: Error) => [3, err.message])
+    
+    if (userData instanceof Array) { // If error, return it
+        return userData
+    }
+
+    const bookings = userData ? userData : {} // User data
+    
+    bookings[date] = true
+
+    return await database.collection("users").doc(uid) // Set user data
+        .set({
+            bookings,
+        }, {merge: true})
+        .then(() => 0)
+        .catch((err: Error) => [3, err.message])
+}
+
+/**
+ * Sets the booking to the database, and to the user doc
+ * @param {FirebaseFirestore.Firestore} database - database to write to
+ * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference for the booking only
+ * @param {string} doc - doc to set booking to
+ * @param {string} time - time to set to
+ * @param {string} date - date to set to
+ * @param {string} uid - user identifier
+ * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
+ */
+const setData = async (
+    database: FirebaseFirestore.Firestore,
+    dbRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
+    doc: string,
+    time: string,
+    date: string,
+    uid: string,
+): Promise<number | (string | number)[]> => (
+    await dbRef.doc(doc)
+        .set({[time]: uid}, {merge: true})
+        .then(async () => (
+            await setUserData(database, uid, date)
+        ))
+        .catch((err: Error) => [4, err.message])
+)
+
+/**
  * Set a new booking
  * @param {FirebaseFirestore.Firestore} database - database to write to
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
- * @returns {Promise<number | (Error | number)[]>} exit code or error message
+ * @returns {Promise<number | Array.<string | number>>} exit code or error message
  */
 const writeNewBooking = async (
     database: FirebaseFirestore.Firestore,
@@ -101,10 +161,14 @@ const writeNewBooking = async (
     }
 
     // Set database refernece to uid
-    return await dbRef.doc(fullDay)
-        .set({[time]: context.auth?.uid}, {merge: true})
-        .then(() => 0)
-        .catch((err: Error) => [4, err.message])
+    return await setData(
+        database,
+        dbRef,
+        fullDay,
+        time,
+        data.day,
+        context.auth.uid,
+    )
 }
 
 export default writeNewBooking

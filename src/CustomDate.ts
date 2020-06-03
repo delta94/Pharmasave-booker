@@ -128,7 +128,7 @@ export default class CustomDate extends Date {
 
         if (isafternoon && newTime.split(":")[0] !== "12") {
             newTime = 
-                `${Number(newTime.split(":")[0])+12}:${newTime.split(":")[1]}`
+                `${Number(newTime.split(":")[0]) + CustomDate._halfwayPoint}:${newTime.split(":")[1]}`
         }
 
         console.log(newTime)
