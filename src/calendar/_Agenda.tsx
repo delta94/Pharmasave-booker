@@ -138,13 +138,16 @@ export default class Agenda extends React.Component
      * Make a new entry to the db
      * @param {string} day - day to add entry to
      * @param {string} time - time to add entry to
+     * @param {string} type - type of booking (service, pickup, or inStore)
      * @returns {Promise<number>} return 0 on success
      */
-    private _makeNewEntry = async (day: string, time: string): Promise<number> => (
+    private _makeNewEntry = async (day: string, time: string, type: string): Promise<number> => (
         await newEntry({
             day,
             time,
+            type,
         }).then((res) => {
+            console.log(day)
             if (res.data instanceof Array) {
                 alert(`Error code ${res.data[0]}, ${res.data[1]}`)
                 console.log(res)
@@ -157,6 +160,58 @@ export default class Agenda extends React.Component
             return 0
         })
     )
+
+    /**
+     * Creates a booking <td> element
+     * @param {string} type = type of booking (service, pickup, or inStor)
+     * @param {string} iter - time
+     * @param {string} day - day to call function with
+     * @returns {JSX.Element} <td> with props
+     */
+    private _bookingtd = (type: string, iter: string, day: string): JSX.Element => (
+        <td
+            className={`${type}-col agenda-col`}
+            id={`${type}-${iter}`}
+            onClick={async (): Promise<void> => {
+                await this._makeNewEntry(
+                    day,
+                    CustomDate.to24Hour(iter),
+                    `${type}`,
+                )
+            }}
+        ></td>
+    )
+
+    /**
+     * Pushes the tables values to tableVals
+     * @param {Array.<string>} iterations - iterations of times
+     * @param {Array.<JSX.Element>} tableVals - array to push to
+     * @param {number} dayOfWeek - specific day of week
+     * @param {string} day - specific day to call cloud function with
+     * @returns {void} void
+     */
+    private _pushTableVals = (
+        iterations: string[],
+        tableVals: JSX.Element[],
+        dayOfWeek: number,
+        day: string
+    ): void => {
+        for (const iter of iterations) {
+            tableVals.push(
+                <tr key={`agenda-${dayOfWeek}-${iter}-row`}>
+                    <th
+                        scope = "row"
+                        key = {`agenda-${dayOfWeek}-${iter}-head`}
+                    >
+                        {iter}
+                    </th>
+                    {this._bookingtd("pickup", iter, day)}
+                    {this._bookingtd("service", iter, day)}
+                    {this._bookingtd("inStore", iter, day)}
+                </tr>
+            )
+        }
+    }
 
     /**
      * Returns a table head for agenda
@@ -192,27 +247,7 @@ export default class Agenda extends React.Component
             date,
         })
 
-        for (const iter of iterations) {
-            tableVals.push(
-                <tr key={`agenda-${dayOfWeek}-${iter}-row`}>
-                    <th
-                        scope = "row"
-                        key = {`agenda-${dayOfWeek}-${iter}-head`}
-                    >
-                        {iter}
-                    </th>
-                    <td
-                        className="pickup-col agenda-col"
-                        id="bruh"
-                        onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(day, CustomDate.to24Hour(iter))
-                        }}
-                    ></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            )
-        }
+        this._pushTableVals(iterations, tableVals, dayOfWeek, day)
 
         this.setState({
             table: (

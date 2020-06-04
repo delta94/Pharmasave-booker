@@ -22,10 +22,10 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
-import writeNewBooking from "./newBooking"
+import NewBooker from "./newBooking"
 /* eslint-enable @typescript-eslint/semi */
 
-// Test run newBooking({"day": "2020/06/1", "time": "12:00"}, {})
+// Test run newBooking({"day": "2020/5/6", "time": "12:00", "type": "pickup"})
   
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),
@@ -42,6 +42,8 @@ const database = admin.firestore()
 export const newBooking = functions.https.onCall(async (
     data: Booking,
     context,
-): Promise<number | (number | string)[]> => (
-    await writeNewBooking(database, data, context))
-)
+): Promise<number | (number | string)[]> => {
+    const newBook = new NewBooker(database, data, context)
+
+    return await newBook.writeNewBooking()
+})
