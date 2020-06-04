@@ -19,9 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+export type BookingTypes = "pickup" | "service" | "inStore"
+
 export interface Booking {
     [index: string]: any,
-    type: "pickup" | "service" | "in-store",
+    type: BookingTypes,
     day: string,
     time: string,
 }
