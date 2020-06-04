@@ -20,11 +20,11 @@
  */
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
 import * as functions from "firebase-functions";
-import {Booking} from "./interfaces";
+import {Booking, BookingTypes} from "./interfaces";
 import globals from "./globals"
 /* eslint-enable @typescript-eslint/semi */
 
-type DocData = {[key: string]: string | undefined | null}
+type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 
 /**
@@ -33,7 +33,7 @@ type UserData = {[key: string]: boolean} | undefined | (number | string)[]
  * @param {string} seperator - char the date is seperatred by
  * @returns {string} - date with zeros
  */
-const addZeros = (date: string, seperator = "/"): string => {
+const addZeros = (date: string, seperator: string = "/"): string => {
     let newDate = `${date.split(seperator)[0]}${seperator}`
 
     if (date.split(seperator)[1].length < 2) {
@@ -77,6 +77,40 @@ const readDayData = async (
 )
 
 /**
+ * Sets the booking to the database, and to the user doc
+ * @param {FirebaseFirestore.Firestore} database - database to write to
+ * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference for the booking only
+ * @param {string} doc - doc to set booking to
+ * @param {string} time - time to set to
+ * @param {string} date - date to set to
+ * @param {string} uid - user identifier
+ * @param {BookingTypes} type - type of booking
+ * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
+ */
+const setData = async (
+    database: FirebaseFirestore.Firestore,
+    dbRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
+    doc: string,
+    time: string,
+    date: string,
+    uid: string,
+    type: BookingTypes,
+    readData: DocData,
+): Promise<number | (string | number)[]> => {
+    const _readData = readData
+    _readData[type]
+        ? _readData[type]![time] = uid
+        : _readData[type] = {[time]: uid}
+
+    return await dbRef.doc(doc)
+        .set(_readData, {merge: true})
+        .then(async () => (
+            await setUserData(database, uid, date)
+        ))
+        .catch((err: Error) => [5, err.message])
+}
+
+/**
  * Writes to user doc to keep track of user bookings
  * @param {FirebaseFirestore.Firestore} database - database to write to
  * @param {string} uid - user identifier
@@ -109,32 +143,6 @@ const setUserData = async (
         .catch((err: Error) => [3, err.message])
 }
 
-/**
- * Sets the booking to the database, and to the user doc
- * @param {FirebaseFirestore.Firestore} database - database to write to
- * @param {FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>} dbRef - database reference for the booking only
- * @param {string} doc - doc to set booking to
- * @param {string} time - time to set to
- * @param {string} date - date to set to
- * @param {string} uid - user identifier
- * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
- */
-const setData = async (
-    database: FirebaseFirestore.Firestore,
-    dbRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>,
-    doc: string,
-    time: string,
-    date: string,
-    uid: string,
-): Promise<number | (string | number)[]> => (
-    await dbRef.doc(doc)
-        .set({[time]: uid}, {merge: true})
-        .then(async () => (
-            await setUserData(database, uid, date)
-        ))
-        .catch((err: Error) => [4, err.message])
-)
-
 /* eslint-disable max-lines-per-function */
 /**
  * Set a new booking
@@ -152,19 +160,19 @@ const writeNewBooking = async (
         fullDay = day.length < 2 ? `0${day}` : day,
         fullMonth = month.length < 2
             ? `0${Number(month) + 1}`
-            : (Number(month) + 1).toString(),
+            :( Number(month) + 1).toString(),
         dbRef = database // Database reference
             .collection("agenda")
             .doc(year)
             .collection(fullMonth),
-        {time} = data, // Time to set to
+        {time, type} = data, // Time to set to
         [hours, minutes] = time.split(":"),
         date = new Date(Number(year), Number(fullMonth), Number(day))
     
     // Bunch of error checks
     if (!context.auth || !context.auth.uid) { // Check if auth even exists
-        return [1, "Not authenticated"]
-    } else if (!globals.hours[date.getDate()]) { // If the store is open
+        // return [1, "Not authenticated"]
+    } if (!globals.hours[date.getDate()]) { // If the store is open
         return [3, "Booking is on a store closure"]
     } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
         return [3.1, "Booking is too early"]
@@ -174,15 +182,17 @@ const writeNewBooking = async (
         Number(minutes) === 30
     ) {
         return [3.2, "Booking is too late"]
+    } else if (!["pickup", "service", "inStore"].includes(type)) {
+        return [4, `Invalid booking type ${type}`]
     }
     
     const readData = await readDayData(dbRef, fullDay) // Make read after validation (save money)
     
     // More error checks
     if (readData instanceof Error) { // Return 2 if error
-        return [4, "Unknown error; Problem reading from database"]
-    } else if (readData && readData[time]) { // If booking already exists
-        return [5, "Time slot already taken"]
+        return [5, "Unknown error; Problem reading from database"]
+    } else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
+        return [6, "Time slot already taken"]
     }
 
     // Set database refernece to uid
@@ -192,7 +202,10 @@ const writeNewBooking = async (
         fullDay,
         time,
         data.day,
-        context.auth.uid,
+        // context.auth.uid,
+        "Emulator",
+        type,
+        readData ? readData as DocData : {},
     )
 }
 /* eslint-enable max-lines-per-function */

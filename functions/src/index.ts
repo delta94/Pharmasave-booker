@@ -25,7 +25,7 @@ import {Booking} from "./interfaces";
 import writeNewBooking from "./newBooking"
 /* eslint-enable @typescript-eslint/semi */
 
-// Test run newBooking({"day": "2020/06/1", "time": "12:00"}, {})
+// Test run newBooking({"day": "2020/5/6", "time": "12:00", "type": "pickup"})
   
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),

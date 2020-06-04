@@ -140,11 +140,13 @@ export default class Agenda extends React.Component
      * @param {string} time - time to add entry to
      * @returns {Promise<number>} return 0 on success
      */
-    private _makeNewEntry = async (day: string, time: string): Promise<number> => (
+    private _makeNewEntry = async (day: string, time: string, type: string): Promise<number> => (
         await newEntry({
             day,
             time,
+            type,
         }).then((res) => {
+            console.log(day)
             if (res.data instanceof Array) {
                 alert(`Error code ${res.data[0]}, ${res.data[1]}`)
                 console.log(res)
@@ -205,7 +207,11 @@ export default class Agenda extends React.Component
                         className="pickup-col agenda-col"
                         id="bruh"
                         onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(day, CustomDate.to24Hour(iter))
+                            await this._makeNewEntry(
+                                day,
+                                CustomDate.to24Hour(iter),
+                                "pickup",
+                            )
                         }}
                     ></td>
                     <td></td>
