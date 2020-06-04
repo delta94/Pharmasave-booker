@@ -186,7 +186,7 @@ export default class Agenda extends React.Component
                     </th>
                     <td
                         className="pickup-col agenda-col"
-                        id="bruh"
+                        id={`pickup-${iter}`}
                         onClick={async (): Promise<void> => {
                             await this._makeNewEntry(
                                 day,
@@ -195,8 +195,28 @@ export default class Agenda extends React.Component
                             )
                         }}
                     ></td>
-                    <td></td>
-                    <td></td>
+                    <td
+                        className="service-col agenda-col"
+                        id={`service-${iter}`}
+                        onClick={async (): Promise<void> => {
+                            await this._makeNewEntry(
+                                day,
+                                CustomDate.to24Hour(iter),
+                                "service",
+                            )
+                        }}
+                    ></td>
+                    <td
+                        className="inStore-col agenda-col"
+                        id={`inStore-${iter}`}
+                        onClick={async (): Promise<void> => {
+                            await this._makeNewEntry(
+                                day,
+                                CustomDate.to24Hour(iter),
+                                "inStore",
+                            )
+                        }}
+                    ></td>
                 </tr>
             )
         }
