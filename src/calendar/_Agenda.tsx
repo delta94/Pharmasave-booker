@@ -60,17 +60,9 @@ export default class Agenda extends React.Component
      */
     public componentDidMount = (): void => {
         const date = new Date(),
-            year = date.getFullYear().toString(),
-            month = date.getMonth(),
-            day = date.getDay(),
-            fullMonth = month.toString().length < 2
-                ? `0${month + 1}`
-                : (month + 1).toString(),
-            fullDay = day.toString().length < 2
-                ? `0${day}`
-                : day.toString()
+            {year, month, day} = AgendaUtils.getDateValues(date)
         
-        this.setState(AgendaUtils.dbPull(year, fullMonth, fullDay))
+        this.setState(AgendaUtils.dbPull(year, month, day))
     }
 
     /**
@@ -106,21 +98,23 @@ export default class Agenda extends React.Component
 
     /**
      * Changes selected day of agenda
-     * @param {string} day - day to change to
+     * @param {string} dayString - day to change to
      * @returns {void} void
      */
-    public changeDay = (day: string): void => {
-        const dateData = day.split("/").map((data) => Number(data)),
+    public changeDay = (dayString: string): void => {
+        const dateData = dayString.split("/").map((data) => Number(data)),
             date = new Date(dateData[0], dateData[1], dateData[2]),
             dayOfWeek = date.getDay(),
             iterations = AgendaUtils.calcIncrements(dayOfWeek),
-            tableVals: JSX.Element[] = []
+            tableVals: JSX.Element[] = [],
+            {year, month, day} = AgendaUtils.getDateValues(date)
 
         this.setState({
             selected: `${dateData[0]}/${Number(dateData[1]) + 1}/${dateData[2]}`,
             dayOfWeek,
             month: date.getMonth(),
             date,
+            data: {},
         })
 
         this._pushTableVals(iterations, tableVals, dayOfWeek, day)
@@ -129,11 +123,10 @@ export default class Agenda extends React.Component
             table: (
                 <table className="table">
                     <AgendaUtils.thead/>
-                    <tbody>
-                        {tableVals.map((val) => val)}
-                    </tbody>
+                    <tbody>{tableVals.map((val) => val)}</tbody>
                 </table>
-            )
+            ),
+            data: AgendaUtils.dbPull(year, month, day),
         })
 
     }

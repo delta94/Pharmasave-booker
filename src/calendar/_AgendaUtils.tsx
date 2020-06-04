@@ -204,3 +204,26 @@ export const thead = (): JSX.Element => (
         </tr>
     </thead>
 )
+
+/**
+ * Extract values from date and return stirngified values which account for zero indexing and add extra 0 prefixes
+ * @param {Date} date - date object to extract values from
+ * @returns {Object.<string, string>} object with year, month, and day
+ */
+export const getDateValues = (date: Date): {[key: string]: string} => {
+    const year = date.getFullYear().toString(),
+        month = date.getMonth(),
+        day = date.getDay(),
+        fullMonth = month.toString().length < 2
+            ? `0${month + 1}`
+            : (month + 1).toString(),
+        fullDay = day.toString().length < 2
+            ? `0${day}`
+            : day.toString()
+    
+    return {
+        year,
+        month: fullMonth,
+        day: fullDay,
+    }
+}
