@@ -19,11 +19,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
-import * as functions from "firebase-functions";
+import sendMail from "./mail"
+//import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
 import globals from "./globals"
 /* eslint-enable @typescript-eslint/semi */
-
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 type FirestoreCollectionRef
@@ -36,7 +36,7 @@ export default class NewBooker {
     public constructor (
         private _database: FirebaseFirestore.Firestore,
         private _data: Booking,
-        private _context: functions.https.CallableContext,
+        private _context: {[key: string]: {[key: string]: any}},
     ) {
         this._adgendadb = this._database // Database reference
             .collection("agenda")
@@ -89,13 +89,15 @@ export default class NewBooker {
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
             return [1, "Not authenticated"]
-        } else if (!globals.hours[date.getDate()]) { // If the store is open
+        } else if (!globals.hours[date.getDay()]) { // If the store is closed
+            console.log("ERROR: ")
+            console.log(date.getDay())
             return [3, "Booking is on a store closure"]
-        } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
+        } else if (Number(hours) < globals.hours[date.getDay()]![0]) {
             return [3.1, "Booking is too early"]
         } else if (
-            Number(hours) > globals.hours[date.getDate()]![1] ||
-            Number(hours) === globals.hours[date.getDate()]![1] &&
+            Number(hours) > globals.hours[date.getDay()]![1] ||
+            Number(hours) === globals.hours[date.getDay()]![1] &&
             Number(minutes) === 30
         ) {
             return [3.2, "Booking is too late"]
@@ -204,6 +206,11 @@ export default class NewBooker {
         const bookings = userData ? userData : {} // User data
         
         bookings[NewBooker._addZeros(date)] = true
+
+
+        const email = this._context.auth!.token.email
+        //console.log(this._data)
+        sendMail(email, this._data)
 
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data

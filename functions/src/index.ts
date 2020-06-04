@@ -43,7 +43,7 @@ export const newBooking = functions.https.onCall(async (
     data: Booking,
     context,
 ): Promise<number | (number | string)[]> => {
-    const newBook = new NewBooker(database, data, context)
+    const newBook = new NewBooker(database, data, {auth: {uid: "Emulator", token: {email: "aa9037764@gmail.com"}}})
 
     return await newBook.writeNewBooking()
 })
