@@ -206,9 +206,9 @@ export default class NewBooker {
         bookings[NewBooker._addZeros(date)] = true
 
 
-        const email = this._context.auth!.token.email
-        //console.log(this._data)
-        sendMail(email, this._data)
+        const {email} = this._context.auth!.token
+
+        sendMail(email as string, this._data)
 
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data
