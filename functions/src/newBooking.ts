@@ -21,9 +21,9 @@
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
 import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
-import globals from "./globals"
+import globals from "./globals";
+import sendMail from "./mail";
 /* eslint-enable @typescript-eslint/semi */
-
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 type FirestoreCollectionRef
@@ -204,6 +204,11 @@ export default class NewBooker {
         const bookings = userData ? userData : {} // User data
         
         bookings[NewBooker._addZeros(date)] = true
+
+
+        const {email} = this._context.auth!.token
+
+        sendMail(email as string, this._data)
 
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data
