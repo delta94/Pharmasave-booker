@@ -164,6 +164,13 @@ export const calcIncrements = (dayOfWeek: number | null): string[] => {
     return increments
 }
 
+/**
+ * Pulls data from database
+ * @param {string} year - year to pull from
+ * @param {string} month - month to pull from
+ * @param {string} day - day to pull from
+ * @returns {Promise<void | ExistingBookings>} void if nothing, existing bookings if data exists
+ */
 export const dbPull = async (
     year: string,
     month: string,
