@@ -100,7 +100,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
     )
 
     private _navbarComponents = {
-        home: (
+        home: (): JSX.Element => (
             <NavLink
                 exact
                 className = "nav-item nav-link"
@@ -108,7 +108,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
                 to = "/">Home <span className="sr-only">(current)</span>
             </NavLink>
         ),
-        auth: (
+        auth: (): JSX.Element => (
             <NavLink
                 className = "nav-item nav-link"
                 activeClassName = "active"
@@ -117,7 +117,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
             >Log in
             </NavLink>
         ),
-        logout: (
+        logout: (): JSX.Element => (
             <Link
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
@@ -134,11 +134,11 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
 
     private _navbarNav = (
         <div className="navbar-nav">
-            {this._navbarComponents.home}
+            <this._navbarComponents.home/>
             {this._userBtns("Calendar", 0, "Schedule a Pickup")}
             {this._userBtns("User", 1, "My Schedule")}
-            {this._navbarComponents.auth}
-            {this._navbarComponents.logout}
+            <this._navbarComponents.auth/>
+            <this._navbarComponents.logout/>
         </div>
     )
 
@@ -168,7 +168,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         this.setState({loggedIn: isAuthenticated})
     }
 
-    private _navbarClassNames =
+    private static _navbarClassNames =
         "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
 
     /**
@@ -176,7 +176,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
      * @returns {JSX.Element} navbar element
      */
     private _nav = (): JSX.Element => (
-        <nav className = {this._navbarClassNames}>
+        <nav className = {Nav._navbarClassNames}>
             <Link className="navbar-brand" to="/">
                 <img src="pictures/pharmasave-logo.png" alt="logo"/>
             </Link>
@@ -202,6 +202,6 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
     /**
      * @returns {JSX.Element} navbar element
      */
-    public render = (): JSX.Element => this._nav()
+    public render = (): JSX.Element => <this._nav/>
 
 }
