@@ -117,7 +117,7 @@ export default class NewBooker {
             dbRef,
             fullDay,
             time,
-            this._data.date,
+            this._data.day,
             type,
             readData ? readData : {},
         )
@@ -180,7 +180,7 @@ export default class NewBooker {
             .then(async () => (
                 await this._setUserData(date)
             ))
-            .catch((err: Error) => [5, err.message])
+            .catch((err: Error) => {console.log(err); return [5, err.message]})
     }
 
     /**
