@@ -19,10 +19,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
-import sendMail from "./mail"
-//import * as functions from "firebase-functions";
+import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
-import globals from "./globals"
+import globals from "./globals";
+import sendMail from "./mail";
 /* eslint-enable @typescript-eslint/semi */
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
@@ -36,7 +36,7 @@ export default class NewBooker {
     public constructor (
         private _database: FirebaseFirestore.Firestore,
         private _data: Booking,
-        private _context: {[key: string]: {[key: string]: any}},
+        private _context: functions.https.CallableContext,
     ) {
         this._adgendadb = this._database // Database reference
             .collection("agenda")
