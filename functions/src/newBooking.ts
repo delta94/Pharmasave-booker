@@ -88,8 +88,8 @@ export default class NewBooker {
         
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
-            // return [1, "Not authenticated"]
-        } if (!globals.hours[date.getDate()]) { // If the store is open
+            return [1, "Not authenticated"]
+        } else if (!globals.hours[date.getDate()]) { // If the store is open
             return [3, "Booking is on a store closure"]
         } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
             return [3.1, "Booking is too early"]
@@ -117,7 +117,7 @@ export default class NewBooker {
             dbRef,
             fullDay,
             time,
-            this._data.date,
+            this._data.day,
             type,
             readData ? readData : {},
         )
