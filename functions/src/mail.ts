@@ -4,16 +4,7 @@ var config = JSON.parse(fs.readFileSync("./config.json"))
 //var nodemailer = require('nodemailer')
 import * as nodemailer from "nodemailer"
 
-//let userEmail = 'zhanl5542@wrdsb.ca'
-//let userEmail = 'aa9037764@gmail.com'
-/*
-var newBooking = {
-    "day": '2020/06/1',
-    "time": "12:00",
-    "type": "Pickup"
-}
-*/
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     secure: false,
     port: 25,
@@ -25,23 +16,9 @@ let transporter = nodemailer.createTransport({
         rejectUnauthorized: false
     }
 });
-/*
-let HelperOptions = {
-    from: '"Carriage Crossing Pharmacy" <carriagecrossingpharmacy@gmail.com>',
-    to: userEmail,
-    subject: "Booking confirmed",
-    text: `Your ${newBooking.type.toLowerCase()} has been confirmed for ${newBooking.day} ${newBooking.time}.\nTo cancel your booking, please visit our website`
-}
 
-let send = transporter.sendMail(HelperOptions, (error, info) => {
-    if(error){
-        return console.log(error)
-    }
-    console.log(info)
-})
-*/
-let sendMail = ((userEmail: string, newBooking: {[key: string]: any}) => {
-    let HelperOptions = {
+const sendMail = ((userEmail: string, newBooking: {[key: string]: any}) => {
+    const HelperOptions = {
         from: '"Carriage Crossing Pharmacy" <carriagecrossingpharmacy@gmail.com>',
         to: userEmail,
         subject: "Booking confirmed",
