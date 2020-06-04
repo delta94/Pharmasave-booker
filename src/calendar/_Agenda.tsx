@@ -1,7 +1,6 @@
 /**
  * Defines the agenda component
  */
-
 /**
  * Carriage Crossing Pharmacy Booker
  * Copyright (C) 2020 Luke Zhang, Ethan Lim
@@ -23,12 +22,26 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/semi, max-lines */
+import {
+    firestore,
+    functions
+} from "../firebase";
 import CustomDate from "../CustomDate";
 import React from "react";
-import {functions} from "../firebase";
 import globals from "./../globals";
 /* eslint-enable @typescript-eslint/semi */
+
+type ExistingBookings =
+    {[key: string]: any}
+type AgendaState = {
+    [key: string]:
+    string |
+    number |
+    Date |
+    JSX.Element |
+    Promise<void | ExistingBookings> | {},
+}
 
 /* eslint-disable no-magic-numbers */
 const [minutesPerHour, halfWayPoint] = [60, 12],
@@ -37,17 +50,57 @@ const [minutesPerHour, halfWayPoint] = [60, 12],
 
 
 export default class Agenda extends React.Component
-    <{}, {[key: string]: string | number | Date | JSX.Element}> {
+    <{}, AgendaState> {
 
-    public constructor (props: {}) {
+    private static _dbPull = async (
+        year: string,
+        month: string,
+        day: string
+    ): Promise<void | ExistingBookings> => {
+        const pullData = await firestore.collection("agenda")
+            .doc(year)
+            .collection(month)
+            .doc(day)
+            .get()
+            .then((doc) => doc as ExistingBookings)
+            .catch((err: Error) => {
+                console.log(err.message)
+                alert(`Error fetching data from database: ${err.message}`)
+            })
+
+        return pullData
+    }
+
+    public constructor(props: {}) {
         super(props)
+
         this.state = {
             selected: "",
             dayOfWeek: 0,
             month: 0,
             date: new Date(),
-            table: <div/>
+            table: <div/>,
+            data: {},
         }
+    }
+
+    /**
+     * Initially pull from db
+     * @returns {void} void
+     */
+    public componentDidMount = (): void => {
+        const date = new Date(),
+            year = date.getFullYear().toString(),
+            month = date.getMonth(),
+            day = date.getDay(),
+            fullMonth = month.toString().length < 2
+                ? `0${month + 1}`
+                : (month + 1).toString(),
+            fullDay = day.toString().length < 2
+                ? `0${day}`
+                : day.toString()
+        
+        this.setState(Agenda._dbPull(year, fullMonth, fullDay))
     }
 
     /**
@@ -147,10 +200,8 @@ export default class Agenda extends React.Component
             time,
             type,
         }).then((res) => {
-            console.log(day)
             if (res.data instanceof Array) {
                 alert(`Error code ${res.data[0]}, ${res.data[1]}`)
-                console.log(res)
             } else if (res.data === 0) {
                 alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
             } else {
