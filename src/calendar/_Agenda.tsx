@@ -162,6 +162,27 @@ export default class Agenda extends React.Component
     )
 
     /**
+     * Creates a booking <td> element
+     * @param {string} type = type of booking (service, pickup, or inStor)
+     * @param {string} iter - time
+     * @param {string} day - day to call function with
+     * @returns {JSX.Element} <td> with props
+     */
+    private _bookingtd = (type: string, iter: string, day: string): JSX.Element => (
+        <td
+            className={`${type}-col agenda-col`}
+            id={`${type}-${iter}`}
+            onClick={async (): Promise<void> => {
+                await this._makeNewEntry(
+                    day,
+                    CustomDate.to24Hour(iter),
+                    `${type}`,
+                )
+            }}
+        ></td>
+    )
+
+    /**
      * Pushes the tables values to tableVals
      * @param {Array.<string>} iterations - iterations of times
      * @param {Array.<JSX.Element>} tableVals - array to push to
@@ -178,45 +199,9 @@ export default class Agenda extends React.Component
         for (const iter of iterations) {
             tableVals.push(
                 <tr key={`agenda-${dayOfWeek}-${iter}-row`}>
-                    <th
-                        scope = "row"
-                        key = {`agenda-${dayOfWeek}-${iter}-head`}
-                    >
-                        {iter}
-                    </th>
-                    <td
-                        className="pickup-col agenda-col"
-                        id={`pickup-${iter}`}
-                        onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(
-                                day,
-                                CustomDate.to24Hour(iter),
-                                "pickup",
-                            )
-                        }}
-                    ></td>
-                    <td
-                        className="service-col agenda-col"
-                        id={`service-${iter}`}
-                        onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(
-                                day,
-                                CustomDate.to24Hour(iter),
-                                "service",
-                            )
-                        }}
-                    ></td>
-                    <td
-                        className="inStore-col agenda-col"
-                        id={`inStore-${iter}`}
-                        onClick={async (): Promise<void> => {
-                            await this._makeNewEntry(
-                                day,
-                                CustomDate.to24Hour(iter),
-                                "inStore",
-                            )
-                        }}
-                    ></td>
+                    {this._bookingtd("pickup", iter, day)}
+                    {this._bookingtd("service", iter, day)}
+                    {this._bookingtd("inStore", iter, day)}
                 </tr>
             )
         }

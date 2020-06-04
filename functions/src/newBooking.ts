@@ -119,7 +119,7 @@ export default class NewBooker {
             time,
             this._data.date,
             type,
-            readData ? readData as DocData : {},
+            readData ? readData : {},
         )
     }
     /* eslint-enable max-lines-per-function */
