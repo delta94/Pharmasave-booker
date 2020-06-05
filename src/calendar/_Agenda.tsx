@@ -88,9 +88,14 @@ export default class Agenda extends React.Component
                     >
                         {iter}
                     </th>
-                    {AgendaUtils.bookingtd("pickup", iter, day)}
-                    {AgendaUtils.bookingtd("service", iter, day)}
-                    {AgendaUtils.bookingtd("inStore", iter, day)}
+                    {["pickup", "service", "instore"].map((type) => (
+                        <AgendaUtils.bookingtd
+                            type={type}
+                            time={iter}
+                            day={day}
+                            key={`agendautils-bookingtd-${type}`}
+                        />
+                    ))}
                 </tr>
             )
         }

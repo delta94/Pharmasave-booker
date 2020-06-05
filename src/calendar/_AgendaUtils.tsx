@@ -35,6 +35,13 @@ const [minutesPerHour, halfWayPoint] = [60, 12],
 
 export type ExistingBookings = {[key: string]: any}
 
+interface BookingTdProps {
+    [index: string]: string,
+    type: string,
+    day: string,
+    time: string,
+}
+
 /**
  * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
  * @param {number | undefined} minutes - minutes to format; undefined for "00"
@@ -119,20 +126,18 @@ export const convertTime = (time: number): string => {
 
 /**
  * Creates a booking <td> element
- * @param {string} type = type of booking (service, pickup, or inStor)
- * @param {string} iter - time
- * @param {string} day - day to call function with
+ * @param {BookingTdProps} props - time, day, and type of booking
  * @returns {JSX.Element} <td> with props
  */
-export const bookingtd = (type: string, iter: string, day: string): JSX.Element => (
+export const bookingtd = (props: BookingTdProps): JSX.Element => (
     <td
-        className={`${type}-col agenda-col`}
-        id={`${type}-${iter}`}
+        className={`${props.type}-col agenda-col`}
+        id={`${props.type}-${props.iter}`}
         onClick={async (): Promise<void> => {
             await makeNewEntry(
-                day,
-                CustomDate.to24Hour(iter),
-                `${type}`,
+                props.day,
+                CustomDate.to24Hour(props.iter),
+                `${props.type}`,
             )
         }}
     ></td>

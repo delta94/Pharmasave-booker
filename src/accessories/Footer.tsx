@@ -156,6 +156,6 @@ export default class Footer extends React.Component {
     /**
      * @returns {JSX.Element} footer component
      */
-    public render = (): JSX.Element => Footer._footer()
+    public render = (): JSX.Element => <Footer._footer/>
 
 }

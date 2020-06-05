@@ -32,6 +32,22 @@ import React from "react";
 import {signInWithGoogle} from "../firebase";
 /* eslint-enable @typescript-eslint/semi */
 
+interface MakeButtonProps {
+    [index: string]: string,
+    type: "Register" | "Login",
+}
+
+interface MakeEmailOrPasswordFieldProps {
+    [index: string]: string | Login | Reg,
+    self: Login | Reg,
+    type: "reg" | "login",
+}
+
+interface MakeAgreementChecksProps {
+    [index: string]: string[][] | Reg,
+    checkTypes: string[][],
+    self: Reg,
+}
 
 /**
  * Google sign in button
@@ -79,14 +95,14 @@ class GoogleSignInButton extends React.Component {
 
 /**
  * Creates a button for authentication.
- * @param {"Register" | "Login"} type - "login" or "register"
+ * @param {MakeButtonProps} props - type: "login" or "register"
  * @returns {JSX.Element} regristration or login button
  */
-export const makeButton = (type: "Register" | "Login"): JSX.Element => (
+export const makeButton = (props: MakeButtonProps): JSX.Element => (
     <div className="row">
         <div className="col-6">
             <button type="submit" className="btn btn-secondary">
-                {type}
+                {props.type}
             </button>
         </div>
         <div className="col-6">
@@ -98,13 +114,11 @@ export const makeButton = (type: "Register" | "Login"): JSX.Element => (
 
 /**
  * Creates a form field for authentication.
- * @param {Login | Reg} self - bind with this
- * @param {"reg" | "login"} type  - "reg" or "login" email feild
+ * @param {MakeEmailOrPasswordFieldProps} props - self: bind with "this", type: "reg" or "login" text
  * @returns {JSX.Element} regristration or login email field
  */
 export const makeEmailField = (
-    self: Login | Reg,
-    type: "reg" | "login"
+    props: MakeEmailOrPasswordFieldProps
 ): JSX.Element => (
     <label>
         Email
@@ -112,15 +126,15 @@ export const makeEmailField = (
             type = "email"
             name = "email"
             className = "form-control"
-            id = {`${type}-email`}
+            id = {`${props.type}-email`}
             aria-describedby = "emailHelp"
             placeholder = "Enter email"
             onChange = {(event): void => {
-                self.onChange(event)
+                props.self.onChange(event)
             }}
             value = {
-                typeof(self.state.email) === "string"
-                    ? self.state.email
+                typeof(props.self.state.email) === "string"
+                    ? props.self.state.email
                     : ""
             }
         />
@@ -136,13 +150,11 @@ export const makeEmailField = (
 
 /**
  * Creates a form field for authentication.
- * @param {Login | Reg} self - bind with this
- * @param {"reg" | "login"} type  - "reg" or "login" email feild
+ * @param {MakeEmailOrPasswordFieldProps} props - self: bind with "this", type: "reg" or "login" text
  * @returns {JSX.Element} regristration or login email field
  */
 export const makePasswordField = (
-    self: Login | Reg,
-    type: "reg" | "login"
+    props: MakeEmailOrPasswordFieldProps
 ): JSX.Element => (
     <label>
         Password
@@ -150,14 +162,14 @@ export const makePasswordField = (
             type = "password"
             name = "password"
             className = "form-control"
-            id = {`${type}-password`}
+            id = {`${props.type}-password`}
             placeholder = "Password"
             onChange = {(event): void => {
-                self.onChange(event)
+                props.self.onChange(event)
             }}
             value = {
-                typeof(self.state.password) === "string"
-                    ? self.state.password
+                typeof(props.self.state.password) === "string"
+                    ? props.self.state.password
                     : ""
             }
         />
@@ -166,10 +178,10 @@ export const makePasswordField = (
 
 /**
  * Makes a name field
- * @param {Reg} self bind to this
+ * @param {Object.<string, Reg>} props - self: bind with this
  * @returns {JSX.Element} name field
  */
-export const makeNameField = (self: Reg): JSX.Element => (
+export const makeNameField = (props: {[key: string]: Reg}): JSX.Element => (
     <label>
         Full, legal name
         <input
@@ -180,11 +192,11 @@ export const makeNameField = (self: Reg): JSX.Element => (
             aria-describedby = "emailHelp"
             placeholder = "Full, legal name"
             onChange = {(event): void => {
-                self.onChange(event)
+                props.self.onChange(event)
             }}
             value = {
-                typeof(self.state.displayName) === "string"
-                    ? self.state.displayName
+                typeof(props.self.state.displayName) === "string"
+                    ? props.self.state.displayName
                     : ""
             }
         />
@@ -193,10 +205,10 @@ export const makeNameField = (self: Reg): JSX.Element => (
 
 /**
  * Create confirm password field
- * @param {Reg} self - bind to this
+ * @param {Object.<string, Reg>} props - self: bind with this
  * @returns {JSX.Element} confirm password field
  */
-export const makePasswordField2 = (self: Reg): JSX.Element => (
+export const makePasswordField2 = (props: {[key: string]: Reg}): JSX.Element => (
     <label>
         Confirm your Password
         <input
@@ -206,11 +218,11 @@ export const makePasswordField2 = (self: Reg): JSX.Element => (
             id = "reg-password-2"
             placeholder = "Retype password"
             onChange = {(event): void => {
-                self.onChange(event)
+                props.self.onChange(event)
             }}
             value = {
-                typeof(self.state.password2) === "string"
-                    ? self.state.password2
+                typeof(props.self.state.password2) === "string"
+                    ? props.self.state.password2
                     : ""
             }
         />
@@ -220,16 +232,13 @@ export const makePasswordField2 = (self: Reg): JSX.Element => (
 
 /**
  * Creates checks for privacy policy and 
- * @param {Array.<Array.<string>>} checkTypes array with terms and conditions and privacy policy
- * @param {Reg} self bind to this
+ * @param {MakeAgreementChecksProps} props - checkTypes: array with terms and conditions and privacy policy, self: bind to this
  * @returns {Array.<JSX.Element>} array of agreement checks
  */
-const makeAgreementChecks = (
-    checkTypes: string[][], self: Reg
-): JSX.Element[] => {
+const makeAgreementChecks = (props: MakeAgreementChecksProps): JSX.Element[] => {
     const output = []
 
-    for (const type of checkTypes) {
+    for (const type of props.checkTypes) {
         output.push(
             <label id={type[0]}>I have read, and agree to the
                 <Link to={`/${type[1]}`}>{type[3]}</Link>
@@ -239,7 +248,7 @@ const makeAgreementChecks = (
                     id = {`${type[0]}-check`}
                     name = {`agreement${type[2]}`}
                     onChange = {(event): void => {
-                        self.onChange(event)
+                        props.self.onChange(event)
                     }} 
                 ></input>
             </label>
@@ -251,15 +260,18 @@ const makeAgreementChecks = (
 
 /**
  * Create agree to terms and conditions and privacy policy field
- * @param {Reg} self - bind to this
+ * @param {object.<string, Reg>} props - self: bind to this
  * @returns {JSX.Element} terms and conditions and priv policy field
  */
-export const makeAgreementField = (self: Reg): JSX.Element => {
+export const makeAgreementField = (props: {[key: string]: Reg}): JSX.Element => {
     const checkTypes = [
             ["tandc", "Legal", "1", " Terms and Conditions "],
             ["ppolicy", "Privacy-policy", "2", " Privacy Policy "],
         ],
-        agreementField = makeAgreementChecks(checkTypes, self),
+        agreementField = makeAgreementChecks({
+            checkTypes,
+            self: props.self,
+        }),
         agreementHeader = (
             <p>By signing up, you agree to our
                 <Link to="/Legal">Terms and Conditions </Link>
