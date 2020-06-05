@@ -10,3 +10,5 @@ node_modules/
 admin_sdk.json
 
 !src/*.js
+
+config.json

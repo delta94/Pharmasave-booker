@@ -25,12 +25,12 @@
 
 /* eslint-disable @typescript-eslint/semi */
 import {
-    makeAgreementField,
-    makeButton, 
-    makeEmailField,
-    makeNameField,
-    makePasswordField,
-    makePasswordField2
+    makeAgreementField as MakeAgreementField,
+    makeButton as MakeButton, 
+    makeEmailField as MakeEmailField,
+    makeNameField as MakeNameField,
+    makePasswordField as MakePasswordField,
+    makePasswordField2 as MakePasswordField2
 } from "./_Form_components";
 import React from "react";
 import {auth} from "../firebase";
@@ -118,15 +118,15 @@ class Login extends React.Component<{}, {[key: string]: string | null}> {
         } onSubmit = {this._signInWithEmailAndPassword}
         className = "login-form">
             <div className="form-group">
-                {makeEmailField(this, "login")}
+                <MakeEmailField self={this} type="login"/>
             </div>
             <div className="form-group">
-                {makePasswordField(this, "login")}
+                <MakePasswordField self={this} type="login"/>
             </div>
             <a data-toggle="modal" data-target="#reset-modal" href="/">
                 Forgot your password?
             </a>
-            {makeButton("Login")}
+            <MakeButton type="Login"/>
         </form>
     )
 
@@ -268,19 +268,19 @@ class Reg extends React.Component
         } onSubmit = {this._signUpWithEmailAndPassword}
         className = "reg-form">
             <div className="form-group">
-                {makeNameField(this)}
+                <MakeNameField self={this}/>
             </div>
             <div className="form-group">
-                {makeEmailField(this, "reg")}
+                <MakeEmailField self={this} type="reg"/>
             </div>
             <div className="form-group">
-                {makePasswordField(this, "reg")}
+                <MakePasswordField self={this} type="reg"/>
             </div>
             <div className="form-group">
-                {makePasswordField2(this)}
+                <MakePasswordField2 self={this}/>
             </div>
-            {makeAgreementField(this)}
-            {makeButton("Register")}
+            <MakeAgreementField self={this}/>
+            <MakeButton type="Register"/>
         </form>
     )
 

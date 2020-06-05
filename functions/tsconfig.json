@@ -5,9 +5,10 @@
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "target": "es6",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "compileOnSave": true,
   "include": [

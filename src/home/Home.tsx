@@ -63,7 +63,7 @@ export default class Home extends React.Component<{}, {[key: string]: boolean}> 
     }
 
     private _splash = {
-        splash: (
+        splash: (): JSX.Element => (
             <div className="splash">
                 <img src="pictures/cover.png" alt="Cover"/>
             </div>
@@ -129,8 +129,8 @@ export default class Home extends React.Component<{}, {[key: string]: boolean}> 
      */
     public render = (): JSX.Element => (
         <div className="splash-container">
-            {this._splash.splash}
-            {this._splashText()}
+            <this._splash.splash/>
+            <this._splashText/>
         </div>
     )
 
