@@ -33,7 +33,7 @@ type AgendaState = {
     string |
     number |
     Date |
-    JSX.Element
+    JSX.Element,
 }
 
 interface BookingTdProps {

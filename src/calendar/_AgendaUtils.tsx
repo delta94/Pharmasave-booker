@@ -33,7 +33,8 @@ const [minutesPerHour, halfWayPoint] = [60, 12],
     newEntry = functions.httpsCallable("newBooking")
 /* eslint-enable no-magic-numbers */
 
-export type ExistingBookings = {[key: string]: any}
+export type ExistingBookings =
+    {[key: string]: {[key: string]: {[key: string]: {[key: string]: {} | undefined}}}}
 
 /**
  * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
