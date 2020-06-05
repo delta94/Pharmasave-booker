@@ -69,8 +69,8 @@ const resizeDivider = () => {
 
 document.querySelector(".navbar-toggler").addEventListener("click", () => {
     const navSelection = document.getElementById("navbarNav")
-        ? document.getElementById("navbarNav")
-        : document.getElementById("_navbarNav"),
+            ? document.getElementById("navbarNav")
+            : document.getElementById("_navbarNav"),
         navbar = document.querySelector(".navbar")
     
     if (!navSelection.classList.contains("show")) {
