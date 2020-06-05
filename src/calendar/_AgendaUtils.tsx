@@ -35,13 +35,6 @@ const [minutesPerHour, halfWayPoint] = [60, 12],
 
 export type ExistingBookings = {[key: string]: any}
 
-interface BookingTdProps {
-    [index: string]: string,
-    type: string,
-    day: string,
-    time: string,
-}
-
 /**
  * Formats the minutes into a string (e.g 4500 to "45", or NaN to "00")
  * @param {number | undefined} minutes - minutes to format; undefined for "00"
@@ -125,25 +118,6 @@ export const convertTime = (time: number): string => {
 }
 
 /**
- * Creates a booking <td> element
- * @param {BookingTdProps} props - time, day, and type of booking
- * @returns {JSX.Element} <td> with props
- */
-export const bookingtd = (props: BookingTdProps): JSX.Element => (
-    <td
-        className={`${props.type}-col agenda-col`}
-        id={`${props.type}-${props.iter}`}
-        onClick={async (): Promise<void> => {
-            await makeNewEntry(
-                props.day,
-                CustomDate.to24Hour(props.iter),
-                `${props.type}`,
-            )
-        }}
-    ></td>
-)
-
-/**
  * Calculates the increments for the agenda with the globals
  * @param {number | null} dayOfWeek - the day of week to calculate the business hours with. Null if not open
  * @returns {Array.<string>} array of incremenets
@@ -186,7 +160,7 @@ export const dbPull = async (
         .collection(month)
         .doc(day)
         .get()
-        .then((doc) => doc as ExistingBookings)
+        .then((doc) => doc.data() as ExistingBookings)
         .catch((err: Error) => {
             console.log(err.message)
             alert(`Error fetching data from database: ${err.message}`)
@@ -218,17 +192,19 @@ export const thead = (): JSX.Element => (
 export const getDateValues = (date: Date): {[key: string]: string} => {
     const year = date.getFullYear().toString(),
         month = date.getMonth(),
-        day = date.getDay(),
+        _date = date.getDate(),
+        day = date.getDay().toString(),
         fullMonth = month.toString().length < 2
             ? `0${month + 1}`
             : (month + 1).toString(),
-        fullDay = day.toString().length < 2
-            ? `0${day}`
-            : day.toString()
+        fulldate = _date.toString().length < 2
+            ? `0${_date}`
+            : _date.toString()
     
     return {
         year,
         month: fullMonth,
-        day: fullDay,
+        date: fulldate,
+        day,
     }
 }

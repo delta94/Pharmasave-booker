@@ -33,8 +33,14 @@ type AgendaState = {
     string |
     number |
     Date |
-    JSX.Element |
-    Promise<void | AgendaUtils.ExistingBookings> | {},
+    JSX.Element
+}
+
+interface BookingTdProps {
+    [index: string]: string,
+    type: string,
+    day: string,
+    time: string,
 }
 
 
@@ -50,7 +56,6 @@ export default class Agenda extends React.Component
             month: 0,
             date: new Date(),
             table: <div/>,
-            data: {},
         }
     }
 
@@ -59,11 +64,43 @@ export default class Agenda extends React.Component
      * @returns {void} void
      */
     public componentDidMount = (): void => {
-        const date = new Date(),
-            {year, month, day} = AgendaUtils.getDateValues(date)
+        const dateObj = new Date(),
+            {year, month, date} = AgendaUtils.getDateValues(dateObj),
+            newData = {[year]: {[month]: {[date]: {}}}} as AgendaUtils.ExistingBookings
         
-        this.setState(AgendaUtils.dbPull(year, month, day))
+        this._cache = {[year]: {[month]: {[date]: {}}}}
+         
+        AgendaUtils.dbPull(year, month, date).then((res) => {
+            if (res) {
+                newData[year][month][date][Object.keys(res)[0]] =
+                    res[Object.keys(res)[0]]
+            
+                this._cache = {data: newData}
+            }
+            console.log(this._cache)
+        })
     }
+
+    private _cache: Promise<void | AgendaUtils.ExistingBookings> | {} = {}
+
+    /**
+     * Creates a booking <td> element
+     * @param {BookingTdProps} props - time, day, and type of booking
+     * @returns {JSX.Element} <td> with props
+     */
+    private _bookingtd = (props: BookingTdProps): JSX.Element => (
+        <td
+            className={`${props.type}-col agenda-col`}
+            id={`${props.type}-${props.iter}`}
+            onClick={async (): Promise<void> => {
+                await AgendaUtils.makeNewEntry(
+                    props.day,
+                    CustomDate.to24Hour(props.time),
+                    `${props.type}`,
+                )
+            }}
+        ></td>
+    )
 
     /**
      * Pushes the tables values to tableVals
@@ -89,7 +126,7 @@ export default class Agenda extends React.Component
                         {iter}
                     </th>
                     {["pickup", "service", "instore"].map((type) => (
-                        <AgendaUtils.bookingtd
+                        <this._bookingtd
                             type={type}
                             time={iter}
                             day={day}
@@ -108,21 +145,41 @@ export default class Agenda extends React.Component
      */
     public changeDay = (dayString: string): void => {
         const dateData = dayString.split("/").map((data) => Number(data)),
-            date = new Date(dateData[0], dateData[1], dateData[2]),
-            dayOfWeek = date.getDay(),
+            _date = new Date(dateData[0], dateData[1], dateData[2]),
+            dayOfWeek = _date.getDay(),
             iterations = AgendaUtils.calcIncrements(dayOfWeek),
             tableVals: JSX.Element[] = [],
-            {year, month, day} = AgendaUtils.getDateValues(date)
-
+            {year, month, date} = AgendaUtils.getDateValues(_date)
+ 
         this.setState({
             selected: `${dateData[0]}/${Number(dateData[1]) + 1}/${dateData[2]}`,
             dayOfWeek,
-            month: date.getMonth(),
-            date,
-            data: {},
+            month: _date.getMonth(),
+            date: _date,
         })
 
-        this._pushTableVals(iterations, tableVals, dayOfWeek, day)
+        const newData = (this._cache as AgendaUtils.ExistingBookings).data
+        
+        console.log("Checking cache")
+        if (newData && !newData[year][month][date]) {
+            console.log("Data not in cache, pulling")
+            AgendaUtils.dbPull(year, month, date).then((res) => {
+                console.log("Pulled")
+                if (res) {
+                    newData[year][month][date] = {
+                        [Object.keys(res)[0]]: res[Object.keys(res)[0]],
+                        [Object.keys(res)[1]]: res[Object.keys(res)[1]],
+                        [Object.keys(res)[2]]: res[Object.keys(res)[2]],
+                    }
+                    this._cache = {data: newData}
+                    console.log(this._cache)
+                }
+                this._pushTableVals(iterations, tableVals, dayOfWeek, dayString)
+            })
+        } else {
+            console.log("Data found in cache")
+            this._pushTableVals(iterations, tableVals, dayOfWeek, dayString)
+        }
 
         this.setState({
             table: (
@@ -131,9 +188,7 @@ export default class Agenda extends React.Component
                     <tbody>{tableVals.map((val) => val)}</tbody>
                 </table>
             ),
-            data: AgendaUtils.dbPull(year, month, day),
         })
-
     }
 
     public render = (): JSX.Element => (
