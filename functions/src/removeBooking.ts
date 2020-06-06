@@ -109,11 +109,11 @@ export default class RemoveBooking {
         if (readData instanceof Error) { // Return 2 if error
             return [5, "Unknown error; Problem reading from database"]
         }
-        
+        /*
         else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
             console.log("Ready to remove")
         }
-
+        */
         // Set database refernece to uid
         return await this._removeData(
             dbRef,
@@ -172,7 +172,7 @@ export default class RemoveBooking {
     ): Promise<number | (string | number)[]> => {
         const _readData = readData
 
-        console.log("RemoveFromAgenda")
+        //console.log("RemoveFromAgenda")
 
         if (_readData[type]) {
             _readData[type]![time] = this._context.auth!.uid
@@ -246,7 +246,7 @@ export default class RemoveBooking {
         }
         else{
             (async () => (
-                console.log("REmoved"),
+                //console.log("REmoved"),
                 await this.removeFromAgenda(
                     dbRef,
                     doc,
@@ -277,33 +277,33 @@ export default class RemoveBooking {
             return userData
         }
 
-        console.log("_removeUserData")
+        //console.log("_removeUserData")
 
         const bookings = userData ? userData : {} // User data
         
         let tempRef = RemoveBooking._addZeros(date)
         
-        console.log("bookings", bookings)
-        console.log("tempRef", tempRef)
+        //console.log("bookings", bookings)
+        //console.log("tempRef", tempRef)
         
         if(tempRef in bookings){
-            console.log("It contains")
+            //console.log("It contains")
             delete bookings[tempRef]
         }
         else{
-            console.log("Error but no return??")
+            //console.log("Error but no return??")
             return 10
         }
 
 
-        console.log("Code is continuing to run")
+        //console.log("Code is continuing to run")
 
 
         const {email} = this._context.auth!.token
 
         sendMail2(email as string, this._data)
 
-        console.log(bookings)
+        //console.log(bookings)
 
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data
