@@ -19,14 +19,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi */
-import * as config from "./../config.json";
+//import * as config from "./../config.json";
+import * as config from "./config.json";
+
 import * as nodemailer from "nodemailer";
 /* eslint-disable @typescript-eslint/semi */
 
 
 const transporter = nodemailer.createTransport({
         service: "gmail",
-        secure: false,
+        secure: true,
         port: 25,
         auth: {
             user: "carriagecrossingpharmacy@gmail.com",

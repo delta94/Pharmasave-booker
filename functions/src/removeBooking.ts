@@ -22,22 +22,21 @@
 import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
 import globals from "./globals";
-import sendMail from "./mail";
+//import sendMail from "./mail";
 /* eslint-enable @typescript-eslint/semi */
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 type FirestoreCollectionRef
     = FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>
 
-export default class NewBooker {
+export default class RemoveBooking {
 
     private _adgendadb: FirestoreCollectionRef
 
     public constructor (
         private _database: FirebaseFirestore.Firestore,
         private _data: Booking,
-        private _context: functions.https.CallableContext 
-        ,
+        private _context: functions.https.CallableContext,
     ) {
         this._adgendadb = this._database // Database reference
             .collection("agenda")
@@ -69,14 +68,15 @@ export default class NewBooker {
         return newDate
     }
 
+
     /* eslint-disable max-lines-per-function */
     /**
      * Set a new booking
      * @returns {Promise<number | Array.<string | number>>} exit code or error message
      */
-    public writeNewBooking = async (): Promise<number | (string | number)[]> => {
+    public removeBooking = async (): Promise<number | (string | number)[]> => {
+        
         const [year, month, day] = this._data.day.split("/"), // Year month and day to set to
-            
             fullDay = day.length < 2 ? `0${day}` : day,
             fullMonth = month.length < 2
                 ? `0${Number(month) + 1}`
@@ -88,6 +88,7 @@ export default class NewBooker {
             [hours, minutes] = time.split(":"),
             date = new Date(Number(year), Number(fullMonth), Number(day))
         
+
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
             return [1, "Not authenticated"]
@@ -110,12 +111,23 @@ export default class NewBooker {
         // More error checks
         if (readData instanceof Error) { // Return 2 if error
             return [5, "Unknown error; Problem reading from database"]
-        } else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
+        } 
+
+        //if()
+
+
+        /*
+        else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
             return [6, "Time slot already taken"]
+        }
+        */
+
+       else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
+        console.log('["Time slot already taken" Working properly]')
         }
 
         // Set database refernece to uid
-        return await this._setData(
+        return await this._removeData(
             dbRef,
             fullDay,
             time,
@@ -151,6 +163,8 @@ export default class NewBooker {
             .catch((err: Error) => err)
     )
 
+
+
     /**
      * Sets the booking to the database, and to the user doc
      * @param {FirestoreCollectionRef} dbRef - database reference for the booking only
@@ -161,7 +175,7 @@ export default class NewBooker {
      * @param {DocData} readData - data pulled from Firestore
      * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
      */
-    private _setData = async (
+    private _removeData = async (
         dbRef: FirestoreCollectionRef,
         doc: string,
         time: string,
@@ -176,11 +190,18 @@ export default class NewBooker {
         } else {
             _readData[type] = {[time]: this._context.auth!.uid}
         }
-
+        /*
         return await dbRef.doc(doc)
-            .set(_readData, {merge: true})
+            .delete()
             .then(async () => (
-                await this._setUserData(date)
+                await this._removeUserData(date)
+            ))
+            .catch((err: Error) => [5, err.message])
+        */
+        return await dbRef.doc(doc)
+            .delete()
+            .then(async () => (
+                await this._removeUserData(date)
             ))
             .catch((err: Error) => [5, err.message])
     }
@@ -190,7 +211,7 @@ export default class NewBooker {
      * @param {string} date - date of booking
      * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
      */
-    private _setUserData = async (
+    private _removeUserData = async (
         date: string
     ): Promise<number | (string | number)[]> => {
         const userData: UserData = await this._database.collection("users")
@@ -205,15 +226,41 @@ export default class NewBooker {
 
         const bookings = userData ? userData : {} // User data
         
-        bookings[NewBooker._addZeros(date)] = true
+        let tempRef = RemoveBooking._addZeros(date)
+        if(tempRef in bookings){
+            delete bookings[tempRef]
+        }
+        else{
+            return ["Error, booking non existant"]
+        }
 
 
-        const {email} = this._context.auth!.token
+        //const {email} = this._context.auth!.token
+        /*
+        return await this._database.collection("users").doc(this._context.auth!.uid).get().then((doc) => {
+            //const data = doc.data()
+            //data.bookings[RemoveBooking._addZeros(date)].delete()
+            //doc.data().bookings[RemoveBooking._addZeros(date)].delete()
+            
+            let dataRef = doc.data()
+            let removeData = dataRef.update({
+                "bookings": RemoveBooking._addZeros(date).delete()
+            })
 
-        sendMail(email as string, this._data)
 
-        console.log(this._data)
 
+          })
+            .then(() => 0)
+            .catch((err: Error) => [3, err.message])
+        */
+
+        /*
+        return await this._database.collection("users").doc(this._context.auth!.uid).collection("bookings")
+            .doc(RemoveBooking._addZeros(date)) // Set user data
+            .delete()
+            .then(() => 0)
+            .catch((err: Error) => [3, err.message])
+        */
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data
             .set({

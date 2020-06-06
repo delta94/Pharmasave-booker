@@ -17,3 +17,5 @@ deploy:
 
 lint:
 	npm run-script lint
+run:
+	firebase functions:shell
