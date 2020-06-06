@@ -43,13 +43,13 @@ const transporter = nodemailer.createTransport({
      * @param {Object.<string, any>} newBooking - NewBooking data
      * @returns {void} void
      */
-    sendMail = (userEmail: string, newBooking: {[key: string]: any}): void => {
+    sendMail2 = (userEmail: string, newBooking: {[key: string]: any}): void => {
         const email = "<carriagecrossingpharmacy@gmail.com>",
             helperOptions = {
                 from: `"Carriage Crossing Pharmacy" ${email}`,
                 to: userEmail,
-                subject: "Booking confirmed",
-                text: `Your ${(newBooking.type as string).toLowerCase()} has been confirmed for ${newBooking.day} ${newBooking.time}.\nTo cancel your booking, please visit our website`
+                subject: "Booking removed",
+                text: `Your ${(newBooking.type as string).toLowerCase()} on ${newBooking.day} ${newBooking.time} has been removed.\nTo schedule another meeting, please visit our website`
             }
 
         transporter.sendMail(helperOptions, (error, info) => {
@@ -63,4 +63,4 @@ const transporter = nodemailer.createTransport({
     }
 
 
-export default sendMail
+export default sendMail2

@@ -22,7 +22,7 @@
 import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
 import globals from "./globals";
-//import sendMail from "./mail";
+import sendMail2 from "./mail2";
 /* eslint-enable @typescript-eslint/semi */
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
@@ -68,14 +68,12 @@ export default class RemoveBooking {
         return newDate
     }
 
-
     /* eslint-disable max-lines-per-function */
     /**
      * Set a new booking
      * @returns {Promise<number | Array.<string | number>>} exit code or error message
      */
     public removeBooking = async (): Promise<number | (string | number)[]> => {
-        
         const [year, month, day] = this._data.day.split("/"), // Year month and day to set to
             fullDay = day.length < 2 ? `0${day}` : day,
             fullMonth = month.length < 2
@@ -86,9 +84,8 @@ export default class RemoveBooking {
                 .collection(fullMonth),
             {time, type} = this._data, // Time to set to
             [hours, minutes] = time.split(":"),
-            date = new Date(Number(year), Number(fullMonth), Number(day))
+            date = new Date(Number(year), Number(fullMonth) - 1, Number(day))
         
-
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
             return [1, "Not authenticated"]
@@ -111,19 +108,10 @@ export default class RemoveBooking {
         // More error checks
         if (readData instanceof Error) { // Return 2 if error
             return [5, "Unknown error; Problem reading from database"]
-        } 
-
-        //if()
-
-
-        /*
-        else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
-            return [6, "Time slot already taken"]
         }
-        */
-
-       else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
-        console.log('["Time slot already taken" Working properly]')
+        
+        else if (readData && readData[type] && readData[type]![time]) { // If booking already exists
+            console.log("Ready to remove")
         }
 
         // Set database refernece to uid
@@ -164,6 +152,41 @@ export default class RemoveBooking {
     )
 
 
+    /**
+     * Sets the booking to the database, and to the user doc
+     * @param {FirestoreCollectionRef} dbRef - database reference for the booking only
+     * @param {string} doc - doc to set booking to
+     * @param {string} time - time to set to
+     * @param {string} date - date to set to
+     * @param {BookingTypes} type - type of booking
+     * @param {DocData} readData - data pulled from Firestore
+     * @returns {Promise<number | Array.<stirng | number>>} - 0 for success, array with error code and string if error
+     */
+    private removeFromAgenda = async (
+        dbRef: FirestoreCollectionRef,
+        doc: string,
+        time: string,
+        date: string,
+        type: BookingTypes,
+        readData: DocData,
+    ): Promise<number | (string | number)[]> => {
+        const _readData = readData
+
+        console.log("RemoveFromAgenda")
+
+        if (_readData[type]) {
+            _readData[type]![time] = this._context.auth!.uid
+        } else {
+            _readData[type] = {[time]: this._context.auth!.uid}
+        }
+        return await dbRef.doc(doc)
+            .delete()
+            .then(() => 0)
+            .catch((err: Error) => [5, err.message])
+    }
+
+
+
 
     /**
      * Sets the booking to the database, and to the user doc
@@ -190,6 +213,8 @@ export default class RemoveBooking {
         } else {
             _readData[type] = {[time]: this._context.auth!.uid}
         }
+
+
         /*
         return await dbRef.doc(doc)
             .delete()
@@ -198,12 +223,40 @@ export default class RemoveBooking {
             ))
             .catch((err: Error) => [5, err.message])
         */
-        return await dbRef.doc(doc)
-            .delete()
+
+
+        /*
+        return await this._removeUserData(date)
             .then(async () => (
-                await this._removeUserData(date)
+                console.log("REmoved"),
+                await this.removeFromAgenda(
+                    dbRef,
+                    doc,
+                    time,
+                    this._data.day,
+                    type,
+                    readData ? readData : {},)
             ))
             .catch((err: Error) => [5, err.message])
+        */
+       
+        const res = await this._removeUserData(date)
+        if(res == 10){
+            return ["Service not booked under current account"]
+        }
+        else{
+            (async () => (
+                console.log("REmoved"),
+                await this.removeFromAgenda(
+                    dbRef,
+                    doc,
+                    time,
+                    this._data.day,
+                    type,
+                    readData ? readData : {},)
+            ))
+            return res
+        }
     }
 
     /**
@@ -224,48 +277,39 @@ export default class RemoveBooking {
             return userData
         }
 
+        console.log("_removeUserData")
+
         const bookings = userData ? userData : {} // User data
         
         let tempRef = RemoveBooking._addZeros(date)
+        
+        console.log("bookings", bookings)
+        console.log("tempRef", tempRef)
+        
         if(tempRef in bookings){
+            console.log("It contains")
             delete bookings[tempRef]
         }
         else{
-            return ["Error, booking non existant"]
+            console.log("Error but no return??")
+            return 10
         }
 
 
-        //const {email} = this._context.auth!.token
-        /*
-        return await this._database.collection("users").doc(this._context.auth!.uid).get().then((doc) => {
-            //const data = doc.data()
-            //data.bookings[RemoveBooking._addZeros(date)].delete()
-            //doc.data().bookings[RemoveBooking._addZeros(date)].delete()
-            
-            let dataRef = doc.data()
-            let removeData = dataRef.update({
-                "bookings": RemoveBooking._addZeros(date).delete()
-            })
+        console.log("Code is continuing to run")
 
 
+        const {email} = this._context.auth!.token
 
-          })
-            .then(() => 0)
-            .catch((err: Error) => [3, err.message])
-        */
+        sendMail2(email as string, this._data)
 
-        /*
-        return await this._database.collection("users").doc(this._context.auth!.uid).collection("bookings")
-            .doc(RemoveBooking._addZeros(date)) // Set user data
-            .delete()
-            .then(() => 0)
-            .catch((err: Error) => [3, err.message])
-        */
+        console.log(bookings)
+
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data
             .set({
                 bookings,
-            }, {merge: true})
+            }, {merge: false})
             .then(() => 0)
             .catch((err: Error) => [3, err.message])
     }

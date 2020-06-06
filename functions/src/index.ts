@@ -23,7 +23,9 @@ import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import {Booking} from "./interfaces";
 import NewBooker from "./newBooking"
-import RemoveBooking from "./removeBooking"
+import RemoveBooking from './removeBooking'
+//import RemoveBooking from "./removeBooking"
+
 /* eslint-enable @typescript-eslint/semi */
 
 // Test run newBooking({"day": "2020/5/6", "time": "12:00", "type": "pickup"})
@@ -40,27 +42,6 @@ const database = admin.firestore()
  * @param {Booking} data - booking data
  * @param {functions.https.CallableContext} context - auth context
  */
-
-/*
-export const newBooking = functions.https.onCall(async (
-    data: Booking,
-    context,
-): Promise<number | (number | string)[]> => {
-    const newBook = new NewBooker(database, data, context)
-
-    return await newBook.writeNewBooking()
-})
-
-
-export const removeBooking = functions.https.onCall(async (
-    data: Booking,
-    context,
-): Promise<number | (number | string)[]> => {
-    const newBook = new RemoveBooking(database, data, context)
-
-    return await newBook.writeNewBooking()
-})
-*/
 export const newBooking = functions.https.onCall(async (
     data: Booking,
     context,
@@ -69,6 +50,8 @@ export const newBooking = functions.https.onCall(async (
 
     return await newBook.writeNewBooking()
 })
+
+
 
 
 export const removeBooking = functions.https.onCall(async (

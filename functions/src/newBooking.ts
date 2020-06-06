@@ -36,8 +36,7 @@ export default class NewBooker {
     public constructor (
         private _database: FirebaseFirestore.Firestore,
         private _data: Booking,
-        private _context: functions.https.CallableContext 
-        ,
+        private _context: functions.https.CallableContext,
     ) {
         this._adgendadb = this._database // Database reference
             .collection("agenda")
@@ -76,7 +75,6 @@ export default class NewBooker {
      */
     public writeNewBooking = async (): Promise<number | (string | number)[]> => {
         const [year, month, day] = this._data.day.split("/"), // Year month and day to set to
-            
             fullDay = day.length < 2 ? `0${day}` : day,
             fullMonth = month.length < 2
                 ? `0${Number(month) + 1}`
@@ -86,7 +84,7 @@ export default class NewBooker {
                 .collection(fullMonth),
             {time, type} = this._data, // Time to set to
             [hours, minutes] = time.split(":"),
-            date = new Date(Number(year), Number(fullMonth), Number(day))
+            date = new Date(Number(year), Number(fullMonth) - 1, Number(day))
         
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
