@@ -109,12 +109,14 @@ export default class Agenda extends React.Component
                 className={`${props.type}-col agenda-col td-${colour}`}
                 id={`${props.type}-${props.iter}`}
                 onClick={async (): Promise<void> => {
-                    await AgendaUtils.makeNewEntry(
-                        props.day,
-                        CustomDate.to24Hour(props.time),
-                        `${props.type}`,
-                    )
-                    this.changeDay(dayString)
+                    if (colour !== "red") {
+                        await AgendaUtils.makeNewEntry(
+                            props.day,
+                            CustomDate.to24Hour(props.time),
+                            `${props.type}`,
+                        )
+                        this.changeDay(dayString)
+                    }
                 }}
             ></td>
         )
