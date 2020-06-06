@@ -4,26 +4,26 @@
  * 
  * https://luke-zhang-04.github.io/
  * https://github.com/ethanlim04
- * This program is free software: you can redistribute it and/or modif
- * it under the terms of the GNU General Public License as published b
- * the Free Software Foundation, either version 3 of the License, o
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be usefu
+ * This program is distributed in the hope that it will be useful
  * but WITHOUT ANY WARRANTY; without even the implied warranty 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See t
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public Licen
- * 
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public Licence
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /* eslint-disable @typescript-eslint/semi, no-magic-numbers, one-var */
 import * as functions from "firebase-functions";
 import {Booking, BookingTypes} from "./interfaces";
-import globals from "./globals"
+import globals from "./globals";
+import sendMail from "./mail";
 /* eslint-enable @typescript-eslint/semi */
-
 type DocData = {[key: string]: {[key: string]: string} | undefined}
 type UserData = {[key: string]: boolean} | undefined | (number | string)[]
 type FirestoreCollectionRef
@@ -84,18 +84,18 @@ export default class NewBooker {
                 .collection(fullMonth),
             {time, type} = this._data, // Time to set to
             [hours, minutes] = time.split(":"),
-            date = new Date(Number(year), Number(fullMonth), Number(day))
+            date = new Date(Number(year), Number(fullMonth) - 1, Number(day))
         
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists
             return [1, "Not authenticated"]
-        } else if (!globals.hours[date.getDate()]) { // If the store is open
+        } else if (!globals.hours[date.getDay()]) { // If the store is open
             return [3, "Booking is on a store closure"]
-        } else if (Number(hours) < globals.hours[date.getDate()]![0]) {
+        } else if (Number(hours) < globals.hours[date.getDay()]![0]) {
             return [3.1, "Booking is too early"]
         } else if (
-            Number(hours) > globals.hours[date.getDate()]![1] ||
-            Number(hours) === globals.hours[date.getDate()]![1] &&
+            Number(hours) > globals.hours[date.getDay()]![1] ||
+            Number(hours) === globals.hours[date.getDay()]![1] &&
             Number(minutes) === 30
         ) {
             return [3.2, "Booking is too late"]
@@ -204,6 +204,11 @@ export default class NewBooker {
         const bookings = userData ? userData : {} // User data
         
         bookings[NewBooker._addZeros(date)] = true
+
+
+        const {email} = this._context.auth!.token
+
+        sendMail(email as string, this._data)
 
         return await this._database.collection("users")
             .doc(this._context.auth!.uid) // Set user data

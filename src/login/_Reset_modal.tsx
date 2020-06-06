@@ -30,12 +30,12 @@ import {auth} from "../firebase";
 /* eslint-disable valid-jsdoc */
 /**
  * Create modal header
- * @param {JSX.Element} title - Modal title
+ * @param {Object.<string, JSX.Element>} props - children: modal header
  * @returns {JSX.Element} modal header
  */
-const modalHeader = (title: JSX.Element): JSX.Element => (
+const modalHeader = (props: {[key: string]: JSX.Element}): JSX.Element => (
         <div className="modal-header">
-            {title}
+            {props.children}
             <button
                 type = "button"
                 className = "close"
@@ -46,7 +46,8 @@ const modalHeader = (title: JSX.Element): JSX.Element => (
             </button>
         </div>
     ),
-    modalFooter = (
+    ModalHeader = modalHeader,
+    ModalFooter = (): JSX.Element => (
         <div className="modal-footer">
             <button
                 type = "submit"
@@ -56,6 +57,12 @@ const modalHeader = (title: JSX.Element): JSX.Element => (
             </button>
         </div>
     ),
+    
+    /**
+     * Sends a reset email to the user
+     * @param {React.FormEvent<HTMLFormElement>} event - triggered event
+     * @returns {void} void
+     */
     sendResetEmail = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
         const email = (event.target as HTMLInputElement).querySelector("input")!.value
@@ -87,10 +94,10 @@ export const makeModal = (
     >
         <div className="modal-dialog" role="document">
             <div className="modal-content">
-                {modalHeader(title)}
+                <ModalHeader>{title}</ModalHeader>
                 <form onSubmit = {sendResetEmail} id="reset-form">
                     {body}
-                    {modalFooter}
+                    <ModalFooter/>
                 </form>
             </div>
         </div>

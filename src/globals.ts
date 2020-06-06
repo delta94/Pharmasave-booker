@@ -23,7 +23,7 @@
  */
 /* eslint-disable no-magic-numbers */
 
-export const hours: {[key: number]: null | number[]} = { // Business hours
+export const hours: {[key: number]: null | number[]} = { // Business hours, null if closed
     0: null, // Sunday to Saturday
     1: [9, 18], // 24 hour time
     2: [9, 20],
@@ -34,11 +34,17 @@ export const hours: {[key: number]: null | number[]} = { // Business hours
 },
     calendar: {[key: string]: number} = {
         increment: 30 // Increment in minutes for the agenda table
+    },
+    bookings: {[key: string]: number} = { // Define max number of people with each service at once
+        pickup: 1,
+        service: 1,
+        inStore: 3,
     }
 
 const globals = {
     hours,
     calendar,
+    bookings,
 }
 
 Object.freeze(globals)

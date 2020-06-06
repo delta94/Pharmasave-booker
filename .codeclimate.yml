@@ -31,3 +31,5 @@ checks:
 exclude_patterns:
   - "src/serviceWorker.ts"
   - "src/legal/"
+  - "src/globals.ts"
+  - "functions/src/globals.ts"

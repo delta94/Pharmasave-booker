@@ -30,6 +30,12 @@ import React from "react";
 import {auth} from "../firebase";
 /* eslint-enable @typescript-eslint/semi */
 
+interface UserBtnProps {
+    [index: string]: string | number,
+    to: string,
+    refIndex: number,
+    name: string,
+}
 
 /**
  * The navbar component
@@ -78,29 +84,25 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
     
     /**
      * Creates a buttons for exclusively users
-     * @param {string} to - link location
-     * @param {number} refIndex - _userNav reference
-     * @param {string} name - name of button
+     * @param {UserBtnProps} props - to: link location, refIndex: _userNav reference, name: name of button
      * @returns {JSX.Element} user button
      */
-    private _userBtns = (
-        to: string, refIndex: number, name: string
-    ): JSX.Element => (
+    private _userBtns = (props: UserBtnProps): JSX.Element => (
         <NavLink
             className = {
                 `nav-item nav-link 
                 ${this._loggedInState()}`
             }
             activeClassName = "active"
-            to = {`/${to}`}
-            ref = {this._userNav[refIndex]}
+            to = {`/${props.to}`}
+            ref = {this._userNav[props.refIndex]}
         >
-            {name}
+            {props.name}
         </NavLink>
     )
 
     private _navbarComponents = {
-        home: (
+        home: (): JSX.Element => (
             <NavLink
                 exact
                 className = "nav-item nav-link"
@@ -108,7 +110,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
                 to = "/">Home <span className="sr-only">(current)</span>
             </NavLink>
         ),
-        auth: (
+        auth: (): JSX.Element => (
             <NavLink
                 className = "nav-item nav-link"
                 activeClassName = "active"
@@ -117,7 +119,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
             >Log in
             </NavLink>
         ),
-        logout: (
+        logout: (): JSX.Element => (
             <Link
                 style = {{cursor: "pointer"}}
                 className = "nav-item nav-link"
@@ -132,13 +134,21 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         ),
     }
 
-    private _navbarNav = (
+    /**
+     * Contains all navbar components
+     * @returns {JSX.Element} navbarNav
+     */
+    private _navbarNav = (): JSX.Element => (
         <div className="navbar-nav">
-            {this._navbarComponents.home}
-            {this._userBtns("Calendar", 0, "Schedule a Pickup")}
-            {this._userBtns("User", 1, "My Schedule")}
-            {this._navbarComponents.auth}
-            {this._navbarComponents.logout}
+            <this._navbarComponents.home/>
+            <this._userBtns
+                to="Calendar"
+                refIndex={0}
+                name="Schedule a Pickup"
+            />
+            <this._userBtns to="User" refIndex={1} name="My Schedule"/>
+            <this._navbarComponents.auth/>
+            <this._navbarComponents.logout/>
         </div>
     )
 
@@ -168,7 +178,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
         this.setState({loggedIn: isAuthenticated})
     }
 
-    private _navbarClassNames =
+    private static _navbarClassNames =
         "navbar sticky-top navbar-expand-lg navbar-light override-bg-default"
 
     /**
@@ -176,7 +186,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
      * @returns {JSX.Element} navbar element
      */
     private _nav = (): JSX.Element => (
-        <nav className = {this._navbarClassNames}>
+        <nav className = {Nav._navbarClassNames}>
             <Link className="navbar-brand" to="/">
                 <img src="pictures/pharmasave-logo.png" alt="logo"/>
             </Link>
@@ -193,7 +203,7 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
             </button>
             <div className="collapse navbar-collapse" id="_navbarNav">
                 <div className="navbar-nav">
-                    {this._navbarNav}
+                    <this._navbarNav/>
                 </div>
             </div>
         </nav>
@@ -202,6 +212,6 @@ export default class Nav extends React.Component<{}, {[key: string]: string | bo
     /**
      * @returns {JSX.Element} navbar element
      */
-    public render = (): JSX.Element => this._nav()
+    public render = (): JSX.Element => <this._nav/>
 
 }

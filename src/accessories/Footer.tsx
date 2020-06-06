@@ -33,9 +33,27 @@ import React from "react";
  * Footer component
  */
 export default class Footer extends React.Component {
+
+    /**
+     * @returns {JSX.Element} footer component
+     */
+    private static _footer = (): JSX.Element => (
+        <footer className="page-footer font-small blue pt-4">
+            <div className="container-fluid text-center text-md-left">
+                <div className="row">
+                    <Footer._footerParts.logo/>
+                    <hr className="clearfix w-100 d-md-none pb-3" />
+                    <Footer._footerParts.nav/>
+                    <Footer._footerParts.contact/>
+                    <Footer._footerParts.credits/>
+                </div>
+            </div>
+            <Footer._footerParts.copyright/>
+        </footer>
+    )
     
-    private _footerParts = {
-        nav: (
+    private static _footerParts = {
+        nav: (): JSX.Element => (
             <div className="col-lg-3 col-md-3 col-sm-12">
                 <h5 className="text-uppercase">Navagation</h5>
                 <ul className="list-unstyled">
@@ -64,7 +82,7 @@ export default class Footer extends React.Component {
                 </ul>
             </div>
         ),
-        contact: (
+        contact: (): JSX.Element => (
             <div className="col-lg-3 col-md-3 col-sm-12">
                 <h5 className="text-uppercase">Contact</h5>
                 <ul className="list-unstyled">
@@ -93,7 +111,7 @@ export default class Footer extends React.Component {
                 </ul>
             </div>
         ),
-        credits: (
+        credits: (): JSX.Element => (
             <div className="col-lg-3 col-md-3 col-sm-12">
                 <h5 className="text-uppercase">Image Credits</h5>
                 <ul className="list-unstyled">
@@ -108,7 +126,7 @@ export default class Footer extends React.Component {
                 </ul>
             </div>
         ),
-        copyright: (
+        copyright: (): JSX.Element => (
             <div className="footer-copyright text-center py-3">
                 © 2020 Copyright:{" "}
                 <a href="https://luke-zhang-04.github.io/">Luke Zhang</a>,
@@ -125,7 +143,7 @@ export default class Footer extends React.Component {
                 </ul>
             </div>
         ),
-        logo: (
+        logo: (): JSX.Element => (
             <div className="col-lg-3 col-md-3 col-sm-12">
                 <h5 id="image-header" className="text-uppercase">
                     Carriage Crossing Pharmacy
@@ -138,24 +156,6 @@ export default class Footer extends React.Component {
     /**
      * @returns {JSX.Element} footer component
      */
-    private _footer = (): JSX.Element => (
-        <footer className="page-footer font-small blue pt-4">
-            <div className="container-fluid text-center text-md-left">
-                <div className="row">
-                    {this._footerParts.logo}
-                    <hr className="clearfix w-100 d-md-none pb-3" />
-                    {this._footerParts.nav}
-                    {this._footerParts.contact}
-                    {this._footerParts.credits}
-                </div>
-            </div>
-            {this._footerParts.copyright}
-        </footer>
-    )
-
-    /**
-     * @returns {JSX.Element} footer component
-     */
-    public render = (): JSX.Element => this._footer()
+    public render = (): JSX.Element => <Footer._footer/>
 
 }
