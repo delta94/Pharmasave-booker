@@ -91,10 +91,9 @@ export default class Agenda extends React.Component
         const dayString = CustomDate.addZeros(props.day),
             time = CustomDate.to24Hour(props.time),
             [year, month, day] = dayString.split("/"),
-            offsetMonth = AgendaUtils.offsetZero((Number(month)).toString())
-            
-        let bookingData = this._cache.data[year][offsetMonth][day],
-            colour = "green"
+            offsetMonth = AgendaUtils.offsetZero((Number(month)).toString()),
+            bookingData = this._cache.data[year][offsetMonth][day]
+        let colour = "green"
         
         if (bookingData && (bookingData as StringedObj)[props.type]) {
             const curBookingData =
@@ -179,11 +178,8 @@ export default class Agenda extends React.Component
 
         const newData = (this._cache as AgendaUtils.ExistingBookings).data
         
-        console.log("Checking cache")
         if (newData && !newData[year][month][date]) {
-            console.log("Data not in cache, pulling")
             AgendaUtils.dbPull(year, month, date).then((res) => {
-                console.log("Pulled")
                 if (res) {
                     newData[year][month][date] = {
                         [Object.keys(res)[0]]: res[Object.keys(res)[0]],
@@ -204,7 +200,6 @@ export default class Agenda extends React.Component
                 })
             })
         } else {
-            console.log("Data found in cache", this._cache)
             this._pushTableVals(iterations, tableVals, dayOfWeek, dayString)
             this.setState({
                 table: (

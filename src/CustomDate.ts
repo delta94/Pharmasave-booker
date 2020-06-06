@@ -136,11 +136,14 @@ export default class CustomDate extends Date {
 
     /**
      * Offset for zero indexed month
-     * @param {string} seperator - char the date is seperated by
      * @param {string} date - date to format
+     * @param {string} seperator - char the date is seperated by
      * @returns {string} - date with zeros
      */
-    public static offsetZero = (date: string, seperator: string = "/"): string => {
+    public static offsetZero = (
+        date: string,
+        seperator: string = "/",
+    ): string => {
         // eslint-ignore-next-line
         const [year, month, day] = date.split(seperator),
             newDate = `${year}${seperator}${Number(month) + 1}${seperator}${day}`
