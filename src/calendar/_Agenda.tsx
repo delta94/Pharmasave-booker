@@ -85,6 +85,29 @@ export default class Agenda extends React.Component
 
     private _modalRef = React.createRef<SubmitModal>()
 
+    private _forms: {[key: string]: () => JSX.Element} = {
+        pickup: (): JSX.Element => (
+            <form>
+                <label>Product (Cannot be prescription)
+                    <input placeholder="e.g Tylenol, Advil, etc."></input>
+                </label>
+                <label>Payment option
+                    <input placeholder="Cash or e-transfer"></input>
+                </label>
+            </form>
+        ),
+        service: (): JSX.Element => (
+            <form>
+                <label>Type of service
+                    <input placeholder="e.g injection, consultation"></input>
+                </label>
+            </form>
+        ),
+        inStore: (): JSX.Element => (
+            <p>In-store purchases</p>
+        )
+    }
+
     /**
      * Creates a booking <td> element
      * @param {BookingTdProps} props - time, day, and type of booking
@@ -122,6 +145,9 @@ export default class Agenda extends React.Component
                                 "",
                                 props.type,
                                 time,
+                                dayString,
+                                this._forms[props.type](),
+                                this,
                                 dayString,
                             )
                         }

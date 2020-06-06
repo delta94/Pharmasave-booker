@@ -23,18 +23,22 @@
  */
 
 /* eslint-disable @typescript-eslint/semi, max-lines */
+import * as AgendaUtils from "./_AgendaUtils";
+import Agenda from "./_Agenda";
 import CustomDate from "../CustomDate"
 import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
 interface SubmitModalProps {
-    [index: string]: string | JSX.Element,
+    [index: string]: string | JSX.Element | Agenda | null,
     display: string,
     text: string,
     type: string,
     time: string,
     day: string,
-    form: JSX.Element
+    form: JSX.Element,
+    self: Agenda | null,
+    dayString: string,
 }
 
 
@@ -50,6 +54,8 @@ export default class SubmitModal extends React.Component<{}, SubmitModalProps> {
             day: "",
             time: "",
             form: <></>,
+            self: null,
+            dayString: "",
         }
     }
 
@@ -58,27 +64,34 @@ export default class SubmitModal extends React.Component<{}, SubmitModalProps> {
         type: string,
         time: string,
         day: string,
+        form: JSX.Element,
+        self: Agenda,
+        dayString: string,
     ): void => {
         this.setState({
             text,
             display: "block",
             type,
             time,
-            day
+            day,
+            form,
+            self,
+            dayString,
         })
     }
 
     public unmount = (): void => {
         this.setState({display: "none"})
+        this.state.self!.changeDay(this.state.dayString)
     }
 
     private _sendReq = async (): Promise<void> => {
-        // await AgendaUtils.makeNewEntry(
-        //     props.day,
-        //     CustomDate.to24Hour(props.time),
-        //     `${props.type}`,
-        // )
-        // this.changeDay(dayString)
+        await AgendaUtils.makeNewEntry(
+            CustomDate.addZeros(this.state.day),
+            CustomDate.to24Hour(this.state.time),
+            `${this.state.type}`,
+        )
+        this.unmount()
     }
 
     private _modal = (): JSX.Element => {
@@ -97,10 +110,10 @@ export default class SubmitModal extends React.Component<{}, SubmitModalProps> {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <input placeholder="Bruh"></input>
+                            {this.state.form}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary">Save changes</button>
+                            <button type="button" className="btn btn-secondary" onClick={this._sendReq}>Create Booking</button>
                             <button type="button" className="btn btn-primary" onClick={this.unmount}>Close</button>
                         </div>
                     </div>

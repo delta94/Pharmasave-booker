@@ -81,7 +81,7 @@ export default class NewBooker {
                 : (Number(month) + 1).toString(),
             dbRef = this._adgendadb
                 .doc(year)
-                .collection(fullMonth),
+                .collection(fullMonth.length < 2 ? `0${fullMonth}` : fullMonth),
             {time, type} = this._data, // Time to set to
             [hours, minutes] = time.split(":"),
             date = new Date(Number(year), Number(fullMonth) - 1, Number(day))
