@@ -26,6 +26,7 @@
 import * as AgendaUtils from "./_AgendaUtils";
 import CustomDate from "../CustomDate";
 import React from "react";
+import SubmitModal from "./_SubmitModal";
 /* eslint-enable @typescript-eslint/semi */
 
 type AgendaState = {
@@ -63,6 +64,8 @@ export default class Agenda extends React.Component
             table: <div/>,
         }
     }
+
+    private _modalRef = React.createRef<SubmitModal>()
 
     /**
      * Initially pull from db
@@ -104,21 +107,27 @@ export default class Agenda extends React.Component
             }
         }
 
+        if (time === "Storeisclosedthisday") {
+            colour = "red"
+        }
+
         return (
-            <td
-                className={`${props.type}-col agenda-col td-${colour}`}
-                id={`${props.type}-${props.iter}`}
-                onClick={async (): Promise<void> => {
-                    if (colour !== "red") {
-                        await AgendaUtils.makeNewEntry(
-                            props.day,
-                            CustomDate.to24Hour(props.time),
-                            `${props.type}`,
-                        )
-                        this.changeDay(dayString)
-                    }
-                }}
-            ></td>
+            <>
+                <td
+                    className={`${props.type}-col agenda-col td-${colour}`}
+                    id={`${props.type}-${time}`}
+                    onClick={async (): Promise<void> => {
+                        if (colour !== "red" && time !== "Storeisclosedthisday") {
+                            this._modalRef.current?.mount(
+                                "",
+                                props.type,
+                                time,
+                                dayString,
+                            )
+                        }
+                    }}
+                ></td>
+            </>
         )
     }
 
@@ -215,14 +224,17 @@ export default class Agenda extends React.Component
     }
 
     public render = (): JSX.Element => (
-        <div id="agenda">
-            <p className="text-center">
-                {/* eslint-disable-next-line */}
-                {`${CustomDate.getWordDay(this.state.dayOfWeek as number)} ${CustomDate.getWordMonth(this.state.month as number)} ${(this.state.date as Date).getDate()}, ${(this.state.date as Date).getFullYear()}`}
-            </p>
-            <hr className="clearfix w-100 d-md-none pb-3"/>
-            {this.state?.table}
-        </div>
+        <>
+            <SubmitModal ref={this._modalRef}/>
+            <div id="agenda">
+                <p className="text-center">
+                    {/* eslint-disable-next-line */}
+                    {`${CustomDate.getWordDay(this.state.dayOfWeek as number)} ${CustomDate.getWordMonth(this.state.month as number)} ${(this.state.date as Date).getDate()}, ${(this.state.date as Date).getFullYear()}`}
+                </p>
+                <hr className="clearfix w-100 d-md-none pb-3"/>
+                {this.state?.table}
+            </div>
+        </>
     )
 
 }
