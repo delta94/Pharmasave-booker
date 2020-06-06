@@ -115,6 +115,7 @@ export default class Agenda extends React.Component
                         CustomDate.to24Hour(props.time),
                         `${props.type}`,
                     )
+                    this.changeDay(dayString)
                 }}
             ></td>
         )
