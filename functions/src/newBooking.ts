@@ -84,7 +84,7 @@ export default class NewBooker {
                 .collection(fullMonth),
             {time, type} = this._data, // Time to set to
             [hours, minutes] = time.split(":"),
-            date = new Date(Number(year), Number(fullMonth), Number(day))
+            date = new Date(Number(year), Number(fullMonth)-1, Number(day))
         
         // Bunch of error checks
         if (!this._context.auth || !this._context.auth.uid) { // Check if auth even exists

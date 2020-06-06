@@ -73,7 +73,7 @@ export const makeNewEntry = async (day: string, time: string, type: string): Pro
         if (res.data instanceof Array) {
             alert(`Error code ${res.data[0]}, ${res.data[1]}`)
         } else if (res.data === 0) {
-            alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(day)} at ${time}`)
+            alert(`Success! Your booking is scheduled for ${CustomDate.addZeros(CustomDate.offsetZero(day))} at ${time}`)
         } else {
             alert(`Error, unknown cause`)
         }
@@ -208,4 +208,19 @@ export const getDateValues = (date: Date): {[key: string]: string} => {
         date: fulldate,
         day,
     }
+}
+
+/**
+ * Offsets a value by adding 1 and appending a 0 when needed
+ * @param {string} offsetter value of offset
+ * @returns {string} offeted value
+ */
+export const offsetZero = (offsetter: string): string => {
+    let offsetVal = (Number(offsetter) + 1).toString()
+
+    if (offsetVal.length < 2) {
+        offsetVal = `0${offsetVal}`
+    }
+
+    return offsetVal
 }

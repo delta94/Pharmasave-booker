@@ -95,7 +95,7 @@ export default class CustomDate extends Date {
      * @param {string} seperator - char the date is seperatred by
      * @returns {string} - date with zeros
      */
-    public static addZeros = (date: string, seperator = "/"): string => {
+    public static addZeros = (date: string, seperator: string = "/"): string => {
         let newDate = `${date.split(seperator)[0]}${seperator}`
 
         if (date.split(seperator)[1].length < 2) {
@@ -131,9 +131,21 @@ export default class CustomDate extends Date {
                 `${Number(newTime.split(":")[0]) + CustomDate._halfwayPoint}:${newTime.split(":")[1]}`
         }
 
-        console.log(newTime)
-
         return newTime
+    }
+
+    /**
+     * Offset for zero indexed month
+     * @param {string} seperator - char the date is seperated by
+     * @param {string} date - date to format
+     * @returns {string} - date with zeros
+     */
+    public static offsetZero = (date: string, seperator: string = "/"): string => {
+        // eslint-ignore-next-line
+        const [year, month, day] = date.split(seperator),
+            newDate = `${year}${seperator}${Number(month) + 1}${seperator}${day}`
+        
+        return newDate
     }
 
     /**
@@ -167,10 +179,10 @@ export default class CustomDate extends Date {
 
     /**
      * Add's 0s to the dates
-     * @param {string} seperator - char the date is seperatred by
+     * @param {string} seperator - char the date is seperated by
      * @returns {string} - date with zeros
      */
-    public addZeros = (seperator = "/"): string => {
+    public addZeros = (seperator: string = "/"): string => {
         // eslint-ignore-next-line
         const date = `${this.getFullYear()}${seperator}${this.getMonth()}${seperator}${this.getDate()}`
         
