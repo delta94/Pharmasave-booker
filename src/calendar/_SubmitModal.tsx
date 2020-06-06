@@ -28,12 +28,13 @@ import React from "react";
 /* eslint-enable @typescript-eslint/semi */
 
 interface SubmitModalProps {
-    [index: string]: string,
+    [index: string]: string | JSX.Element,
     display: string,
     text: string,
     type: string,
     time: string,
     day: string,
+    form: JSX.Element
 }
 
 
@@ -48,6 +49,7 @@ export default class SubmitModal extends React.Component<{}, SubmitModalProps> {
             type: "",
             day: "",
             time: "",
+            form: <></>,
         }
     }
 
@@ -80,25 +82,27 @@ export default class SubmitModal extends React.Component<{}, SubmitModalProps> {
     }
 
     private _modal = (): JSX.Element => {
+
+
         return (
             <div className="modal" style={{display: this.state.display}}>
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">
-                            New Booking for {this.state.type} at {this.state.time} on {CustomDate.addZeros(CustomDate.offsetZero(this.state.day))}
-                        </h5>
-                        <button type="button" className="close" onClick={this.unmount}>
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        <input placeholder="Bruh"></input>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary">Save changes</button>
-                        <button type="button" className="btn btn-primary" onClick={this.unmount}>Close</button>
-                    </div>
+                        <div className="modal-header">
+                            <h5 className="modal-title">
+                                New Booking for {this.state.type} at {this.state.time} on {CustomDate.addZeros(CustomDate.offsetZero(this.state.day))}
+                            </h5>
+                            <button type="button" className="close" onClick={this.unmount}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <input placeholder="Bruh"></input>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary">Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={this.unmount}>Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

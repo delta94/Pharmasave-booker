@@ -65,8 +65,6 @@ export default class Agenda extends React.Component
         }
     }
 
-    private _modalRef = React.createRef<SubmitModal>()
-
     /**
      * Initially pull from db
      * @returns {void} void
@@ -84,6 +82,8 @@ export default class Agenda extends React.Component
     }
 
     private _cache: Cache = {}
+
+    private _modalRef = React.createRef<SubmitModal>()
 
     /**
      * Creates a booking <td> element
@@ -116,7 +116,7 @@ export default class Agenda extends React.Component
                 <td
                     className={`${props.type}-col agenda-col td-${colour}`}
                     id={`${props.type}-${time}`}
-                    onClick={async (): Promise<void> => {
+                    onClick={(): void => {
                         if (colour !== "red" && time !== "Storeisclosedthisday") {
                             this._modalRef.current?.mount(
                                 "",
